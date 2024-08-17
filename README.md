@@ -1,0 +1,3 @@
+# <p align='center'>Welcome to our T.R.A.S.H. minishell!</p>
+
+If you're wondering why we named our shell so atrociously, <i>trash</i> is an acronym for The Really Absurd Shell. So you see, we're a pretty funny pair...
