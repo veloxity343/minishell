@@ -49,7 +49,8 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-bonus:		$(OBJB)
+bonus:		clean $(OBJ) $(OBJB)
+	@echo "$(BLUE)Linking bonus objects...$(RESET)"
 	@make -C $(dir $(LIBFT))
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(OBJB) $(LIBFT)
 	@echo "$(GREEN)Successfully compiled bonus!$(RESET)"
@@ -63,8 +64,12 @@ $(OBJB_DIR):
 	@mkdir -p $(OBJB_DIR)
 
 clean:
-	@echo "$(RED)Deleting$(RESET)\t$(OBJ_DIR) and $(OBJB_DIR)"
-	@$(RM) -rf $(OBJ_DIR) $(OBJB_DIR)
+	@echo "$(RED)Deleting$(RESET)\t$(OBJ_DIR)"
+	@$(RM) -rf $(OBJ_DIR)
+	@if [ -d $(OBJB_DIR) ]; then \
+		echo "$(RED)Deleting$(RESET)\t$(OBJB_DIR)"; \
+		$(RM) -rf $(OBJB_DIR); \
+	fi
 	@make clean -C $(dir $(LIBFT))
 
 fclean:	clean
