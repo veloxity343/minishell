@@ -62,7 +62,7 @@ bonus:		clean $(OBJ) $(OBJB)
 
 $(OBJB_DIR)/%.o: $(SRCB_DIR)/%.c | $(OBJB_DIR)
 	@mkdir -p $(dir $@)
-	@echo "$(BLUE)Compiling\t$(RESET)$<"
+	@echo "$(YELLOW)Compiling\t$(RESET)$<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJB_DIR):
