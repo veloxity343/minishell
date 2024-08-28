@@ -33,7 +33,7 @@ all:	$(NAME)
 $(NAME):	$(OBJ)
 	@echo "$(BLUE)Creating$(RESET)\t$(NAME)"
 	@$(AR) $(NAME) $(OBJ)
-	@echo "$(GREEN)Successfully libft created archive!$(RESET)"
+	@echo "$(GREEN)Successfully created libft archive!$(RESET)"
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 	@mkdir -p $(@D)
