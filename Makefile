@@ -4,10 +4,10 @@ NAME		=	minishell
 # Directories
 LIBFT		=	./libft/libft.a
 INC			=	inc/
-SRC_DIR		=	src/
-OBJ_DIR		=	obj/
-SRCB_DIR	=	srcb/
-OBJB_DIR	=	objb/
+SRC_DIR		=	src
+OBJ_DIR		=	obj
+SRCB_DIR	=	srcb
+OBJB_DIR	=	objb
 
 # Compiler & flags
 WFLAGS		=	-Wall -Wextra -Werror
@@ -34,16 +34,21 @@ BLUE	=	\033[1;34m
 RESET	=	\033[0m
 
 # Build rules
-all:		$(NAME)
+all:		$(LIBFT) $(NAME)
 	@echo "$(GREEN)Successfully compiled!$(RESET)"
 
+$(LIBFT):
+	@echo "$(BLUE)Building$(RESET)\tlibft"
+	@make -C $(dir $(LIBFT))
+
 $(NAME):	$(OBJ)
+	@echo "$(BLUE)Building$(RESET)\t$(NAME)"
 	@make -C $(dir $(LIBFT))
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@mkdir -p $(dir $@)
-	@echo "$(BLUE)Compiling\t$(RESET)$<"
+	@echo "$(YELLOW)Compiling\t$(RESET)$<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
@@ -55,7 +60,7 @@ bonus:		clean $(OBJ) $(OBJB)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(OBJB) $(LIBFT)
 	@echo "$(GREEN)Successfully compiled bonus!$(RESET)"
 
-$(OBJB_DIR)%.o: $(SRCB_DIR)%.c | $(OBJB_DIR)
+$(OBJB_DIR)/%.o: $(SRCB_DIR)/%.c | $(OBJB_DIR)
 	@mkdir -p $(dir $@)
 	@echo "$(BLUE)Compiling\t$(RESET)$<"
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -70,12 +75,11 @@ clean:
 		echo "$(RED)Deleting$(RESET)\t$(OBJB_DIR)"; \
 		$(RM) -rf $(OBJB_DIR); \
 	fi
-	@make clean -C $(dir $(LIBFT))
 
 fclean:	clean
 	@echo "$(RED)Deleting$(RESET)\t$(NAME)"
 	@$(RM) -f $(NAME)
-	@$(RM) -f $(LIBFT)/libft.a
+	@make fclean -C $(dir $(LIBFT))
 
 re:		fclean all
 
@@ -83,8 +87,8 @@ debug:	CFLAGS	+=	$(FSAN)
 debug:	test
 
 test:	$(NAME)
-	@echo "$(BLUE)Testing with debugging on\n$(RESET)"
-	@echo "$(YELLOW)Running minishell...\n$(RESET)"
+	@echo "$(BLUE)Testing with debugging on$(RESET)"
+	@echo "$(YELLOW)Running minishell...$(RESET)"
 	./$(NAME)
 
 .PHONY:	all bonus clean fclean re debug test
