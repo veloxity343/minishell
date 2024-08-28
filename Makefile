@@ -48,7 +48,7 @@ $(NAME):	$(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@mkdir -p $(dir $@)
-	@echo "$(YELLOW)Compiling\t$(RESET)$<"
+	@echo "$(YELLOW)Compiling$(RESET)\t$<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
@@ -62,7 +62,7 @@ bonus:		clean $(OBJ) $(OBJB)
 
 $(OBJB_DIR)/%.o: $(SRCB_DIR)/%.c | $(OBJB_DIR)
 	@mkdir -p $(dir $@)
-	@echo "$(YELLOW)Compiling\t$(RESET)$<"
+	@echo "$(YELLOW)Compiling$(RESET)\t$<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJB_DIR):
