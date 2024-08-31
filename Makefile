@@ -91,7 +91,7 @@ test:	$(NAME)
 	@echo "$(YELLOW)Running minishell...$(RESET)"
 	./$(NAME)
 
-.PHONY:	all bonus clean fclean re debug test
-
 norm:
 	norminette
+
+.PHONY:	all bonus clean fclean re debug test norm

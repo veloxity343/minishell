@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:30:05 by rcheong           #+#    #+#             */
-/*   Updated: 2024/03/08 15:48:24 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/08/31 16:02:40 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	ft_format(int fd, char spec, va_list args, t_flags flags)
 	else if (spec == 's')
 		count += ft_print_str(fd, va_arg(args, const char *), flags);
 	else if (spec == 'p')
-		count += ft_print_ptr(fd, (unsigned long int)va_arg(args, void *), flags);
+		count += ft_print_ptr(fd, (unsigned long int)va_arg(args, void *),
+				flags);
 	else if (spec == 'd' || spec == 'i')
 		count += ft_print_int(fd, va_arg(args, int), flags);
 	else if (spec == 'u')
