@@ -7,10 +7,10 @@ If you're wondering why we named our shell so atrociously, <i>trash</i> is an ac
 	<li>Makefile written ✅</li>
 	<li>libft added ✅</li>
 	<li>Roles assigned: ✅
-		<ol>
+		<ul>
 			<li>Ryan parsing</li>
 			<li>Jaxz executing</li>
-		</ol>
+		</ul>
 	</li>
 </ol>
 
