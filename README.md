@@ -26,7 +26,7 @@ If you're wondering why we named our shell so atrociously, <i>trash</i> is an ac
 					<li>Handle quoting or escaping</li>
 					<li>Expand env vars: replace vars like $PATH with values from env</li>
 				</ul>
-		<	/li>
+			</li>
 		</ol>
 	</li>
 </ol>
