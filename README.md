@@ -4,9 +4,9 @@ If you're wondering why we named our shell so atrociously, <i>trash</i> is an ac
 
 ### Logs
 <ol>
-	<li>Makefile written ✅</li>
-	<li>libft added ✅</li>
-	<li>Roles assigned: ✅
+	<li>- [X] Makefile written</li>
+	<li>- [X] libft added</li>
+	<li>- [X] Roles assigned: 
 		<ul>
 			<li>Ryan parsing</li>
 			<li>Jaxz executing</li>
