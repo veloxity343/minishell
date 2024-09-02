@@ -3,22 +3,22 @@
 If you're wondering why we named our shell so atrociously, <i>trash</i> is an acronym for The Really Absurd Shell. So you see, we're a pretty funny pair...
 
 ### Logs
-1. - [X] Makefile written</li>
-2. - [X] libft added</li>
-3. - [X] Roles assigned: 
+1. - [x] Makefile written
+2. - [x] libft added
+3. - [x] Roles assigned: 
 	<ul>
 		<li>Ryan parsing</li>
 		<li>Jaxz executing</li>
 	</ul>
 4. - [ ] Parsing:
-		<ol>
-			<li>- [ ] Tokenizing inputs and lexical analysis</li>
-			<li>- [ ] Determine and apply grammar</li>
-			<li>- [ ] Build a parse tree in order of token precedence</li>
-		</ol>
+		- [ ] Tokenizing inputs and lexical analysis
+		- [ ] Determine and apply grammar
+		- [ ] Build a parse tree in order of token precedence
 5. - [ ] Executing:
          	<ol>
 	  	</ol>
+6. - [ ] Testing
+7. - [ ] Final norme check
 
 ### Features
 Formula for shell fundamentals: <code>lexer</code> -> <code>parser</code> -> <code>expander</code> -> <code>executor</code>
