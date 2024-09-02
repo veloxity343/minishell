@@ -12,6 +12,12 @@ If you're wondering why we named our shell so atrociously, <i>trash</i> is an ac
 			<li>Jaxz executing</li>
 		</ul>
 	</li>
+	<li>- [ ] Parsing:
+		<ol>
+			<li>- [ ] Tokenizing inputs and lexical analysis</li>
+			<li>- [ ] Determine and apply grammar</li>
+			<li>- [ ] Build a parse tree in order of token precedence</li>
+	</li>
 </ol>
 
 ### Features
