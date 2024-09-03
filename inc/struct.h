@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 03:43:54 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/03 03:49:19 by chtan            ###   ########.fr       */
+/*   Created: 2024/09/02 23:12:41 by chtan             #+#    #+#             */
+/*   Updated: 2024/09/03 09:44:58 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-/*
-test writing some things
-*/
-int	main(int argc, char **argv, char **envp)
+#ifndef STRUCT_H
+# define STRUCT_H
+
+typedef struct s_trash
 {
+	char **array;
 	
-}
+}	t_trash;
+
+#endif
