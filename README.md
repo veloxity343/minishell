@@ -11,7 +11,8 @@ If you're wondering why we named our shell so atrociously, <i>trash</i> is an ac
 		<li>Jaxz executing</li>
 	</ul>
 4. - [ ] Parsing:
-		- [ ] Tokenizing inputs and lexical analysis
+		- [x] Wrote skeleton main function
+  		- [ ] Tokenizing inputs and lexical analysis
 		- [ ] Determine and apply grammar
 		- [ ] Build a parse tree in order of token precedence
 5. - [ ] Executing:
