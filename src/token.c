@@ -16,8 +16,8 @@ t_token	*tokenize(const char *input)
 		if (isdigit(input[i]))
 		{ // Handle numbers
 			tokens[j].type = TOKEN_NUMBER;
-			tokens[j].value = strdup(&input[i]);
-			while (isdigit(input[i]))
+			tokens[j].value = strdup(&input[i]); // Store the start of the number
+			while (isdigit(input[i])) // Move to the end of the number
 				i++;
 			j++;
 		}
@@ -69,7 +69,7 @@ t_operator	*get_operator(t_token *token)
 	if (strcmp(token->value, "+") == 0)
 	{
 		op->symbol = "+";
-		op->precedence = 1;
+		op->precedence = 1; // low precedence
 		op->associativity = LEFT_ASSOCIATIVE;
 	}
 	else if (strcmp(token->value, "-") == 0)
@@ -81,7 +81,7 @@ t_operator	*get_operator(t_token *token)
 	else if (strcmp(token->value, "*") == 0)
 	{
 		op->symbol = "*";
-		op->precedence = 2;
+		op->precedence = 2; // higher precedence
 		op->associativity = LEFT_ASSOCIATIVE;
 	}
 	else if (strcmp(token->value, "/") == 0)
