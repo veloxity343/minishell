@@ -17,6 +17,7 @@ FSAN		=	-fsanitize=address $(DSYM)
 CFLAGS		=	$(WFLAGS) $(IFLAGS)
 CC			=	gcc
 RM			=	rm -rf
+READLINE	=	-lreadline -lncurses
 
 # Sources
 SRC			=	$(shell find $(SRC_DIR) -type f -name "*.c")
