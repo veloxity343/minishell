@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   temp.h                                             :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:48:57 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/05 12:34:25 by chtan            ###   ########.fr       */
+/*   Created: 2024/09/05 12:33:58 by chtan             #+#    #+#             */
+/*   Updated: 2024/09/05 13:12:59 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../inc/temp.h"
 
-#ifndef TEMP_H
-# define TEMP_H
-# include "minishell.h"
-
-typedef struct s_temp
+void	ignore_signal(void)
 {
-	int		temp;
-	char 	*temp_str;
-	char 	**temp_split;
-}				t_temp;
+	struct sigaction	sa;
 
-# endif
+	sa.sa_handler = ;
+	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
+}
