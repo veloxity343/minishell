@@ -96,5 +96,3 @@ norm:
 	norminette
 
 .PHONY:	all bonus clean fclean re debug test norm
-
-hello
