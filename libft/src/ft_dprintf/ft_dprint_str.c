@@ -12,7 +12,7 @@
 
 #include "ft_dprintf.h"
 
-int	ft_print_safe_str(int fd, const char *str)
+int	ft_dprint_safe_str(int fd, const char *str)
 {
 	int	len;
 
@@ -28,7 +28,7 @@ int	ft_print_safe_str(int fd, const char *str)
 	return (len);
 }
 
-int	ft_str_precision(int fd, const char *str, int precision)
+int	ft_dstr_precision(int fd, const char *str, int precision)
 {
 	int	count;
 
@@ -38,22 +38,22 @@ int	ft_str_precision(int fd, const char *str, int precision)
 	return (count);
 }
 
-int	ft_pad_str(int fd, const char *str, t_flags flags)
+int	ft_dpad_str(int fd, const char *str, dt_flags flags)
 {
 	int	count;
 
 	count = 0;
 	if (flags.precision >= 0)
 	{
-		count += ft_pad_width(fd, flags.precision, ft_strlen(str), 0);
-		count += ft_str_precision(fd, str, flags.precision);
+		count += ft_dpad_width(fd, flags.precision, ft_strlen(str), 0);
+		count += ft_dstr_precision(fd, str, flags.precision);
 	}
 	else
-		count += ft_str_precision(fd, str, ft_strlen(str));
+		count += ft_dstr_precision(fd, str, ft_strlen(str));
 	return (count);
 }
 
-int	ft_print_str(int fd, const char *str, t_flags flags)
+int	ft_dprint_str(int fd, const char *str, dt_flags flags)
 {
 	int	count;
 
@@ -63,12 +63,12 @@ int	ft_print_str(int fd, const char *str, t_flags flags)
 	if (flags.precision >= 0 && (size_t)flags.precision > ft_strlen(str))
 		flags.precision = ft_strlen(str);
 	if (flags.left == 1)
-		count += ft_pad_str(fd, str, flags);
+		count += ft_dpad_str(fd, str, flags);
 	if (flags.precision >= 0)
-		count += ft_pad_width(fd, flags.width, flags.precision, 0);
+		count += ft_dpad_width(fd, flags.width, flags.precision, 0);
 	else
-		count += ft_pad_width(fd, flags.width, ft_strlen(str), 0);
+		count += ft_dpad_width(fd, flags.width, ft_strlen(str), 0);
 	if (flags.left == 0)
-		count += ft_pad_str(fd, str, flags);
+		count += ft_dpad_str(fd, str, flags);
 	return (count);
 }

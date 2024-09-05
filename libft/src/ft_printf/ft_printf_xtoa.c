@@ -47,7 +47,7 @@ char	*ft_printf_xtoa(unsigned long int n, int is_upper)
 	int		mod;
 
 	len = hex_len(n);
-	s = (char *)calloc(len + 1, sizeof(char));
+	s = (char *)ft_calloc(len + 1, sizeof(char));
 	if (!s)
 		return (NULL);
 	len--;

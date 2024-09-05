@@ -30,7 +30,7 @@ static size_t	digit_count(long n)
 	return (len);
 }
 
-char	*ft_itoa_long(long n)
+char	*ft_ditoa_long(long n)
 {
 	size_t			len;
 	char			*s;
