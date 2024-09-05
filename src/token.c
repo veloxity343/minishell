@@ -1,99 +1,98 @@
 #include "minishell.h"
 
-t_token	*tokenize(const char *input)
+int	add_token(t_token *tokens, int count, t_token_type type, const char *value)
 {
-	int		i;
-	int		j;
-	t_token	*tokens;
+	if (count >= MAX_TOKENS - 1)
+		// Handle error: Token limit exceeded
+		return (-1);
+	tokens[count].type = type;
+	tokens[count].value = ft_strdup(value); // Add the new token
+	tokens[count + 1].type = TOKEN_END; // Mark the end of tokens
+	return (count + 1); // Return the updated count of tokens
+}
+
+int	tokenize_input(const char *input, t_token *tokens)
+{
+	int	i;
+	int	start;
+	int	start;
 
 	i = 0;
-	j = 0;
-	tokens = malloc(sizeof(t_token) * (strlen(input) + 1));
+	int token_count = 0; // Keep track of the number of tokens
 	while (input[i] != '\0')
 	{
-		while (isspace(input[i])) // Skip whitespaces
+		// Skip whitespace
+		while (ft_isspace(input[i]))
 			i++;
-		if (isdigit(input[i]))
-		{ // Handle numbers
-			tokens[j].type = TOKEN_NUMBER;
-			tokens[j].value = strdup(&input[i]); // Store the start of the number
-			while (isdigit(input[i])) // Move to the end of the number
+		if (input[i] == '|')
+		{
+			token_count = add_token(tokens, token_count, TOKEN_PIPE, "|");
+			i++;
+		}
+		else if (input[i] == '<' && input[i + 1] == '<')
+		{
+			token_count = add_token(tokens, token_count, TOKEN_HEREDOC, "<<");
+			i += 2;
+		}
+		else if (input[i] == '>')
+		{
+			if (input[i + 1] == '>')
+			{
+				token_count = add_token(tokens, token_count,
+						TOKEN_REDIRECT_APPEND, ">>");
+				i += 2;
+			}
+			else
+			{
+				token_count = add_token(tokens, token_count, TOKEN_REDIRECT_OUT,
+						">");
 				i++;
-			j++;
+			}
 		}
-		else if (isalpha(input[i]))
-		{ // Handle identifiers
-			tokens[j].type = TOKEN_IDENTIFIER;
-			tokens[j].value = strdup(&input[i]);
-			while (isalpha(input[i]))
-				i++;
-			j++;
-		}
-		else if (input[i] == '+' || input[i] == '-' || input[i] == '*'
-			|| input[i] == '/')
-		{ // Handle operators
-			tokens[j].type = TOKEN_OPERATOR;
-			tokens[j].value = strndup(&input[i], 1);
+		else if (input[i] == '<')
+		{
+			token_count = add_token(tokens, token_count, TOKEN_REDIRECT_IN,
+					"<");
 			i++;
-			j++;
 		}
-		else if (input[i] == '(')
-		{ // Handle open parenthesis
-			tokens[j].type = TOKEN_PARENTHESIS_OPEN;
-			tokens[j].value = strndup(&input[i], 1);
+		else if (input[i] == '\'')
+		{
+			token_count = add_token(tokens, token_count, TOKEN_QUOTE_SINGLE,
+					"'");
 			i++;
-			j++;
 		}
-		else if (input[i] == ')')
-		{ // Handle close parenthesis
-			tokens[j].type = TOKEN_PARENTHESIS_CLOSE;
-			tokens[j].value = strndup(&input[i], 1);
+		else if (input[i] == '"')
+		{
+			token_count = add_token(tokens, token_count, TOKEN_QUOTE_DOUBLE,
+					"\"");
 			i++;
-			j++;
+		}
+		else if (input[i] == '$')
+		{
+			start = i;
+			i++;
+			while (ft_isalnum(input[i]) || input[i] == '_')
+				i++; // Read the environment variable name
+			token_count = add_token(tokens, token_count, TOKEN_ENV_VAR,
+					ft_strndup(&input[start], i - start));
 		}
 		else
 		{
-			i++; // Unknown character, skip it
+			start = i;
+			while (!ft_isspace(input[i]) && input[i] != '|' && input[i] != '<'
+				&& input[i] != '>' && input[i] != '\'' && input[i] != '"'
+				&& input[i] != '\0')
+			{
+				i++; // Read the word token
+			}
+			token_count = add_token(tokens, token_count, TOKEN_WORD,
+					ft_strndup(&input[start], i - start));
+		}
+		if (token_count == -1)
+		{
+			// Handle error (e.g., token limit exceeded)
+			return (-1);
 		}
 	}
-	tokens[j].type = TOKEN_END; // End of tokens
-	tokens[j].value = NULL;
-	return (tokens);
-}
-
-t_operator	*get_operator(t_token *token)
-{
-	t_operator	*op;
-
-	op = malloc(sizeof(t_operator));
-	if (strcmp(token->value, "+") == 0)
-	{
-		op->symbol = "+";
-		op->precedence = 1; // low precedence
-		op->associativity = LEFT_ASSOCIATIVE;
-	}
-	else if (strcmp(token->value, "-") == 0)
-	{
-		op->symbol = "-";
-		op->precedence = 1;
-		op->associativity = LEFT_ASSOCIATIVE;
-	}
-	else if (strcmp(token->value, "*") == 0)
-	{
-		op->symbol = "*";
-		op->precedence = 2; // higher precedence
-		op->associativity = LEFT_ASSOCIATIVE;
-	}
-	else if (strcmp(token->value, "/") == 0)
-	{
-		op->symbol = "/";
-		op->precedence = 2;
-		op->associativity = LEFT_ASSOCIATIVE;
-	}
-	else
-	{
-		free(op);
-		return (NULL);
-	}
-	return (op);
+	return (token_count); // Return the total number of tokens
 }

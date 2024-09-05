@@ -5,13 +5,12 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 # include "libft.h"
-
+# include "readline/history.h"
+# include "readline/readline.h"
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
-# include "readline/history.h"
-# include "readline/readline.h"
 # include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -22,58 +21,54 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+# define MAX_TOKENS 1024
+
 typedef enum e_token_type
 {
-	TOKEN_OPERATOR,
-	TOKEN_NUMBER,
-	TOKEN_IDENTIFIER,
-	TOKEN_PARENTHESIS_OPEN,
-	TOKEN_PARENTHESIS_CLOSE,
-	TOKEN_END
-}						t_token_type;
+	TOKEN_WORD,            // General word or command
+	TOKEN_PIPE,            // Pipe (|)
+	TOKEN_REDIRECT_IN,     // Input redirection (<)
+	TOKEN_REDIRECT_OUT,    // Output redirection (>)
+	TOKEN_REDIRECT_APPEND, // Output redirection append (>>)
+	TOKEN_HEREDOC,         // Here document (<<)
+	TOKEN_QUOTE_SINGLE,    // Single quote (')
+	TOKEN_QUOTE_DOUBLE,    // Double quote (")
+	TOKEN_ENV_VAR,         // Environment variable ($)
+	TOKEN_END              // End of tokens
+}	t_token_type;
 
+// Struct for a token
 typedef struct s_token
 {
-	t_token_type		type;
-	char				*value;
-}						t_token;
+	t_token_type type; // Type of token
+	char *value;       // Value of the token (e.g., the command or file name)
+}	t_token;
 
-typedef enum e_associativity
+// Struct for a command
+typedef struct s_command
 {
-	LEFT_ASSOCIATIVE,
-	RIGHT_ASSOCIATIVE
-}						t_associativity;
+	char **argv;       // Argument vector (e.g., ["ls", "-l"])
+	char *input_file;  // Input redirection file
+	char *output_file; // Output redirection file
+	int append;        // Flag for output append mode
+	int fd_in;         // File descriptor for input redirection
+	int fd_out;        // File descriptor for output redirection
+	pid_t pid;         // Process ID for executing command
+}	t_command;
 
-typedef struct s_operator
+// Struct for handling pipes
+typedef struct s_pipe
 {
-	char				*symbol;
-	int					precedence;
-	t_associativity		associativity;
-}						t_operator;
+	int fd[2];           // File descriptors for pipe (fd[0] for reading, fd[1] for writing)
+	struct s_pipe *next; // Pointer to the next pipe in the chain
+}	t_pipe;
 
-typedef enum e_node_type
+// Struct for storing environment variables
+typedef struct s_env
 {
-	NODE_OPERATOR,
-	NODE_NUMBER,
-	NODE_IDENTIFIER
-}						t_node_type;
-
-typedef struct s_ast_node
-{
-	t_node_type			type;
-	union
-	{
-		t_operator		*operator;
-		char			*value;
-	} data;
-	struct s_ast_node	*left;
-	struct s_ast_node	*right;
-}						t_ast_node;
-
-typedef struct s_parser_state
-{
-	t_token				*tokens;
-	int					current_token;
-}						t_parser_state;
+	char *key;          // Environment variable key
+	char *value;        // Environment variable value
+	struct s_env *next; // Pointer to the next environment variable
+}	t_env;
 
 #endif
