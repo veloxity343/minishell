@@ -40,14 +40,14 @@ static char	hex_char(int mod, int is_upper)
 	}
 }
 
-char	*ft_printf_xtoa(unsigned long int n, int is_upper)
+char	*ft_dprintf_xtoa(unsigned long int n, int is_upper)
 {
 	size_t	len;
 	char	*s;
 	int		mod;
 
 	len = hex_len(n);
-	s = (char *)calloc(len + 1, sizeof(char));
+	s = (char *)ft_calloc(len + 1, sizeof(char));
 	if (!s)
 		return (NULL);
 	len--;

@@ -12,7 +12,7 @@
 
 #include "ft_dprintf.h"
 
-int	ft_isspec(int c)
+int	ft_disspec(int c)
 {
 	if (c == 'c' || c == 's' || c == 'd' || c == 'i' || c == 'u' || c == 'x'
 		|| c == 'X' || c == 'p' || c == '%')
@@ -20,7 +20,7 @@ int	ft_isspec(int c)
 	return (0);
 }
 
-int	ft_isflag(int c)
+int	ft_disflag(int c)
 {
 	if (c == '-' || c == '0' || c == '.' || c == '*' || c == '#' || c == ' '
 		|| c == '+')
@@ -28,7 +28,7 @@ int	ft_isflag(int c)
 	return (0);
 }
 
-int	ft_ismod(int c)
+int	ft_dismod(int c)
 {
-	return (ft_isspec(c) || ft_isdigit(c) || ft_isflag(c));
+	return (ft_disspec(c) || ft_isdigit(c) || ft_disflag(c));
 }

@@ -12,43 +12,43 @@
 
 #include "ft_dprintf.h"
 
-int	ft_format(int fd, char spec, va_list args, t_flags flags)
+int	ft_dformat(int fd, char spec, va_list args, dt_flags flags)
 {
 	int	count;
 
 	count = 0;
 	if (spec == 'c')
-		count += ft_print_char(fd, va_arg(args, int), flags);
+		count += ft_dprint_char(fd, va_arg(args, int), flags);
 	else if (spec == 's')
-		count += ft_print_str(fd, va_arg(args, const char *), flags);
+		count += ft_dprint_str(fd, va_arg(args, const char *), flags);
 	else if (spec == 'p')
-		count += ft_print_ptr(fd, (unsigned long int)va_arg(args, void *),
+		count += ft_dprint_ptr(fd, (unsigned long int)va_arg(args, void *),
 				flags);
 	else if (spec == 'd' || spec == 'i')
-		count += ft_print_int(fd, va_arg(args, int), flags);
+		count += ft_dprint_int(fd, va_arg(args, int), flags);
 	else if (spec == 'u')
-		count += ft_print_unsigned(fd, va_arg(args, unsigned int), flags);
+		count += ft_dprint_unsigned(fd, va_arg(args, unsigned int), flags);
 	else if (spec == 'x')
-		count += ft_print_hex(fd, va_arg(args, unsigned int), 0, flags);
+		count += ft_dprint_hex(fd, va_arg(args, unsigned int), 0, flags);
 	else if (spec == 'X')
-		count += ft_print_hex(fd, va_arg(args, unsigned int), 1, flags);
+		count += ft_dprint_hex(fd, va_arg(args, unsigned int), 1, flags);
 	else if (spec == '%')
-		count += ft_print_char(fd, '%', flags);
+		count += ft_dprint_char(fd, '%', flags);
 	return (count);
 }
 
-int	ft_parse_flags(const char *str, int i, va_list args, t_flags *flags)
+int	ft_dparse_flags(const char *str, int i, va_list args, dt_flags *flags)
 {
-	while (str[++i] && ft_ismod(str[i]))
+	while (str[++i] && ft_dismod(str[i]))
 	{
 		if (str[i] == '-')
-			*flags = ft_flag_left(*flags);
+			*flags = ft_dflag_left(*flags);
 		if (str[i] == '0' && flags->left == 0 && flags->width == 0)
 			flags->zero = 1;
 		if (str[i] == '.')
-			i = ft_flag_precision(str, i, args, flags);
+			i = ft_dflag_precision(str, i, args, flags);
 		if (str[i] == '*')
-			*flags = ft_flag_width(args, *flags);
+			*flags = ft_dflag_width(args, *flags);
 		if (str[i] == '#')
 			flags->hash = 1;
 		if (str[i] == ' ')
@@ -56,8 +56,8 @@ int	ft_parse_flags(const char *str, int i, va_list args, t_flags *flags)
 		if (str[i] == '+')
 			flags->plus = 1;
 		if (ft_isdigit(str[i]))
-			*flags = ft_flag_digit(str[i], *flags);
-		if (ft_isspec(str[i]))
+			*flags = ft_dflag_digit(str[i], *flags);
+		if (ft_disspec(str[i]))
 		{
 			flags->spec = str[i];
 			break ;
@@ -66,27 +66,27 @@ int	ft_parse_flags(const char *str, int i, va_list args, t_flags *flags)
 	return (i);
 }
 
-int	ft_parse(int fd, char *str, va_list args)
+int	ft_dparse(int fd, char *str, va_list args)
 {
 	int		i;
 	int		count;
-	t_flags	flags;
+	dt_flags	flags;
 
 	i = -1;
 	count = 0;
 	while (str[++i])
 	{
-		flags = ft_flags_init();
+		flags = ft_dflags_init();
 		if (str[i] == '%' && str[i + 1] != '\0')
 		{
-			i = ft_parse_flags(str, i, args, &flags);
-			if (str[i] != '\0' && flags.spec > 0 && ft_isspec(str[i]))
-				count += ft_format(fd, str[i], args, flags);
+			i = ft_dparse_flags(str, i, args, &flags);
+			if (str[i] != '\0' && flags.spec > 0 && ft_disspec(str[i]))
+				count += ft_dformat(fd, str[i], args, flags);
 			else if (str[i] != '\0')
-				count += ft_print_char(fd, str[i], flags);
+				count += ft_dprint_char(fd, str[i], flags);
 		}
 		else
-			count += ft_putchar(fd, str[i]);
+			count += ft_dputchar(fd, str[i]);
 	}
 	return (count);
 }

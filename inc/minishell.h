@@ -1,12 +1,12 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "ft_dprintf.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
-# include "libft.h"
-# include "readline/history.h"
-# include "readline/readline.h"
+# include "../libft/inc/ft_dprintf.h"
+# include "../libft/inc/ft_printf.h"
+# include "../libft/inc/get_next_line.h"
+# include "../libft/inc/libft.h"
+# include "../readline/history.h"
+# include "../readline/readline.h"
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>

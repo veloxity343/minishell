@@ -25,7 +25,7 @@ int	ft_dprintf(int fd, const char *format, ...)
 		return (0);
 	count = 0;
 	va_start(args, format);
-	count = ft_parse(fd, str, args);
+	count = ft_dparse(fd, str, args);
 	va_end(args);
 	free(str);
 	return (count);

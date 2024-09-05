@@ -12,9 +12,9 @@
 
 #include "ft_dprintf.h"
 
-t_flags	ft_flags_init(void)
+dt_flags	ft_dflags_init(void)
 {
-	t_flags	flags;
+	dt_flags	flags;
 
 	flags.spec = 0;
 	flags.left = 0;
@@ -28,14 +28,14 @@ t_flags	ft_flags_init(void)
 	return (flags);
 }
 
-t_flags	ft_flag_left(t_flags flags)
+dt_flags	ft_dflag_left(dt_flags flags)
 {
 	flags.left = 1;
 	flags.zero = 0;
 	return (flags);
 }
 
-t_flags	ft_flag_digit(char c, t_flags flags)
+dt_flags	ft_dflag_digit(char c, dt_flags flags)
 {
 	if (flags.star == 1)
 		flags.width = 0;
@@ -43,7 +43,7 @@ t_flags	ft_flag_digit(char c, t_flags flags)
 	return (flags);
 }
 
-t_flags	ft_flag_width(va_list args, t_flags flags)
+dt_flags	ft_dflag_width(va_list args, dt_flags flags)
 {
 	flags.star = 1;
 	flags.width = va_arg(args, int);
@@ -55,7 +55,7 @@ t_flags	ft_flag_width(va_list args, t_flags flags)
 	return (flags);
 }
 
-int	ft_flag_precision(const char *str, int i, va_list args, t_flags *flags)
+int	ft_dflag_precision(const char *str, int i, va_list args, dt_flags *flags)
 {
 	int	j;
 
