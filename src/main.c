@@ -1,46 +1,48 @@
 #include "../inc/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main(void)
 {
-	char			*line;
-	t_parser_state	parser_state;
-	t_ast_node		*ast;
+	char	*input;
+	t_token	tokens[MAX_TOKENS];
+	int		token_count;
 
+	// Display a prompt in an infinite loop until the user exits the shell
 	while (1)
 	{
-		// Print shell prompt using ft_printf
-		ft_printf("trash$ ");
-		// Read user input
-		line = readline(NULL);
-		if (!line)
+		input = readline("minishell> "); // Display shell prompt
+		if (input == NULL)
 		{
-			break ; // Exit on EOF (Ctrl+D)
+			ft_printf("\n"); // Handle EOF (Ctrl-D) gracefully
+			break ;
 		}
-		// Tokenize the input
-		parser_state.tokens = tokenize(line);
-		parser_state.current_token = 0;
-		if (parser_state.tokens == NULL)
+		// Add input to history
+		if (*input)
+			add_history(input);
+		// Remove trailing newline if it exists
+		input[ft_strcspn(input, "\n")] = 0;
+		// Check for empty input (e.g., when just pressing Enter)
+		if (input[0] == '\0')
 		{
-			ft_dprintf(2, "Error: Failed to tokenize input.\n");
-			free(line);
+			free(input);
 			continue ;
 		}
-		// Parse the expression using precedence climbing
-		ast = parse_expression(&parser_state, 0);
-		if (ast == NULL)
+		// Tokenize and parse the input
+		token_count = tokenize_input(input, tokens);
+		free(input); // Free the input buffer after tokenization
+		if (token_count == -1)
 		{
-			ft_dprintf(2, "Error: Failed to parse expression.\n");
+			ft_dprintf(2, "Error: Token limit exceeded\n");
+			continue ; // Skip to the next command
 		}
-		else
+		// Parse the tokens using precedence climbing logic
+		if (parse_input(tokens) == -1)
 		{
-			// Evaluate or execute the AST
-			evaluate_ast(ast);
-			// Free the AST memory after execution
-			free_ast(ast);
+			ft_dprintf(2, "Error: Parsing failed\n");
+			continue ; // Skip to the next command
 		}
-		// Free the tokens and the input line
-		free_tokens(parser_state.tokens);
-		free(line);
+		// Placeholder for future execution logic
+		// Execute the commands after parsing is complete
+		// Handle built-in commands or external commands (to be added)
 	}
 	return (0);
 }
