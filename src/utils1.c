@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   temp.h                                             :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:48:57 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/06 14:50:32 by chtan            ###   ########.fr       */
+/*   Created: 2024/09/06 11:35:19 by chtan             #+#    #+#             */
+/*   Updated: 2024/09/06 12:46:22 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 
-#ifndef TEMP_H
-# define TEMP_H
-# include "minishell.h"
-
-typedef struct s_temp
+void	error_msg(char *msg)
 {
-	int		temp;
-	char 	*temp_str;
-	char 	**temp_split;
-}				t_temp;
-
-typedef struct s_key
-{
-	int key;
-}		t_key;
-
-# endif
+	ft_dprintf(2, "Error: %s\n", msg);
+	exit_sig(1);
+}
