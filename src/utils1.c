@@ -6,11 +6,11 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:35:19 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/06 12:46:22 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/06 19:21:19 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 void	error_msg(char *msg)
 {

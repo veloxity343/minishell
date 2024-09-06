@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 char	*handle_single_quotes(const char *input, int *i)
 {
