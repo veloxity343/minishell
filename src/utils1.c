@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 11:35:19 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/06 19:21:19 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/06 19:49:08 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	error_msg(char *msg)
 {
-	ft_dprintf(2, "Error: %s\n", msg);
-	exit_sig(1);
+	ft_printf("\033[31mError\033[0m");
+	ft_dprintf(2, ": %s\n", msg);
+	exit_sig(2);
 }
