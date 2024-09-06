@@ -71,4 +71,20 @@ typedef struct s_env
 	struct s_env *next; // Pointer to the next environment variable
 }	t_env;
 
+// env
+char	*expand_env_var(const char *token);
+
+// operators
+char	*handle_single_quotes(const char *input, int *i);
+char	*handle_double_quotes(const char *input, int *i);
+int		handle_pipes(t_token *tokens);
+
+//parse
+int		handle_redirection(t_token *tokens);
+int		parse_input(const char *input);
+
+//token
+int		add_token(t_token *tokens, int count, t_token_type type, const char *value);
+int		tokenize_input(const char *input, t_token *tokens);
+
 #endif
