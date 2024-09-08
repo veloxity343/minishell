@@ -6,15 +6,18 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:44:21 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/06 19:11:09 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/08 15:04:23 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+#include "../inc/temp.h"
+#include "../inc/define_lib.h"
 /*
 	requirement for execute
 	1) token type
 	2) command
+	3) arguments
 */
 int exec(char **array)
 {
