@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   temp.h                                             :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 14:48:57 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/08 20:59:16 by chtan            ###   ########.fr       */
+/*   Created: 2024/09/09 13:32:16 by chtan             #+#    #+#             */
+/*   Updated: 2024/09/09 13:32:29 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef TEMP_H
-# define TEMP_H
+#ifndef EXEC_H
+# define EXEC_H
 # include "minishell.h"
 
-typedef struct s_temp
+typedef struct s_temp // temp struct cause later on need to take from parsing
 {
 	int		temp;
 	char 	*temp_str;
