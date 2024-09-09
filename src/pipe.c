@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:34:46 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/08 21:00:36 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/09 15:06:00 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-#include "../inc/temp.h"
+#include "../inc/exec.h"
 #include "../inc/define_lib.h"
 extern int global_signal;
 /*
@@ -20,22 +20,23 @@ extern int global_signal;
 */
 void pipe_main(char **av, int ac, char **env)
 {
-	int pid;
+	pid_t pid;
 	int fd[2];
 
 	pid = fork();
-	if (pid < 0|| pipe(fd == -1))
+	if (pid < 0|| pipe(fd == -1)) // error handling cause -1 of fork is error and also pipe
 		error_msg("fork failed");
-	//child
-	if (pid == 0)
+	if (pid == 0) //child process
 	{
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 	}
-	else
+	else //parent process
 	{
-		//parent
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+		close(fd[1]);
 	}
 	waitpid(pid, NULL, 0);
 }

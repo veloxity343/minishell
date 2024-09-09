@@ -6,12 +6,12 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:44:21 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/08 15:04:23 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/09 16:36:12 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-#include "../inc/temp.h"
+#include "../inc/exec.h"
 #include "../inc/define_lib.h"
 /*
 	requirement for execute
@@ -31,3 +31,4 @@ int exec(char **array)
 		i++;
 	}
 }
+
