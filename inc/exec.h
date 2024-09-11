@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:32:16 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/09 17:16:01 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/11 12:23:44 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		exec(char **array);
 void	pipe_main(char **av, int ac, char **env);
 
 //signal
-void	ignore_signal(void);
+void	ignore_signal(int sig);
 void	exit_sig(int sig);
 
 # endif
