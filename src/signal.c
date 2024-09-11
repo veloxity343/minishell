@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:33:58 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/11 12:24:08 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/11 12:28:45 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ signal handling part
 control+c  = sigint
 control+d = sigquit (EOF)end of file
 using sigaction to ignore SIGINT and SIGQUIT
+
+cause it's a void function
+so i think the function should be completed
 */
 void ignore_signal(int sig)
 {

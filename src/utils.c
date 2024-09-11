@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/06 11:35:19 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/09 17:20:14 by chtan            ###   ########.fr       */
+/*   Created: 2024/09/11 14:13:55 by chtan             #+#    #+#             */
+/*   Updated: 2024/09/11 14:18:27 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include "../inc/exec.h"
 #include "../inc/define_lib.h"
 
+/*
+error message temporary cause later on need to change 
+exactly like bash
+*/
 void	error_msg(char *msg)
 {
 	ft_printf("\033[31mError\033[0m");
@@ -21,12 +25,12 @@ void	error_msg(char *msg)
 	exit_sig(1);
 }
 /*
-while command not defined
+while command not defined or found
 when i test this case, the (echo $?) didn't give me error
 */
 void undefined_message(char *command)
 {
-	ft_printf("bash: %s: command not found\n", command);
+	ft_printf("trash: %s: command not found\n", command);
 	exit_sig(1);
 }
 
