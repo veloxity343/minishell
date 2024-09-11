@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:33:58 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/09 15:45:16 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/11 12:24:08 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ int global_sig = 0;
 signal handling part
 control+c  = sigint
 control+d = sigquit (EOF)end of file
+using sigaction to ignore SIGINT and SIGQUIT
 */
-void ignore_signal(void)
+void ignore_signal(int sig)
 {
-	struct sigaction sa;
-	sa.sa_handler = SIG_IGN;
-	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, SIG_IGN);
+	while (sig == 1)
+	{
+		struct sigaction sa;
+		sa.sa_handler = SIG_IGN;
+		sigaction(SIGINT, &sa, NULL);
+		signal(SIGQUIT, SIG_IGN);
+	}
 }
 
 /*

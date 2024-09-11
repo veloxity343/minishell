@@ -1,4 +1,6 @@
 #include "../inc/minishell.h"
+#include "../inc/exec.h"
+#include "../inc/define_lib.h"
 
 int	main(void)
 {
@@ -9,6 +11,7 @@ int	main(void)
 	// Display a prompt in an infinite loop until the user exits the shell
 	while (1)
 	{
+		ignore_signal(1);
 		input = readline("minishell> "); // Display shell prompt
 		if (input == NULL)
 		{
