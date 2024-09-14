@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 14:13:55 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/11 14:18:27 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/13 12:29:14 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	error_msg(char *msg)
 	ft_dprintf(1, ": %s\n", msg);
 	exit_sig(1);
 }
+
 /*
 while command not defined or found
 when i test this case, the (echo $?) didn't give me error
@@ -40,5 +41,5 @@ where you key in exti it should really exit our minibash
 void	real_exit(void)
 {
 	ft_printf("exit\n");
-	exit(0);
+	exit_sig(0);
 }

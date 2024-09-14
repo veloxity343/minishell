@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:33:58 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/11 12:28:45 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/13 12:28:59 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exit_sig(int sig)
 	if (EXIT_SUCCESS == sig)
 	{
 		ft_printf("exit\n");
-≈		exit(1);
+≈		exit(0);
 	}
 	if (sig == EXIT_FAILURE)
 	{
