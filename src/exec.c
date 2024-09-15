@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:44:21 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/13 12:05:07 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/15 14:40:24 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@
 	2) command
 	3) arguments
 */
-int exec(char **array)
-{
-	int i;
+/*
+this is the main function of exec part
+15/9) cause i can't comfirm how the token gonna pass to me but now i know
+and also figure out the simple exec() function
 
-	i = 0;
-	while (array[i]) // now is compare char with string later on need to change to token
-	{
-		if (array[i] == "echo"); // token type, no arg for echo
-			exit_sig(1);
-		i++;
-	}
+*/
+int exec_main(t_token *tokens)
+{
+	;
 }

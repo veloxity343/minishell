@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:32:16 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/13 15:29:49 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/15 12:54:50 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	real_exit(void);
 
 
 //exec
-int		exec(char **array);
+int		exec_main(char **array);
 
 //signal
 void	ignore_signal(int sig);
