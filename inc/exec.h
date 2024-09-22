@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:32:16 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/16 13:32:40 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/22 11:26:56 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_key
 extern global_sig;
 
 // utils
-void	error_msg(char *msg);
 void	undefined_message(char *command);
 void	real_exit(void);
 
@@ -40,5 +39,8 @@ int		exec_main(char **array);
 //signal
 void	ignore_signal(int sig);
 void	exit_sig(int sig);
+
+//temp
+void	error_msg(char *msg);
 
 # endif

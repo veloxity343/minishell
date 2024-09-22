@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 14:13:55 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/13 12:29:14 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/22 11:27:07 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	error_msg(char *msg)
 while command not defined or found
 when i test this case, the (echo $?) didn't give me error
 */
-void undefined_message(char *command)
+void	undefined_message(char *command)
 {
 	ft_printf("trash: %s: command not found\n", command);
 	exit_sig(1);
