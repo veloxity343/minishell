@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcspn.c                                       :+:      :+:    :+:   */
+/*   ft_striccmp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 12:50:53 by rcheong           #+#    #+#             */
-/*   Updated: 2024/03/04 14:38:29 by rcheong          ###   ########.fr       */
+/*   Created: 2024/02/23 12:51:53 by rcheong           #+#    #+#             */
+/*   Updated: 2024/03/04 14:24:19 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strcspn(const char *s1, const char *s2)
+int	ft_striccmp(const char *s1, const char *s2)
 {
-	const char	*s = s1;
-	const char	*c;
+	char c1;
+	char c2;
 
-	while (*s1)
+	while (*s1 && *s2)
 	{
-		c = s2;
-		while (*c)
-		{
-			if (*s1 == *c)
-				break ;
-			c++;
-		}
-		if (*c)
-			break ;
+		c1 = ft_tolower(*s1);
+		c2 = ft_tolower(*s2);
+		if (c1 != c2)
+			return (c1 - c2);
 		s1++;
+		s2++;
 	}
-	return (s1 - s);
+	return (ft_tolower(*s1) - ft_tolower(*s2));
 }

@@ -42,6 +42,8 @@ typedef struct s_token
 {
 	t_token_type type; // Type of token
 	char *value;       // Value of the token (e.g., the command or file name)
+	struct s_token	*prev; // Previous node in ll
+	struct s_token	*next; // Next node in ll
 }	t_token;
 
 // Struct for a command
