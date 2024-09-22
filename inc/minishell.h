@@ -25,16 +25,16 @@
 
 typedef enum e_token_type
 {
-	TOKEN_WORD,            // General word or command
-	TOKEN_PIPE,            // Pipe (|)
-	TOKEN_REDIRECT_IN,     // Input redirection (<)
-	TOKEN_REDIRECT_OUT,    // Output redirection (>)
-	TOKEN_REDIRECT_APPEND, // Output redirection append (>>)
-	TOKEN_HEREDOC,         // Here document (<<)
-	TOKEN_QUOTE_SINGLE,    // Single quote (')
-	TOKEN_QUOTE_DOUBLE,    // Double quote (")
-	TOKEN_ENV_VAR,         // Environment variable ($)
-	TOKEN_END              // End of tokens
+	WORD,            // General word or command
+	PIPE,            // Pipe (|)
+	REDIRECT_IN,     // Input redirection (<)
+	REDIRECT_OUT,    // Output redirection (>)
+	REDIRECT_APPEND, // Output redirection append (>>)
+	HEREDOC,         // Here document (<<)
+	QUOTE_SINGLE,    // Single quote (')
+	QUOTE_DOUBLE,    // Double quote (")
+	ENV_VAR,         // Environment variable ($)
+	END              // End of tokens
 }	t_token_type;
 
 // Struct for a token

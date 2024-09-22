@@ -6,9 +6,9 @@ int	handle_redirection(t_token *tokens)
 	int	fd;
 
 	i = 0;
-	while (tokens[i].type != TOKEN_END)
+	while (tokens[i].type != END)
 	{
-		if (tokens[i].type == TOKEN_REDIRECT_IN)
+		if (tokens[i].type == REDIRECT_IN)
 		{
 			fd = open(tokens[i + 1].value, O_RDONLY);
 			if (fd == -1)
@@ -17,7 +17,7 @@ int	handle_redirection(t_token *tokens)
 			close(fd);
 			i += 2; // Skip the redirection and filename
 		}
-		else if (tokens[i].type == TOKEN_REDIRECT_OUT)
+		else if (tokens[i].type == REDIRECT_OUT)
 		{
 			fd = open(tokens[i + 1].value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (fd == -1)
@@ -26,7 +26,7 @@ int	handle_redirection(t_token *tokens)
 			close(fd);
 			i += 2;
 		}
-		else if (tokens[i].type == TOKEN_REDIRECT_APPEND)
+		else if (tokens[i].type == REDIRECT_APPEND)
 		{
 			fd = open(tokens[i + 1].value, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (fd == -1)
@@ -35,7 +35,7 @@ int	handle_redirection(t_token *tokens)
 			close(fd);
 			i += 2;
 		}
-		else if (tokens[i].type == TOKEN_HEREDOC)
+		else if (tokens[i].type == HEREDOC)
 		{
 			// Handle heredoc logic, such as reading input until a specific delimiter is found
 		}
@@ -55,9 +55,9 @@ int	parse_input(const char *input)
 	t_token *tokens = tokenize_input(input); // Tokenize the input
 	i = 0;
 	// Expand environment variables
-	while (tokens[i].type != TOKEN_END)
+	while (tokens[i].type != END)
 	{
-		if (tokens[i].type == TOKEN_ENV_VAR)
+		if (tokens[i].type == ENV_VAR)
 		{
 			expanded = expand_env_var(tokens[i].value);
 			free(tokens[i].value);

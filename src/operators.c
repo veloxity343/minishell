@@ -30,9 +30,9 @@ int	handle_pipes(t_token *tokens)
 
 	i = 0;
 	prev_fd = -1;
-	while (tokens[i].type != TOKEN_END)
+	while (tokens[i].type != END)
 	{
-		if (tokens[i].type == TOKEN_PIPE)
+		if (tokens[i].type == PIPE)
 		{
 			pipe(pipe_fd); // Create a pipe
 			if (fork() == 0)

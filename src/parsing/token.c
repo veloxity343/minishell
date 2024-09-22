@@ -139,7 +139,7 @@ int	add_token(t_token *tokens, int count, t_token_type type, const char *value)
 		return (-1);
 	tokens[count].type = type;
 	tokens[count].value = ft_strdup(value); // Add the new token
-	tokens[count + 1].type = TOKEN_END; // Mark the end of tokens
+	tokens[count + 1].type = END; // Mark the end of tokens
 	return (count + 1); // Return the updated count of tokens
 }
 
@@ -158,12 +158,12 @@ int	tokenize_input(const char *input, t_token *tokens)
 			i++;
 		if (input[i] == '|')
 		{
-			token_count = add_token(tokens, token_count, TOKEN_PIPE, "|");
+			token_count = add_token(tokens, token_count, PIPE, "|");
 			i++;
 		}
 		else if (input[i] == '<' && input[i + 1] == '<')
 		{
-			token_count = add_token(tokens, token_count, TOKEN_HEREDOC, "<<");
+			token_count = add_token(tokens, token_count, HEREDOC, "<<");
 			i += 2;
 		}
 		else if (input[i] == '>')
@@ -171,31 +171,31 @@ int	tokenize_input(const char *input, t_token *tokens)
 			if (input[i + 1] == '>')
 			{
 				token_count = add_token(tokens, token_count,
-						TOKEN_REDIRECT_APPEND, ">>");
+						REDIRECT_APPEND, ">>");
 				i += 2;
 			}
 			else
 			{
-				token_count = add_token(tokens, token_count, TOKEN_REDIRECT_OUT,
+				token_count = add_token(tokens, token_count, REDIRECT_OUT,
 						">");
 				i++;
 			}
 		}
 		else if (input[i] == '<')
 		{
-			token_count = add_token(tokens, token_count, TOKEN_REDIRECT_IN,
+			token_count = add_token(tokens, token_count, REDIRECT_IN,
 					"<");
 			i++;
 		}
 		else if (input[i] == '\'')
 		{
-			token_count = add_token(tokens, token_count, TOKEN_QUOTE_SINGLE,
+			token_count = add_token(tokens, token_count, QUOTE_SINGLE,
 					"'");
 			i++;
 		}
 		else if (input[i] == '"')
 		{
-			token_count = add_token(tokens, token_count, TOKEN_QUOTE_DOUBLE,
+			token_count = add_token(tokens, token_count, QUOTE_DOUBLE,
 					"\"");
 			i++;
 		}
@@ -205,7 +205,7 @@ int	tokenize_input(const char *input, t_token *tokens)
 			i++;
 			while (ft_isalnum(input[i]) || input[i] == '_')
 				i++; // Read the environment variable name
-			token_count = add_token(tokens, token_count, TOKEN_ENV_VAR,
+			token_count = add_token(tokens, token_count, ENV_VAR,
 					ft_strndup(&input[start], i - start));
 		}
 		else
@@ -217,7 +217,7 @@ int	tokenize_input(const char *input, t_token *tokens)
 			{
 				i++; // Read the word token
 			}
-			token_count = add_token(tokens, token_count, TOKEN_WORD,
+			token_count = add_token(tokens, token_count, WORD,
 					ft_strndup(&input[start], i - start));
 		}
 		if (token_count == -1)
