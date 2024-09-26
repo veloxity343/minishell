@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:44:21 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/25 17:06:40 by chtan            ###   ########.fr       */
+/*   Updated: 2024/09/26 10:04:34 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ this is the main function of exec part
 15/9) cause i can't comfirm how the token gonna pass to me but now i know
 and also figure out the simple exec() function
 */
-
+// echo with no argument
+int exec_echo()
+{
+	printf ("\n");
+	
+}
 static int ft_check(t_token *tk, t_command *cmd)
 {
 	if (tk->type == TOKEN_WORD)
