@@ -27,7 +27,7 @@ static void pipe_error(char *str)
 void	pipe_main(char **av, int ac, char **env)
 {
 	int i;
-	int pid[];
+	int pid;
 	
 	i = 0;
 	

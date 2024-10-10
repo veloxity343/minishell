@@ -21,12 +21,7 @@ typedef struct s_temp // temp struct cause later on need to take from parsing
 	char 	**temp_split;
 }				t_temp;
 
-typedef struct s_key
-{
-	int key;	//handle keycode and signal
-}		t_key;
-
-extern global_sig;
+extern int global_sig;
 
 // utils
 void	undefined_message(char *command);

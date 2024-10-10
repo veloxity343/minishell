@@ -13,7 +13,13 @@
 #ifndef PIPE_H
 # define PIPE_H
 # include "minishell.h"
-# include <_pid_t.h>
+
+typedef struct s_struct
+{
+    s_struct    *next;
+    pid_t       stdin;
+    pid_t       stdout;
+}   t_struct;
 
 //pipex
 void	pipe_main(char **av, int ac, char **env);

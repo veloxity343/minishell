@@ -67,5 +67,5 @@ static int ft_check(t_token *tk, t_command *cmd)
 
 int exec_main(t_token *tokens, t_command *cmd)
 {
-	ft_check(token, cmd);// function not complete
+	ft_check(tokens, cmd);// function not complete
 }
