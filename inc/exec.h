@@ -26,7 +26,7 @@ extern int global_sig;
 // utils
 void	undefined_message(char *command);
 void	real_exit(void);
-
+void	initialize (char **env, t_env *env_list);
 
 //exec
 int		exec_main(char **array);

@@ -43,3 +43,27 @@ void	real_exit(void)
 	ft_printf("exit\n");
 	exit_sig(0);
 }
+
+/*
+	initialize the env list and pass it to the struct
+*/
+void	initialize (char **env, t_env *env_list)
+{
+	int i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	env_list->value = (char **)malloc(sizeof(char *) * (i + 1));
+	if (env_list->value == NULL)
+		error_msg("malloc failed");
+	i = 0;
+	while (env[i])
+	{
+		env_list->value[i] = ft_strdup(env[i]);
+		if (env_list->value[i] == NULL)
+			error_msg("malloc failed");
+		i++;
+	}
+	env_list->value[i] = NULL;
+}

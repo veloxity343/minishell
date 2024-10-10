@@ -2,12 +2,17 @@
 #include "../inc/exec.h"
 #include "../inc/define_lib.h"
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
+	(void)ac;
+	(void)av;
+
 	char	*input;
 	t_token	tokens[MAX_TOKENS];
 	int		token_count;
+	t_env	env_list;
 
+	initialize(env, &env_list);
 	// Display a prompt in an infinite loop until the user exits the shell
 	while (1)
 	{
