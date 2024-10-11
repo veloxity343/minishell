@@ -42,12 +42,15 @@ void				*ft_calloc(size_t count, size_t size);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
+void				*ft_memdel(void *ptr);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memset(void *b, int c, size_t len);
 
 /* ---------- STR ---------- */
 
+void				ft_skipspace(const char *str, int *i);
 char				*ft_strchr(const char *s, int c);
+int					ft_strcmp(const char *s1, const char *s2);
 size_t				ft_strcspn(const char *s1, const char *s2);
 char				*ft_strdup(const char *s1);
 char				*ft_strndup(const char *s, size_t n);

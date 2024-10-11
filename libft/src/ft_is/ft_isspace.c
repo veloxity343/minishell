@@ -12,7 +12,8 @@
 
 #include "libft.h"
 
-int ft_isspace(int c)
+int	ft_isspace(int c)
 {
-    return ((c == ' ') || (c == '\n') || (c == '\t'));
+	return (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\f'
+		|| c == '\v');
 }

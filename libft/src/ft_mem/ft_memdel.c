@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_striccmp.c                                      :+:      :+:    :+:   */
+/*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/23 12:51:53 by rcheong           #+#    #+#             */
-/*   Updated: 2024/03/04 14:24:19 by rcheong          ###   ########.fr       */
+/*   Created: 2024/02/23 12:44:05 by rcheong           #+#    #+#             */
+/*   Updated: 2024/03/04 16:02:34 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-@brief Function to perform a case-insensitive comparison between two characters
-@param s1 Pointer to the first character
-@param s2 Pointer to the second character
-*/
-int	ft_striccmp(const char *s1, const char *s2)
+void	*ft_memdel(void *ptr)
 {
-	char c1;
-	char c2;
-
-	while (*s1 && *s2)
+	if (ptr)
 	{
-		c1 = ft_tolower(*s1);
-		c2 = ft_tolower(*s2);
-		if (c1 != c2)
-			return (c1 - c2);
-		s1++;
-		s2++;
+		free(ptr);
+		ptr = NULL;
 	}
-	return (ft_tolower(*s1) - ft_tolower(*s2));
+	return (NULL);
 }

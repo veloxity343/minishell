@@ -1,75 +1,138 @@
-#include "../inc/minishell.h"
+#include "minishell.h"
 
-int	handle_redirection(t_token *tokens)
+/*
+@brief Allocates space for a new line with additional spacing for separators.
+@param line The original input line to process.
+@details This function calculates how much additional space is needed to insert
+spaces around separators and allocates a new string with that space.
+@return A newly allocated string with space for separators, or NULL if memory allocation fails.
+*/
+char	*space_alloc(char *line)
 {
-	int	i;
-	int	fd;
+	char	*new;
+	int		count;
+	int		i;
+
+	count = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (is_sep(line, i))
+			count++;
+		i++;
+	}
+	if (!(new = malloc(sizeof(char) * (i + 2 * count + 1))))
+		return (NULL);
+	return (new);
+}
+
+/*
+@brief Processes a line and adds spaces around certain characters.
+@param line The original input line to process.
+@details This function uses space_alloc to create a new string and adds spaces
+around separators and special characters like '$' and '>'.
+@return A newly formatted string with added spaces, or NULL if memory allocation fails.
+*/
+char	*space_line(char *line)
+{
+	char	*new;
+	int		i;
+	int		j;
 
 	i = 0;
-	while (tokens[i].type != END)
+	j = 0;
+	new = space_alloc(line);
+	while (new &&line[i])
 	{
-		if (tokens[i].type == REDIRECT_IN)
+		if (quotes(line, i) != 2 && line[i] == '$' && i && line[i - 1] != '\\')
+			new[j++] = (char)(-line[i++]);
+		else if (quotes(line, i) == 0 && is_sep(line, i))
 		{
-			fd = open(tokens[i + 1].value, O_RDONLY);
-			if (fd == -1)
-				return (-1);          // Handle error if file cannot be opened
-			dup2(fd, STDIN_FILENO); // Redirect input to the file
-			close(fd);
-			i += 2; // Skip the redirection and filename
-		}
-		else if (tokens[i].type == REDIRECT_OUT)
-		{
-			fd = open(tokens[i + 1].value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd == -1)
-				return (-1);
-			dup2(fd, STDOUT_FILENO); // Redirect output to the file
-			close(fd);
-			i += 2;
-		}
-		else if (tokens[i].type == REDIRECT_APPEND)
-		{
-			fd = open(tokens[i + 1].value, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (fd == -1)
-				return (-1);
-			dup2(fd, STDOUT_FILENO);
-			close(fd);
-			i += 2;
-		}
-		else if (tokens[i].type == HEREDOC)
-		{
-			// Handle heredoc logic, such as reading input until a specific delimiter is found
+			new[j++] = ' ';
+			new[j++] = line[i++];
+			if (quotes(line, i) == 0 && line[i] == '>')
+				new[j++] = line[i++];
+			new[j++] = ' ';
 		}
 		else
-		{
-			i++; // Move to the next token
-		}
+			new[j++] = line[i++];
+	}
+	new[j] = '\0';
+	ft_memdel(line);
+	return (new);
+}
+
+/*
+@brief Checks if the input line has any unclosed quotes.
+@param mini The minishell structure to update on error.
+@param line The line to check for unclosed quotes.
+@details This function scans the input line for any unclosed quotes and reports a syntax error if any are found.
+@return 1 if there is a syntax error, 0 otherwise.
+*/
+int	quote_check(t_mini *mini, char **line)
+{
+	if (quotes(*line, 2147483647))
+	{
+		ft_putendl_fd("minishell: syntax error with open quotes", STDERR);
+		ft_memdel(*line);
+		mini->ret = 2;
+		mini->start = NULL;
+		return (1);
 	}
 	return (0);
 }
 
-int	parse_input(const char *input)
+/*
+@brief Processes the input line to prepare for tokenization.
+@param mini The minishell structure to update with tokens and status.
+@param line The line to process and tokenize.
+@details This function processes the input line, checks for quote errors,
+adds spaces around separators, and handles signals before tokenizing the line.
+@return None.
+*/
+void	process_line(t_mini *mini, char **line)
 {
-	int		i;
-	char	*expanded;
+	t_token	*token;
 
-	t_token *tokens = tokenize_input(input); // Tokenize the input
-	i = 0;
-	// Expand environment variables
-	while (tokens[i].type != END)
+	if (*line == NULL && (mini->exit = 1))
+		ft_putendl_fd("exit", STDERR);
+	if (g_sig.sigint == 1) // Check the signal status
+		mini->ret = g_sig.exit_status; // Update mini->ret accordingly
+	if (quote_check(mini, line))
+		return ;
+	*line = space_line(*line);
+	if (*line && (*line)[0] == '$')
+		(*line)[0] = (char)(-(*line)[0]);
+	mini->start = get_tokens(*line);
+	ft_memdel(*line);
+	merge_args(mini);
+	token = mini->start;
+	while (token)
 	{
-		if (tokens[i].type == ENV_VAR)
-		{
-			expanded = expand_env_var(tokens[i].value);
-			free(tokens[i].value);
-			tokens[i].value = expanded;
-		}
-		i++;
+		if (is_type(token, ARG))
+			type_arg(token, 0);
+		token = token->next;
 	}
-	// Handle redirections
-	if (handle_redirection(tokens) == -1)
-		return (-1);
-	// Handle pipes
-	if (handle_pipes(tokens) == -1)
-		return (-1);
-	return (0);
+}
+
+/*
+@brief Reads and processes the input line for the minishell.
+@param mini The minishell structure to use during processing.
+@details This function sets up signal handling, displays a prompt, and processes
+the input line by tokenizing it and handling quotes and signals.
+@return None.
+*/
+void	parse(t_mini *mini)
+{
+	char	*line;
+
+	signal(SIGINT, &sig_int);
+	signal(SIGQUIT, &sig_quit);
+	if (mini->ret)
+		ft_putstr_fd("Error: Last command failed", STDERR);
+	else
+		ft_putstr_fd("Ready to input", STDERR);
+	ft_putstr_fd("minishell ▸ ", STDERR);
+	line = readline(0);
+	process_line(mini, &line);
 }
