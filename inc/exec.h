@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:32:16 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/13 15:29:49 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/12 18:46:57 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 # include "minishell.h"
-# include <_pid_t.h>
+// # include <_pid_t.h>
 
 typedef struct s_temp // temp struct cause later on need to take from parsing
 {

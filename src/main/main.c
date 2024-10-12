@@ -1,8 +1,20 @@
-#include "../inc/minishell.h"
-#include "../inc/exec.h"
-#include "../inc/define_lib.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:28:14 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		main(int argc, char **argv, char **env)
+#include "../inc/define_lib.h"
+#include "../inc/exec.h"
+#include "../inc/minishell.h"
+
+int	main(int argc, char **argv, char **env)
 {
 	t_mini	mini;
 

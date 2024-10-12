@@ -1,11 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:28:32 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:28:34 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 /*
 @brief Sets the type for a token based on its value and separator status.
 @param token The token to set the type for.
 @param sep The separator flag to determine how to categorize the token.
-@details This function compares the token value with various known symbols (like ">", ">>", etc.) 
-to assign the appropriate type to the token, such as TRUNC, APPEND, CMD, ARG, etc.
+@details This function compares the token value with various known symbols (like ">",
+	">>", etc.)
+to assign the appropriate type to the token, such as TRUNC, APPEND, CMD, ARG,
+	etc.
 @return None.
 */
 void	type_arg(t_token *token, int sep)
@@ -36,7 +50,7 @@ void	type_arg(t_token *token, int sep)
 handling escape sequences and quotes, to ensure proper memory allocation.
 @return The number of characters required to allocate space for the next token.
 */
-int		next_alloc(char *line, int *i)
+int	next_alloc(char *line, int *i)
 {
 	int		count;
 	int		j;
@@ -67,9 +81,11 @@ int		next_alloc(char *line, int *i)
 @brief Extracts the next token from the input line.
 @param line The input line being tokenized.
 @param i A pointer to the current index in the input line.
-@details This function reads through the input line, handling escape sequences and quotes,
+@details This function reads through the input line,
+	handling escape sequences and quotes,
 and allocates memory for the token's value before returning the new token.
-@return A pointer to the newly created token, or NULL if memory allocation fails.
+@return A pointer to the newly created token,
+	or NULL if memory allocation fails.
 */
 t_token	*next_token(char *line, int *i)
 {
@@ -80,7 +96,7 @@ t_token	*next_token(char *line, int *i)
 	j = 0;
 	c = ' ';
 	if (!(token = malloc(sizeof(t_token)))
-	|| !(token->value = malloc(sizeof(char) * next_alloc(line, i))))
+		|| !(token->value = malloc(sizeof(char) * next_alloc(line, i))))
 		return (NULL);
 	while (line[*i] && (line[*i] != ' ' || c != ' '))
 	{
@@ -103,9 +119,11 @@ t_token	*next_token(char *line, int *i)
 /*
 @brief Tokenizes the input line into a linked list of tokens.
 @param line The input line to tokenize.
-@details This function reads through the input line, creating and linking tokens,
+@details This function reads through the input line,
+	creating and linking tokens,
 handling separators, and categorizing each token.
-@return A pointer to the first token in the linked list, or NULL if no tokens are found.
+@return A pointer to the first token in the linked list,
+	or NULL if no tokens are found.
 */
 t_token	*get_tokens(char *line)
 {

@@ -1,7 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:09:44 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:35:57 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	print_syntax_error(t_mini *mini, t_token *token, const char *msg)
 {
+	(void)msg;
 	ft_putstr_fd("trash: syntax error near unexpected token `", STDERR);
 	if (token)
 		ft_putstr_fd(token->value, STDERR);

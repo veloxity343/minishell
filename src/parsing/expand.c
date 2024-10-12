@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:28:26 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:28:28 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
 @brief Copies a variable's value from the environment to a new argument string.
-@details This function takes a destination string, an environment variable value, 
-and a starting position, and copies the value of the environment variable into 
+@details This function takes a destination string,
+	an environment variable value,
+and a starting position, and copies the value of the environment variable into
 the destination string starting at the specified position.
 @param new_arg A pointer to the destination string where the variable value will be copied.
 @param env_value A pointer to the source string (environment variable value) to copy from.
@@ -22,9 +35,10 @@ static int	varlcpy(char *new_arg, const char *env_value, int pos)
 
 /*
 @brief Inserts the value of an environment variable into the expansions structure.
-@details This function retrieves the value of an environment variable given its name, 
-copies it into the new argument string, and manages the index for future insertions. 
-It also handles special cases for the `$?` variable and adjusts the index based on 
+@details This function retrieves the value of an environment variable given its name,
+copies it into the new argument string,
+	and manages the index for future insertions.
+It also handles special cases for the `$?` variable and adjusts the index based on
 the character type that follows the variable.
 @param ex A pointer to the expansions structure containing the state of the expansion process.
 @param arg A pointer to the string that contains the variable name to expand.
@@ -57,13 +71,13 @@ static void	insert_var(t_expansions *ex, char *arg, t_env *env, int ret)
 
 /*
 @brief Expands variables in a given string based on the environment variables.
-@details This function processes a string for variable expansions by looking for 
-`$` characters, retrieving the corresponding environment variable values, and 
+@details This function processes a string for variable expansions by looking for
+`$` characters, retrieving the corresponding environment variable values, and
 constructing a new argument string with the expanded values.
 @param arg A pointer to the string that may contain variable references.
 @param env A pointer to the linked list of environment variables.
 @param ret The return value of the last executed command.
-@returns A pointer to the newly allocated string with expanded variable values, 
+@returns A pointer to the newly allocated string with expanded variable values,
 or NULL if allocation fails.
 */
 char	*expansions(char *arg, t_env *env, int ret)

@@ -1,58 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:28:52 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:28:53 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int	is_sep(char *line, int i)
+t_token	*next_sep(t_token *token, int skip)
 {
-	if (i > 0 && line[i - 1] == '\\')
-		return (0);
-	return (ft_strchr("<>|;", line[i]) && quotes(line, i) == 0);
+	if (token && skip)
+		token = token->next;
+	while (token && token->type < TRUNC)
+		token = token->next;
+	return (token);
 }
 
-int	ignore_sep(char *line, int i)
+t_token	*prev_sep(t_token *token, int skip)
 {
-	if (line[i] == '\\' && line[i + 1] && (line[i + 1] == ';' || line[i
-			+ 1] == '|' || line[i + 1] == '>'))
-		return (1);
-	if (line[i] == '\\' && line[i + 1] == '>' && line[i + 2] && line[i
-		+ 2] == '>')
-		return (1);
-	return (0);
+	if (token && skip)
+		token = token->prev;
+	while (token && token->type < TRUNC)
+		token = token->prev;
+	return (token);
 }
 
-int	quotes(char *line, int index)
+t_token	*next_run(t_token *token, int skip)
 {
-	int	i;
-	int	open;
-
-	i = 0;
-	open = 0;
-	while (line[i] && i != index)
+	if (token && skip)
+		token = token->next;
+	while (token && token->type != CMD)
 	{
-		if (i > 0 && line[i - 1] == '\\')
+		token = token->next;
+		if (token && token->type == CMD && token->prev == NULL)
 			;
-		else if (open == 0 && line[i] == '\"')
-			open = 1;
-		else if (open == 0 && line[i] == '\'')
-			open = 2;
-		else if (open == 1 && line[i] == '\"')
-			open = 0;
-		else if (open == 2 && line[i] == '\'')
-			open = 0;
-		i++;
+		else if (token && token->type == CMD && token->prev->type < END)
+			token = token->next;
 	}
-	return (open);
-}
-
-int	is_last_valid_arg(t_token *token)
-{
-	t_token	*prev;
-
-	if (!token || is_type(token, CMD) || is_type(token, ARG))
-	{
-		prev = prev_sep(token, 0);
-		if (!prev || is_type(prev, END) || is_type(prev, PIPE))
-			return (1);
-		return (0);
-	}
-	else
-		return (0);
+	return (token);
 }
