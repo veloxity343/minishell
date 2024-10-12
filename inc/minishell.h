@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:38:32 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/12 18:44:27 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/get_next_line.h"
 # include "../libft/inc/libft.h"
+# include "/usr/include/readline/history.h"
+# include "/usr/include/readline/readline.h"
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
