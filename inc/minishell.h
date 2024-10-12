@@ -5,8 +5,8 @@
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/get_next_line.h"
 # include "../libft/inc/libft.h"
-# include "../readline/history.h"
-# include "../readline/readline.h"
+# include "/usr/include/readline/history.h"
+# include "/usr/include/readline/readline.h"
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
