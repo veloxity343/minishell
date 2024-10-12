@@ -133,6 +133,6 @@ void	parse(t_mini *mini)
 	else
 		ft_putstr_fd("Ready to input", STDERR);
 	ft_putstr_fd("trash ▸ ", STDERR);
-	line = readline(0);
+	line = get_next_line(0);
 	process_line(mini, &line);
 }
