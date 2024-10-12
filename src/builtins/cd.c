@@ -98,7 +98,7 @@ static int	go_to_path(int option, t_env *env)
 		update_oldpwd(env);
 		env_path = get_env_path(env, "HOME", 4);
 		if (!env_path)
-			ft_putendl_fd("minishell : cd: HOME not set", STDERR);
+			ft_putendl_fd("trash : cd: HOME not set", STDERR);
 		if (!env_path)
 			return (1);
 	}
@@ -106,7 +106,7 @@ static int	go_to_path(int option, t_env *env)
 	{
 		env_path = get_env_path(env, "OLDPWD", 6);
 		if (!env_path)
-			ft_putendl_fd("minishell : cd: OLDPWD not set", STDERR);
+			ft_putendl_fd("trash : cd: OLDPWD not set", STDERR);
 		if (!env_path)
 			return (1);
 		update_oldpwd(env);

@@ -2,7 +2,7 @@
 
 static void	print_syntax_error(t_mini *mini, t_token *token, const char *msg)
 {
-	ft_putstr_fd("bash: syntax error near unexpected token `", STDERR);
+	ft_putstr_fd("trash: syntax error near unexpected token `", STDERR);
 	if (token)
 		ft_putstr_fd(token->value, STDERR);
 	else

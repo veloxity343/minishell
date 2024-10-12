@@ -73,7 +73,7 @@ int	quote_check(t_mini *mini, char **line)
 {
 	if (quotes(*line, 2147483647))
 	{
-		ft_putendl_fd("minishell: syntax error with open quotes", STDERR);
+		ft_putendl_fd("trash: syntax error with open quotes", STDERR);
 		ft_memdel(*line);
 		mini->ret = 2;
 		mini->start = NULL;
@@ -132,7 +132,7 @@ void	parse(t_mini *mini)
 		ft_putstr_fd("Error: Last command failed", STDERR);
 	else
 		ft_putstr_fd("Ready to input", STDERR);
-	ft_putstr_fd("minishell ▸ ", STDERR);
+	ft_putstr_fd("trash ▸ ", STDERR);
 	line = readline(0);
 	process_line(mini, &line);
 }
