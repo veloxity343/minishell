@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:27:59 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:28:01 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
 @brief Prints an error message for the export command.
 @param error The error code indicating the type of error.
 @param arg The argument associated with the error.
-@details Depending on the error code, this function will print a relevant error message
+@details Depending on the error code,
+	this function will print a relevant error message
 to STDERR, including invalid context or invalid identifiers.
 @return Returns 1 to indicate an error occurred.
 */
@@ -82,7 +95,8 @@ char	*get_env_name(char *dest, const char *src)
 @param env The head of the environment linked list.
 @param args The argument string representing the variable.
 @details This function compares the variable name extracted from args with names
-in the environment linked list. If found, it updates the value associated with that variable.
+in the environment linked list. If found,
+	it updates the value associated with that variable.
 @return Returns 1 if the variable exists and was updated, or 0 if not found.
 */
 int	is_in_env(t_env *env, char *args)

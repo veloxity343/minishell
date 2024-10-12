@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:09:48 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:27:28 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
 @brief Prints an error message related to the 'cd' command.
 @param args The array of arguments passed to the 'cd' command.
-@details This function prints an error message when the 'cd' command fails. 
-If there is an extra argument, it indicates "string not in pwd", otherwise, it prints the system error message.
+@details This function prints an error message when the 'cd' command fails.
+If there is an extra argument, it indicates "string not in pwd", otherwise,
+	it prints the system error message.
 @return None.
 */
 static void	print_error(char **args)
@@ -25,9 +38,10 @@ static void	print_error(char **args)
 @param env The environment variable list.
 @param var The name of the environment variable to retrieve.
 @param len The length of the environment variable's name.
-@details This function searches through the linked list of environment variables 
+@details This function searches through the linked list of environment variables
 and returns the value associated with the variable name `var`.
-@return The value of the environment variable, or NULL if not found or allocation fails.
+@return The value of the environment variable,
+	or NULL if not found or allocation fails.
 */
 static char	*get_env_path(t_env *env, const char *var, size_t len)
 {
@@ -83,8 +97,9 @@ static int	update_oldpwd(t_env *env)
 @brief Changes the current directory to a specific path based on options.
 @param option The option to determine whether to use "HOME" or "OLDPWD" for the path.
 @param env The environment variable list.
-@details This function changes the current directory based on the provided option: 
-0 for "HOME" and 1 for "OLDPWD". If the directory change is successful, the OLDPWD is updated.
+@details This function changes the current directory based on the provided option:
+0 for "HOME" and 1 for "OLDPWD". If the directory change is successful,
+	the OLDPWD is updated.
 @return 0 on success, 1 if the path is not set or an error occurs.
 */
 static int	go_to_path(int option, t_env *env)
@@ -120,8 +135,10 @@ static int	go_to_path(int option, t_env *env)
 @brief Changes the current directory using the 'cd' command.
 @param args The array of arguments passed to the 'cd' command.
 @param env The environment variable list.
-@details This function processes the 'cd' command. If no argument is provided, it defaults to the "HOME" path. 
-If the argument is "-", it switches to the "OLDPWD" path. It updates the OLDPWD variable before changing the directory.
+@details This function processes the 'cd' command. If no argument is provided,
+	it defaults to the "HOME" path.
+If the argument is "-",
+	it switches to the "OLDPWD" path. It updates the OLDPWD variable before changing the directory.
 @return 0 on success, or a non-zero error code on failure.
 */
 int	ft_cd(char **args, t_env *env)

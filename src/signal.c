@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:33:58 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/13 12:28:59 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/12 18:29:00 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
 #include "../inc/define_lib.h"
-int global_sig = 0;
+#include "../inc/minishell.h"
+
+int		global_sig = 0;
 
 /*
 signal handling part
@@ -23,11 +24,12 @@ using sigaction to ignore SIGINT and SIGQUIT
 cause it's a void function
 so i think the function should be completed
 */
-void ignore_signal(int sig)
+void	ignore_signal(int sig)
 {
+		struct sigaction sa;
+
 	while (sig == 1)
 	{
-		struct sigaction sa;
 		sa.sa_handler = SIG_IGN;
 		sigaction(SIGINT, &sa, NULL);
 		signal(SIGQUIT, SIG_IGN);

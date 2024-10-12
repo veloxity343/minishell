@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   types.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:28:55 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:34:13 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -7,9 +19,9 @@
 @param type The type to compare against.
 @returns 1 if the token matches the specified type; otherwise, returns 0.
 */
-int		is_type(t_token *token, int type)
+int	is_type(t_token *token, int type)
 {
-	if (token && token->type == type)
+	if (token && (int)token->type == type)
 		return (1);
 	else
 		return (0);
@@ -17,13 +29,14 @@ int		is_type(t_token *token, int type)
 
 /*
 @brief Checks if a token matches any of the specified types.
-@details This function checks if the given token's type matches any character in 
+@details This function checks if the given token's type matches any character in
 the provided string of types. Each character corresponds to a type constant.
 @param token A pointer to the token to be checked.
 @param types A string containing type characters to match against.
-@returns 1 if the token matches one of the specified types; otherwise, returns 0.
+@returns 1 if the token matches one of the specified types; otherwise,
+	returns 0.
 */
-int		match_type(t_token *token, char *types)
+int	match_type(t_token *token, char *types)
 {
 	if (ft_strchr(types, ' ') && is_type(token, EMPTY))
 		return (1);
@@ -46,13 +59,13 @@ int		match_type(t_token *token, char *types)
 
 /*
 @brief Checks if a linked list of tokens contains a specific type.
-@details This function traverses through the linked list of tokens, checking 
+@details This function traverses through the linked list of tokens, checking
 for the presence of a token of the specified type.
 @param token A pointer to the first token in the linked list.
 @param type The type to search for.
 @returns 1 if a token of the specified type is found; otherwise, returns 0.
 */
-int		has_type(t_token *token, int type)
+int	has_type(t_token *token, int type)
 {
 	while (token)
 	{
@@ -65,12 +78,12 @@ int		has_type(t_token *token, int type)
 
 /*
 @brief Checks if there is a PIPE token before an END token in a linked list.
-@details This function traverses the linked list of tokens and checks for 
+@details This function traverses the linked list of tokens and checks for
 the presence of a PIPE token before encountering an END token.
 @param token A pointer to the first token in the linked list.
 @returns 1 if a PIPE token is found; otherwise, returns 0.
 */
-int		has_pipe(t_token *token)
+int	has_pipe(t_token *token)
 {
 	while (token && is_type(token, END) == 0)
 	{
@@ -82,20 +95,22 @@ int		has_pipe(t_token *token)
 }
 
 /*
-@brief Finds the next token of a specified type, optionally skipping the first one.
-@details This function traverses the linked list starting from the given token, 
-optionally skipping the first token. It continues until it finds the next token 
+@brief Finds the next token of a specified type,
+	optionally skipping the first one.
+@details This function traverses the linked list starting from the given token,
+optionally skipping the first token. It continues until it finds the next token
 of the specified type.
 @param token A pointer to the starting token.
 @param type The type to search for.
 @param skip An integer indicating whether to skip the first token (1 to skip).
-@returns A pointer to the next token of the specified type, or NULL if not found.
+@returns A pointer to the next token of the specified type,
+	or NULL if not found.
 */
 t_token	*next_type(t_token *token, int type, int skip)
 {
 	if (token && skip)
 		token = token->next;
-	while (token && token->type != type)
+	while (token && (int)token->type != type)
 		token = token->next;
 	return (token);
 }

@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:28:08 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:28:10 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
 @brief Returns the size of the environment variable name.
-@details This function iterates through the provided environment variable string 
-until it encounters an '=' character, counting the number of characters before it. 
+@details This function iterates through the provided environment variable string
+until it encounters an '=' character,
+	counting the number of characters before it.
 This helps determine the length of the variable name.
 @param env The environment variable string.
 @return The size of the variable name, excluding the '=' character.
@@ -20,8 +33,9 @@ static size_t	env_size(char *env)
 
 /*
 @brief Frees the memory allocated for a given environment variable node.
-@details This function checks if the node to be freed is the only node in the list 
-and handles the cleanup accordingly. If it is not the only node, it frees the value 
+@details This function checks if the node to be freed is the only node in the list
+and handles the cleanup accordingly. If it is not the only node,
+	it frees the value
 and the node itself.
 @param mini A pointer to the minishell structure containing the environment.
 @param env A pointer to the environment variable node to be freed.
@@ -41,8 +55,8 @@ static void	free_node(t_mini *mini, t_env *env)
 
 /*
 @brief Removes an environment variable from the minishell environment.
-@details This function searches for the environment variable specified in the 
-arguments and removes it from the linked list of environment variables. 
+@details This function searches for the environment variable specified in the
+arguments and removes it from the linked list of environment variables.
 If the variable is found at the head of the list, it updates the head pointer.
 @param a The array of command-line arguments where a[1] is the variable to unset.
 @param mini A pointer to the minishell structure containing the environment.

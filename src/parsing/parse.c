@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:09:32 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:28:30 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -5,7 +17,8 @@
 @param line The original input line to process.
 @details This function calculates how much additional space is needed to insert
 spaces around separators and allocates a new string with that space.
-@return A newly allocated string with space for separators, or NULL if memory allocation fails.
+@return A newly allocated string with space for separators,
+	or NULL if memory allocation fails.
 */
 char	*space_alloc(char *line)
 {
@@ -31,7 +44,8 @@ char	*space_alloc(char *line)
 @param line The original input line to process.
 @details This function uses space_alloc to create a new string and adds spaces
 around separators and special characters like '$' and '>'.
-@return A newly formatted string with added spaces, or NULL if memory allocation fails.
+@return A newly formatted string with added spaces,
+	or NULL if memory allocation fails.
 */
 char	*space_line(char *line)
 {
@@ -96,7 +110,7 @@ void	process_line(t_mini *mini, char **line)
 
 	if (*line == NULL && (mini->exit = 1))
 		ft_putendl_fd("exit", STDERR);
-	if (g_sig.sigint == 1) // Check the signal status
+	if (g_sig.sigint == 1)             // Check the signal status
 		mini->ret = g_sig.exit_status; // Update mini->ret accordingly
 	if (quote_check(mini, line))
 		return ;

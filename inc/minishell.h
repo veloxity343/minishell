@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/12 18:38:32 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -5,8 +17,6 @@
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/get_next_line.h"
 # include "../libft/inc/libft.h"
-# include "../readline/history.h"
-# include "../readline/readline.h"
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -96,21 +106,67 @@ typedef struct	s_expansions
 	int				j;        // Index for iterating through the new string (after expansion)
 }				t_expansions;
 
-// env
-char	*expand_env_var(const char *token);
+// parse
+void	parse(t_mini *mini);
+void	process_line(t_mini *mini, char **line);
+int	quote_check(t_mini *mini, char **line);
+char	*space_line(char *line);
+char	*space_alloc(char *line);
 
-// operators
-char	*handle_single_quotes(const char *input, int *i);
-char	*handle_double_quotes(const char *input, int *i);
-int		handle_pipes(t_token *tokens);
+// token
+t_token	*get_tokens(char *line);
+t_token	*next_token(char *line, int *i);
+int		next_alloc(char *line, int *i);
+void	type_arg(t_token *token, int sep);
 
-//parse
-int		handle_redirection(t_token *tokens);
-int		parse_input(const char *input);
+// expansions
+char	*expansions(char *arg, t_env *env, int ret);
 
-//token
-int		add_token(t_token *tokens, int count, t_token_type type, const char *value);
-int		tokenize_input(const char *input, t_token *tokens);
+// args
+void	merge_args(t_mini *mini);
+
+// builtins
+int		ft_isbuiltin(char *command);
+int		run_builtin(char **args, t_mini *mini);
+int	ft_cd(char **args, t_env *env);
+int	ft_echo(char **arg);
+int	ft_print_env(t_env *env);
+void	mini_exit(t_mini *mini, char **cmd);
+int	ft_export(char **args, t_env *env, t_env *secret);
+int	is_in_env(t_env *env, char *args);
+char	*get_env_name(char *dest, const char *src);
+int	env_add(const char *value, t_env *env);
+int		ft_pwd(void);
+int	ft_unset(char **a, t_mini *mini);
+
+// tools
+void	ft_close(int fd);
+void	reset_std(t_mini *mini);
+void	close_fds(t_mini *mini);
+void	reset_fds(t_mini *mini);
+void	free_token(t_token *start);
+void	free_env(t_env *env);
+void	free_tab(char **tab);
+int	check_line(t_mini *mini, t_token *token);
+int	is_last_valid_arg(t_token *token);
+int	quotes(char *line, int index);
+int	ignore_sep(char *line, int i);
+int	is_sep(char *line, int i);
+t_token	*next_sep(t_token *token, int skip);
+t_token	*prev_sep(t_token *token, int skip);
+t_token	*next_run(t_token *token, int skip);
+int		is_type(t_token *token, int type);
+int		match_type(t_token *token, char *types);
+int		has_type(t_token *token, int type);
+int		has_pipe(t_token *token);
+t_token	*next_type(t_token *token, int type, int skip);
+
+// sig
+void	sig_init(void);
+void	sig_quit(int code);
+void	sig_int(int code);
+void	exit_sig(int sig);
+void ignore_signal(int sig);
 
 void			sig_int(int code);
 void			sig_quit(int code);
