@@ -1,5 +1,5 @@
-#include "libft.h"
-#include "builtin.h"
+#include "../inc/libft.h"
+#include "../inc/builtin.h"
 #include <stdbool.h>
 
 /*
