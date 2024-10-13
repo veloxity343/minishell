@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:34:46 by chtan             #+#    #+#             */
-/*   Updated: 2024/09/14 15:51:17 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/13 11:36:24 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-#include "../inc/exec.h"
-#include "../inc/define_lib.h"
+#include "../inc/pipe.h"
+
 int global_signal;
+
 static void use_case() {
 	ft_dprintf(2, "Usage: ./pipex file1 cmd1 cmd2 file2\n");
 	exit_sig(1);
@@ -47,4 +47,30 @@ void	pipe_main(char **av, int ac, char **env)
 		dup2(filein, STDIN_FILENO);
 	}
 	
+}
+
+void	child_n_parent(char *argv, char **envp)
+{
+	pid_t	pid;
+	int		pipex[2];
+
+	if (pipe(pipex) == -1)
+		error();
+	pid = fork();
+	if (pid == -1)
+		error();
+	if (pid == 0)
+	{
+		close(pipex[R_END]);
+		dup2(pipex[W_END], STDOUT_FILENO);
+		close(pipex[W_END]);
+		execute(argv, envp);
+	}
+	else
+	{
+		waitpid(-1, NULL, 0);
+		close(pipex[W_END]);
+		dup2(pipex[R_END], STDIN_FILENO);
+		close(pipex[R_END]);
+	}
 }
