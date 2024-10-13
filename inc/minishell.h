@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:50:35 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/13 14:34:44 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/get_next_line.h"
 # include "../libft/inc/libft.h"
-# include "/usr/include/readline/history.h"
-# include "/usr/include/readline/readline.h"
+// # include "/usr/include/readline/history.h"
+// # include "/usr/include/readline/readline.h"
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -71,15 +71,15 @@ typedef struct	s_env
 // Struct representing the state of the minishell.
 typedef struct	s_mini
 {
-	t_token			*start;       // Pointer to the first token in the parsed command list
-	t_env			*env;         // Pointer to the environment variable list
-	t_env			*muted_env;   // Pointer to muted environment variable list
-	int				in;           // Standard input file descriptor
-	int				out;          // Standard output file descriptor
-	int				fdin;         // File descriptor for input redirection
-	int				fdout;        // File descriptor for output redirection
-	int				pipin;        // Pipe input file descriptor
-	int				pipout;       // Pipe output file descriptor
+	t_token			*start;			// Pointer to the first token in the parsed command list
+	t_env			*env;			// Pointer to the environment variable list
+	t_env			*muted_env;		// Pointer to muted environment variable list
+	int				in;				// Standard input file descriptor
+	int				out;			// Standard output file descriptor
+	int				fdin;			// File descriptor for input redirection
+	int				fdout;			// File descriptor for output redirection
+	int				pipin;			// Pipe input file descriptor
+	int				pipout;			// Pipe output file descriptor
 	int				pid;          // Process ID of the current shell process
 	int				charge;       // Status or flag for managing multiple processes
 	int				parent;       // Flag indicating if the current process is the parent
@@ -103,9 +103,9 @@ extern t_sig g_sig;
 // Struct used for handling expansions within arguments (e.g., $VARIABLE).
 typedef struct	s_expansions
 {
-	char			*new_arg;  // The new argument string after expansions
-	int				i;        // Index for iterating through the original string
-	int				j;        // Index for iterating through the new string (after expansion)
+	char			*new_arg;	// The new argument string after expansions
+	int				i;			// Index for iterating through the original string
+	int				j;			// Index for iterating through the new string (after expansion)
 }				t_expansions;
 
 // parse
@@ -123,6 +123,10 @@ void	type_arg(t_token *token, int sep);
 
 // expansions
 char	*expansions(char *arg, t_env *env, int ret);
+int	ret_size(int ret);
+int	get_var_len(const char *arg, int pos, t_env *env, int ret);
+int	arg_alloc_len(const char *arg, t_env *env, int ret);
+char	*get_var_value(const char *arg, int pos, t_env *env, int ret);
 
 // args
 void	merge_args(t_mini *mini);
