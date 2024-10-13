@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:34:46 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/13 11:36:24 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/13 11:50:53 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	child_n_parent(char *argv, char **envp)
 		close(pipex[R_END]);
 		dup2(pipex[W_END], STDOUT_FILENO);
 		close(pipex[W_END]);
-		execute(argv, envp);
+			execute(argv, envp);
 	}
 	else
 	{
