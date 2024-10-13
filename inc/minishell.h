@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/13 14:34:44 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/13 14:46:59 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,20 @@ t_token	*get_tokens(char *line);
 t_token	*next_token(char *line, int *i);
 int		next_alloc(char *line, int *i);
 void	type_arg(t_token *token, int sep);
+
+// env
+size_t	size_env(t_env *lst);
+char	*env_to_str(t_env *lst);
+int	env_init(t_mini *mini, char **env_array);
+int	muted_env_init(t_mini *mini, char **env_array);
+int	is_env_char(int c);
+int	is_valid_env(const char *env);
+int	env_value_len(const char *env);
+char	*env_value(char *env);
+char	*get_env_value(char *arg, t_env *env);
+int			str_env_len(char **env);
+void		sort_env(char **tab, int env_len);
+void		print_sorted_env(t_env *env);
 
 // expansions
 char	*expansions(char *arg, t_env *env, int ret);
