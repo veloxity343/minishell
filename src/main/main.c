@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/13 14:48:20 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/13 14:48:59 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **env)
 	reset_fds(&mini);
 	env_init(&mini, env);
 	muted_env_init(&mini, env);
-	increment_shell_level(mini.env);
+	// increment_shell_level(mini.env);
 	while (mini.exit == 0)
 	{
 		sig_init();
@@ -38,6 +38,6 @@ int	main(int argc, char **argv, char **env)
 		free_token(mini.start);
 	}
 	free_env(mini.env);
-	free_env(mini.secret_env);
+	free_env(mini.muted_env);
 	return (mini.ret);
 }

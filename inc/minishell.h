@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/13 14:46:59 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/13 14:50:32 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ char	*get_env_value(char *arg, t_env *env);
 int			str_env_len(char **env);
 void		sort_env(char **tab, int env_len);
 void		print_sorted_env(t_env *env);
+void				increment_shell_level(t_env *env);
 
 // expansions
 char	*expansions(char *arg, t_env *env, int ret);
