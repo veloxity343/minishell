@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:32 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:28:30 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/13 15:16:34 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void	parse(t_mini *mini)
 	if (mini->ret)
 		ft_putstr_fd("Error: Last command failed", STDERR);
 	else
-		ft_putstr_fd("Ready to input", STDERR);
+		ft_putstr_fd("Ready for input", STDERR);
 	ft_putstr_fd("trash ▸ ", STDERR);
 	line = get_next_line(0);
 	process_line(mini, &line);
