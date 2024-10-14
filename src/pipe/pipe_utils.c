@@ -6,11 +6,11 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 13:55:02 by kytan             #+#    #+#             */
-/*   Updated: 2024/10/13 11:46:10 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/13 13:47:32 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipe.h"
+#include "pipe.h"
 
 char	*find_path(char *cmd_args, char **envp)
 {

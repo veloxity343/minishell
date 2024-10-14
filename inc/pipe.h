@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 13:17:45 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/13 11:51:19 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/13 20:07:02 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@
 
 //pipex
 void	pipe_main(char **av, int ac, char **env);
-void	child_n_parent(char *argv, char **envp);
+void	child_n_parent(char *av, char **env);
 
 //utils
-char    *find_path(char *cmd_args, char **envp);
-void    execute(char *argv, char **envp);
+char    *find_path(char *cmd_args, char **env);
+void    execute(char *av, char **env);
 int     gnl(char **line);
 void	get_input(int *pipex, char **line, char *limiter);
-void	here_doc(char *limiter, int argc);
+void	here_doc(char *limiter, int ac);
+
+void	usage(void);
+void	error(void);
 
 #endif
