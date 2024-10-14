@@ -6,11 +6,11 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:34:46 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/13 17:19:57 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/14 10:20:22 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe.h"
+#include "../../inc/pipe.h"
 
 int global_signal;
 
