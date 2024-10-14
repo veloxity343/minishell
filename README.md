@@ -16,6 +16,9 @@ If you're wondering why we named our shell so atrociously, <i>trash</i> is an ac
 		- [ ] Determine and apply grammar
 		- [ ] Build a parse tree in order of token precedence
 5. - [ ] Executing:
+   		- [x] system build in functions
+     		- [ ] execute external functions
+       		- [ ] redirections 
          	<ol>
 	  	</ol>
 6. - [ ] Testing
