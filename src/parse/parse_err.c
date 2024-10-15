@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:24:03 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/15 21:30:13 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/15 22:08:53 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ft_handle_parse_err(t_mini *mini)
 	t_token_type		token_type;
 	char				**types;
 
-	types = (char *[]){"T_IDENTIFIER",
-		"<", ">", "<<", ">>", "|", "(", ")", "newline"};
+	types = (char *[]){"T_IDENTIFIER", "<", ">", "<<", ">>", "|", "(", ")",
+		"newline"};
 	type = mini->parse_err.type;
 	(void)token_type;
 	(void)types;

@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:23:53 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/15 21:23:54 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/15 22:08:35 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ bool	ft_curr_token_is_binop(t_mini *mini)
 
 bool	ft_is_redir(t_token_type type)
 {
-	if (type == T_IN_REDIR || type == T_OUT_REDIR
-		|| type == T_HEREDOC || type == T_APPEND)
+	if (type == T_IN_REDIR || type == T_OUT_REDIR || type == T_HEREDOC
+		|| type == T_APPEND)
 		return (true);
 	return (false);
 }

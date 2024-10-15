@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:23:55 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/15 21:23:56 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/15 22:08:46 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_append_io_node(t_io_node **lst, t_io_node *new)
 		return ;
 	}
 	curr_node = *lst;
-	while (curr_node && curr_node -> next)
-		curr_node = curr_node -> next;
-	curr_node -> next = new;
+	while (curr_node && curr_node->next)
+		curr_node = curr_node->next;
+	curr_node->next = new;
 }

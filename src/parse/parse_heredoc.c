@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:23:57 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/15 21:23:58 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/15 22:08:48 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	ft_heredoc(t_io_node *io, int p[2])
 	{
 		line = readline("> ");
 		if (!line)
-			break;
+			break ;
 		if (ft_is_delimiter(io->value, line))
-			break;
+			break ;
 		if (!*quotes)
 			ft_heredoc_expander(line, p[1]);
 		else
@@ -50,7 +50,7 @@ void	ft_heredoc(t_io_node *io, int p[2])
 
 static bool	ft_leave_leaf(int p[2], int *pid, bool *sigint_child)
 {
-	int status;
+	int	status;
 
 	waitpid(*pid, &status, 0);
 	*sigint_child = false;
