@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:34:46 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/15 08:58:19 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/15 09:01:43 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int global_signal;
 
-// static void use_case() {
-// 	ft_dprintf(2, "Usage: ./pipex file1 cmd1 cmd2 file2\n");
-// 	exit_sig(1);
-// }
+/*static void use_case() {
+	ft_dprintf(2, "Usage: ./pipex file1 cmd1 cmd2 file2\n");
+	exit_sig(1);
+}*/
 
 /*
 	for the pipex part i need a struct contain of arguments,
