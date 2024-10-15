@@ -2,6 +2,7 @@
 # define TOKENIZE_H
 
 # include <stddef.h>
+# include <stdbool.h>
 
 typedef enum e_token_type
 {
@@ -36,7 +37,7 @@ void				ft_print_quote_err(char c, t_mini *mini);
 
 int					ft_append_separator(t_token_type type, char **line_ptr,
 						t_token **token_list);
-int					ft_append_identifier(char **line_ptr, t_token **token_list);
+int					ft_append_identifier(t_mini *mini, char **line_ptr, t_token **token_list);
 int					ft_handle_separator(char **line_ptr, t_token **token_list);
 t_token				*ft_tokenization_handler(t_mini *mini, char *line);
 t_token				*ft_tokenize(t_mini *mini);
