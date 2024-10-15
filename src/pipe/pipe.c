@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:34:46 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/14 10:20:22 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/15 08:58:19 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ int global_signal;
 /*
 	for the pipex part i need a struct contain of arguments,
 	a struct contain of commands(token)
+
+	f1)checking argument but not suitable to use in this case
+	but the usage is not useful this time cause
+	we didn't pass arguments to pipe
+
+	f2) also won't just directly check here doc. should change
 */
 int	main(int ac, char **av, char **env)
 {
