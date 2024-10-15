@@ -5,66 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 18:28:47 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:28:48 by rcheong          ###   ########.fr       */
+/*   Created: 2024/10/15 21:23:53 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/15 21:23:54 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_sep(char *line, int i)
+void	ft_get_next_token(t_mini *mini)
 {
-	if (i > 0 && line[i - 1] == '\\')
-		return (0);
-	return (ft_strchr("<>|;", line[i]) && quotes(line, i) == 0);
+	mini->curr_token = mini->curr_token->next;
 }
 
-int	ignore_sep(char *line, int i)
+bool	ft_curr_token_is_binop(t_mini *mini)
 {
-	if (line[i] == '\\' && line[i + 1] && (line[i + 1] == ';' || line[i
-			+ 1] == '|' || line[i + 1] == '>'))
-		return (1);
-	if (line[i] == '\\' && line[i + 1] == '>' && line[i + 2] && line[i
-		+ 2] == '>')
-		return (1);
-	return (0);
+	t_token_type	type;
+
+	if (!mini->curr_token)
+		return (false);
+	type = mini->curr_token->type;
+	if (type == T_PIPE)
+		return (true);
+	return (false);
 }
 
-int	quotes(char *line, int index)
+bool	ft_is_redir(t_token_type type)
 {
-	int	i;
-	int	open;
-
-	i = 0;
-	open = 0;
-	while (line[i] && i != index)
-	{
-		if (i > 0 && line[i - 1] == '\\')
-			;
-		else if (open == 0 && line[i] == '\"')
-			open = 1;
-		else if (open == 0 && line[i] == '\'')
-			open = 2;
-		else if (open == 1 && line[i] == '\"')
-			open = 0;
-		else if (open == 2 && line[i] == '\'')
-			open = 0;
-		i++;
-	}
-	return (open);
-}
-
-int	is_last_valid_arg(t_token *token)
-{
-	t_token	*prev;
-
-	if (!token || is_type(token, CMD) || is_type(token, ARG))
-	{
-		prev = prev_sep(token, 0);
-		if (!prev || is_type(prev, END) || is_type(prev, PIPE))
-			return (1);
-		return (0);
-	}
-	else
-		return (0);
+	if (type == T_IN_REDIR || type == T_OUT_REDIR
+		|| type == T_HEREDOC || type == T_APPEND)
+		return (true);
+	return (false);
 }

@@ -6,17 +6,13 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/13 14:50:32 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/15 21:56:39 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/inc/ft_dprintf.h"
-# include "../libft/inc/ft_printf.h"
-# include "../libft/inc/get_next_line.h"
-# include "../libft/inc/libft.h"
 // # include "/usr/include/readline/history.h"
 // # include "/usr/include/readline/readline.h"
 # include <ctype.h>
@@ -28,10 +24,19 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <termios.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include "ft_dprintf.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
+# include "libft.h"
+# include "tokenize.h"
+# include "parse.h"
+
+# define PROMPT "trash ▸ "
 
 # define STDIN 0
 # define STDOUT 1
@@ -39,74 +44,42 @@
 
 # define BUFFER_SIZE 4096
 
-// Enum for tokens
-typedef enum e_token_type
-{
-	EMPTY,	// No token or uninitialized state
-	CMD,	// Command token (e.g., 'ls', 'echo')
-	ARG,	// Argument token (e.g., '-l', 'file.txt')
-	TRUNC,	// Truncate output redirection (>)
-	APPEND,	// Append output redirection (>>)
-	INPUT,	// Input redirection (<)
-	PIPE,	// Pipe token (|) for chaining commands
-	END		// End of command (e.g., ';' or newline)
-}	t_token_type;
-
-// Struct representing each token in a doubly-linked list for a parsed command.
-typedef struct s_token
-{
-	t_token_type	type;	// Type of token
-	char			*value;	// Value of the token (e.g., the command or file name)
-	struct s_token	*prev;	// Previous node in ll
-	struct s_token	*next;	// Next node in ll
-}	t_token;
-
 // Struct representing an environment variable in a linked list.
 typedef struct	s_env
 {
-	char			*value;  // The string value of the environment variable (e.g., "PATH=/usr/bin")
-	struct s_env	*next;   // Pointer to the next environment variable in the list
+	char			*key;
+	char			*value;
+	struct s_env	*next;
 }				t_env;
 
 // Struct representing the state of the minishell.
-typedef struct	s_mini
+typedef struct s_mini
 {
-	t_token			*start;			// Pointer to the first token in the parsed command list
-	t_env			*env;			// Pointer to the environment variable list
-	t_env			*muted_env;		// Pointer to muted environment variable list
-	int				in;				// Standard input file descriptor
-	int				out;			// Standard output file descriptor
-	int				fdin;			// File descriptor for input redirection
-	int				fdout;			// File descriptor for output redirection
-	int				pipin;			// Pipe input file descriptor
-	int				pipout;			// Pipe output file descriptor
-	int				pid;          // Process ID of the current shell process
-	int				charge;       // Status or flag for managing multiple processes
-	int				parent;       // Flag indicating if the current process is the parent
-	int				last;         // Status of the last executed command
-	int				ret;          // Return value of the last executed command
-	int				exit;         // Exit status flag for the shell
-	int				no_exec;      // Flag to indicate if commands should not be executed
-}				t_mini;
+	char			*line;
+	t_token			*tokens;
+	t_token			*curr_token;
+	t_node			*ast;
+	int				exit_s;
+	bool			sigint_child;
+	t_parse_err		parse_err;
+	int				stdin;
+	int				stdout;
+	char			**env_var;
+	t_env			*envlst;
+	bool			heredoc_sigint;
+	struct termios	ori_term;
+}					t_mini;
 
 // Struct representing signal handling information.
-typedef struct	s_sig
+typedef struct s_sig
 {
 	int				sigint;        // Flag for handling SIGINT (Ctrl+C)
-	int				sigquit;       // Flag for handling SIGQUIT (Ctrl+\)
+	int				sigquit;       // Flag for handling SIGQUIT (Ctrl+D)
 	int				exit_status;   // Exit status after a signal is received
 	pid_t			pid;           // Process ID for the process handling the signal
 }				t_sig;
 
-extern t_sig g_sig;
-
-// Struct used for handling expansions within arguments (e.g., $VARIABLE).
-typedef struct	s_expansions
-{
-	char			*new_arg;	// The new argument string after expansions
-	int				i;			// Index for iterating through the original string
-	int				j;			// Index for iterating through the new string (after expansion)
-}				t_expansions;
+extern t_sig	g_sig;
 
 // parse
 void	parse(t_mini *mini);
