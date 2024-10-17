@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 13:32:16 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/12 18:46:57 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/17 09:29:43 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ typedef struct s_temp // temp struct cause later on need to take from parsing
 	char 	**temp_split;
 }				t_temp;
 
-typedef struct s_key
+typedef struct s_system
 {
-	int key;	//handle keycode and signal
-}		t_key;
+	int std_flag;
+	int shell_lv;
+}	t_system;
 
-extern global_sig;
+extern int global_sig;
 
 // utils
 void	error_msg(char *msg);
@@ -36,7 +37,7 @@ void	real_exit(void);
 
 
 //exec
-int		exec(char **array);
+int		exec(char **array, char **envp);
 
 //signal
 void	ignore_signal(int sig);
