@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:44:21 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/18 12:44:41 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/19 08:52:58 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,36 @@
 	after parsing, will pass the given token to this function
 	the function is to separate command to differnet type of exec
 */
-int	ft_exec(t_token *token)
+int	ft_exec(t_token *token, t_mini *mini, char **envp)
 {
 	t_token *temp;
 
 	temp = token;
 	while (temp)
 	{
-		if(!temp->type)
-			error_msg("no command found");
-	}
-	if (token->type == CMD)
-	{
-		while (ft_isbuiltin(token->value))
+		if (!temp->type)
 		{
-			run_builtin(token->value, t_mini *mini);
+			error_msg("no command found");
+			return (-1);
 		}
+		temp = temp->next; // error checking
 	}
-	
+	while (token && token->type == CMD) // Ensure token is valid and type is CMD
+	{
+		if (ft_isbuiltin(token->value))
+		{
+			run_builtin(token->value, mini);
+		}
+		else
+		{
+			char **array = tokenize_command(token->value); // You should have a function that converts value into args array
+			exec(array, envp); // Assuming exec is a wrapper for execve
+		}
+		token = token->next; // Move to the next token
+	}
+	return (0);
 }
 
-// bool ft_check_buildin(t_token *token)
-// {
-	
-// }
 /*
 	requirement for execute
 	1) token type
@@ -66,7 +72,7 @@ int	exec(char **array, char **envp)
 	while (array[++num])
 	{
 		status = execve(array[num], array, envp);
-		if (status == -1)
+		if (check_status(status) == FALSE)
 		{
 			num = ft_dprintf(2, "command not found!");
 			//exit_sig(0);
