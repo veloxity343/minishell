@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striccmp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:51:53 by rcheong           #+#    #+#             */
-/*   Updated: 2024/03/04 14:24:19 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:25:04 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 */
 int	ft_striccmp(const char *s1, const char *s2)
 {
-	char c1;
-	char c2;
+	char	c1;
+	char	c2;
 
 	while (*s1 && *s2)
 	{

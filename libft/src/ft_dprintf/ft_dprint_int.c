@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dprint_int.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:49:43 by rcheong           #+#    #+#             */
-/*   Updated: 2024/08/31 16:02:54 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:22:30 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dprintf.h"
 
-int	ft_dprint_intval(int fd, char *strint, int n, dt_flags flags)
+int	ft_dprint_intval(int fd, char *strint, int n, t_dflags flags)
 {
 	int	count;
 
@@ -33,7 +33,7 @@ int	ft_dprint_intval(int fd, char *strint, int n, dt_flags flags)
 	return (count);
 }
 
-int	ft_dprint_sign_flag(int fd, int n, dt_flags *flags)
+int	ft_dprint_sign_flag(int fd, int n, t_dflags *flags)
 {
 	int	count;
 
@@ -53,7 +53,7 @@ int	ft_dprint_sign_flag(int fd, int n, dt_flags *flags)
 	return (count);
 }
 
-int	ft_dpad_int(int fd, char *strint, int n, dt_flags flags)
+int	ft_dpad_int(int fd, char *strint, int n, t_dflags flags)
 {
 	int	count;
 
@@ -79,7 +79,7 @@ int	ft_dpad_int(int fd, char *strint, int n, dt_flags flags)
 	return (count);
 }
 
-int	ft_dprint_int(int fd, int n, dt_flags flags)
+int	ft_dprint_int(int fd, int n, t_dflags flags)
 {
 	char	*strint;
 	long	nb;

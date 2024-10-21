@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dprint_unsigned.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:12:04 by rcheong           #+#    #+#             */
-/*   Updated: 2024/08/31 16:03:02 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:22:36 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dprintf.h"
 
-int	ft_dunsigned_str(int fd, char *strint, dt_flags flags)
+int	ft_dunsigned_str(int fd, char *strint, t_dflags flags)
 {
 	int	count;
 
@@ -24,7 +24,7 @@ int	ft_dunsigned_str(int fd, char *strint, dt_flags flags)
 	return (count);
 }
 
-int	ft_dpad_unsigned(int fd, char *strint, dt_flags flags)
+int	ft_dpad_unsigned(int fd, char *strint, t_dflags flags)
 {
 	int	count;
 
@@ -45,7 +45,7 @@ int	ft_dpad_unsigned(int fd, char *strint, dt_flags flags)
 	return (count);
 }
 
-int	ft_dprint_unsigned(int fd, unsigned n, dt_flags flags)
+int	ft_dprint_unsigned(int fd, unsigned n, t_dflags flags)
 {
 	char	*strint;
 	long	nb;

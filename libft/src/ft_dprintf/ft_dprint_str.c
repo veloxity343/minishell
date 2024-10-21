@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dprint_str.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:31:36 by rcheong           #+#    #+#             */
-/*   Updated: 2024/03/11 12:42:02 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:22:34 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_dstr_precision(int fd, const char *str, int precision)
 	return (count);
 }
 
-int	ft_dpad_str(int fd, const char *str, dt_flags flags)
+int	ft_dpad_str(int fd, const char *str, t_dflags flags)
 {
 	int	count;
 
@@ -53,7 +53,7 @@ int	ft_dpad_str(int fd, const char *str, dt_flags flags)
 	return (count);
 }
 
-int	ft_dprint_str(int fd, const char *str, dt_flags flags)
+int	ft_dprint_str(int fd, const char *str, t_dflags flags)
 {
 	int	count;
 

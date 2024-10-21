@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dparse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:30:05 by rcheong           #+#    #+#             */
-/*   Updated: 2024/08/31 16:02:40 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:23:20 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dprintf.h"
 
-int	ft_dformat(int fd, char spec, va_list args, dt_flags flags)
+int	ft_dformat(int fd, char spec, va_list args, t_dflags flags)
 {
 	int	count;
 
@@ -37,7 +37,7 @@ int	ft_dformat(int fd, char spec, va_list args, dt_flags flags)
 	return (count);
 }
 
-int	ft_dparse_flags(const char *str, int i, va_list args, dt_flags *flags)
+int	ft_dparse_flags(const char *str, int i, va_list args, t_dflags *flags)
 {
 	while (str[++i] && ft_dismod(str[i]))
 	{
@@ -68,9 +68,9 @@ int	ft_dparse_flags(const char *str, int i, va_list args, dt_flags *flags)
 
 int	ft_dparse(int fd, char *str, va_list args)
 {
-	int		i;
-	int		count;
-	dt_flags	flags;
+	int			i;
+	int			count;
+	t_dflags	flags;
 
 	i = -1;
 	count = 0;

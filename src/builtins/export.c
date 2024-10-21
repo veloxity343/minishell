@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:59 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:28:01 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 16:43:36 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	env_add(const char *value, t_env *env)
 		env->value = ft_strdup(value);
 		return (0);
 	}
-	if (!(new = malloc(sizeof(t_env))))
+	new = malloc(sizeof(t_env));
+	if (!new)
 		return (-1);
 	new->value = ft_strdup(value);
 	while (env && env->next && env->next->next)
@@ -72,16 +73,24 @@ int	env_add(const char *value, t_env *env)
 @brief Extracts the environment variable name from a given string.
 @param dest The destination string where the variable name will be stored.
 @param src The source string containing the environment variable.
-@details This function copies the variable name from the source string to the destination
+@details This function copies the variable name from the
+	source string to the destination
 until it reaches the '=' character or the end of the string.
 @return Returns the destination string containing the variable name.
 */
 char	*get_env_name(char *dest, const char *src)
 {
-	int	i;
+	int		i;
+	char	*dest;
 
 	i = 0;
-	while (src[i] && src[i] != '=' && ft_strlen(src) < BUFFER_SIZE)
+	while (src[i] && src[i] != '=')
+		i++;
+	dest = (char *)malloc(sizeof(char) * (i + 1));
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (src[i] && src[i] != '=')
 	{
 		dest[i] = src[i];
 		i++;
@@ -101,8 +110,8 @@ in the environment linked list. If found,
 */
 int	is_in_env(t_env *env, char *args)
 {
-	char	var_name[BUFFER_SIZE];
-	char	env_name[BUFFER_SIZE];
+	char	*var_name;
+	char	*env_name;
 
 	get_env_name(var_name, args);
 	while (env && env->next)
@@ -123,20 +132,21 @@ int	is_in_env(t_env *env, char *args)
 @brief Exports an environment variable or displays all exported variables.
 @param args An array of strings representing the command arguments.
 @param env The head of the environment linked list.
-@param secret The head of the secret environment linked list.
-@details This function checks if the export command is being used to add a variable
-or display existing ones. If adding, it validates the variable, handles errors,
-and adds the variable to the environment and secret lists as needed.
+@param muted The head of the muted environment linked list.
+@details This function checks if the export command is being
+	used to add a variable or display existing ones. If adding,
+	it validates the variable, handles errors, and adds the
+	variable to the environment and muted lists as needed.
 @return Returns 0 on success.
 */
-int	ft_export(char **args, t_env *env, t_env *secret)
+int	ft_export(char **args, t_env *env, t_env *muted)
 {
 	int	new_env;
 	int	error_ret;
 
 	new_env = 0;
 	if (!args[1])
-		return (print_sorted_env(secret), 0);
+		return (print_sorted_env(muted), 0);
 	else
 	{
 		error_ret = is_valid_env(args[1]);
@@ -152,7 +162,7 @@ int	ft_export(char **args, t_env *env, t_env *secret)
 		{
 			if (error_ret == 1)
 				env_add(args[1], env);
-			env_add(args[1], secret);
+			env_add(args[1], muted);
 		}
 	}
 	return (0);

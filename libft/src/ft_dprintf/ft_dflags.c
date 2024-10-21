@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dflags.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:30:14 by rcheong           #+#    #+#             */
-/*   Updated: 2024/03/08 11:30:16 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:22:18 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dprintf.h"
 
-dt_flags	ft_dflags_init(void)
+t_dflags	ft_dflags_init(void)
 {
-	dt_flags	flags;
+	t_dflags	flags;
 
 	flags.spec = 0;
 	flags.left = 0;
@@ -28,14 +28,14 @@ dt_flags	ft_dflags_init(void)
 	return (flags);
 }
 
-dt_flags	ft_dflag_left(dt_flags flags)
+t_dflags	ft_dflag_left(t_dflags flags)
 {
 	flags.left = 1;
 	flags.zero = 0;
 	return (flags);
 }
 
-dt_flags	ft_dflag_digit(char c, dt_flags flags)
+t_dflags	ft_dflag_digit(char c, t_dflags flags)
 {
 	if (flags.star == 1)
 		flags.width = 0;
@@ -43,7 +43,7 @@ dt_flags	ft_dflag_digit(char c, dt_flags flags)
 	return (flags);
 }
 
-dt_flags	ft_dflag_width(va_list args, dt_flags flags)
+t_dflags	ft_dflag_width(va_list args, t_dflags flags)
 {
 	flags.star = 1;
 	flags.width = va_arg(args, int);
@@ -55,7 +55,7 @@ dt_flags	ft_dflag_width(va_list args, dt_flags flags)
 	return (flags);
 }
 
-int	ft_dflag_precision(const char *str, int i, va_list args, dt_flags *flags)
+int	ft_dflag_precision(const char *str, int i, va_list args, t_dflags *flags)
 {
 	int	j;
 

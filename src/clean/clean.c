@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dismod.c                                        :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/08 11:30:22 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 13:23:08 by rcheong          ###   ########.fr       */
+/*   Created: 2024/10/21 16:46:40 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/21 16:46:41 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_dprintf.h"
+#include "minishell.h"
 
-int	ft_disspec(int c)
+static void	ft_clear_env(t_env **env)
 {
-	if (c == 'c' || c == 's' || c == 'd' || c == 'i' || c == 'u' || c == 'x'
-		|| c == 'X' || c == 'p' || c == '%')
-		return (1);
-	return (0);
+	t_env	*env_tofree;
+
+	while (*env)
+	{
+		env_tofree = *env;
+		*env = (*env)->next;
+		free(env_tofree);
+	}
+	*env = NULL;
 }
 
-int	ft_disflag(int c)
+void	ft_clean_ms(t_mini *mini)
 {
-	if (c == '-' || c == '0' || c == '.' || c == '*' || c == '#' || c == ' '
-		|| c == '+')
-		return (1);
-	return (0);
-}
-
-int	ft_dismod(int c)
-{
-	return (ft_disspec(c) || ft_isdigit(c) || ft_disflag(c));
+	ft_garbage_collector(NULL, true);
+	ft_clear_ast(mini, &mini->ast);
+	ft_clear_env(&mini->env);
+	rl_clear_history();
+	tcsetattr(STDIN_FILENO, TCSANOW, &mini->ori_term);
 }

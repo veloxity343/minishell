@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:23:49 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/15 21:48:15 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/20 14:17:16 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,12 @@ t_node	*ft_term(t_mini *mini)
 
 	if (mini->parse_err.type)
 		return (NULL);
-	if (ft_curr_token_is_binop(mini) || mini->curr_token->type == T_C_PAREN)
+	if (ft_curr_token_is_binop(mini))
 		return (ft_set_parse_err(mini, E_SYNTAX), NULL);
-	else if (mini->curr_token->type == T_O_PAREN)
-	{
-		ft_get_next_token(mini);
-		node = ft_expression(mini, 0);
-		if (!node)
-			return (ft_set_parse_err(mini, E_MEM), NULL);
-		if (!mini->curr_token || mini->curr_token->type != T_C_PAREN)
-			return (ft_set_parse_err(mini, E_SYNTAX), node);
-		ft_get_next_token(mini);
-		return (node);
-	}
-	else
-		return (ft_get_simple_cmd(mini));
+	node = ft_get_simple_cmd(mini);
+	if (!node)
+		return (ft_set_parse_err(mini, E_MEM), NULL);
+	return (node);
 }
 
 t_node	*ft_expression(t_mini *mini, int min_prec)

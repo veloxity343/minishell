@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dprint_ptr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:31:33 by rcheong           #+#    #+#             */
-/*   Updated: 2024/03/08 15:47:15 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:22:32 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_dprint_pvalue(int fd, unsigned long int n)
 	return (count);
 }
 
-int	ft_dprint_ptr(int fd, unsigned long int n, dt_flags flags)
+int	ft_dprint_ptr(int fd, unsigned long int n, t_dflags flags)
 {
 	int	count;
 

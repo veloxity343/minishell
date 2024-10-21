@@ -6,11 +6,21 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:40 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:27:41 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 16:46:28 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	arg_count(char **args)
+{
+	int	size;
+
+	size = 0;
+	while (args[size])
+		size++;
+	return (size);
+}
 
 /*
 @brief Implements the 'echo' command, printing arguments to the standard output.

@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:08 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:28:10 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 16:42:44 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static size_t	env_size(char *env)
 
 /*
 @brief Frees the memory allocated for a given environment variable node.
-@details This function checks if the node to be freed is the only node in the list
-and handles the cleanup accordingly. If it is not the only node,
-	it frees the value
+@details This function checks if the node to be freed is the 
+	only node in the list and handles the cleanup accordingly.
+	If it is not the only node, it frees the value
 and the node itself.
 @param mini A pointer to the minishell structure containing the environment.
 @param env A pointer to the environment variable node to be freed.
@@ -45,8 +45,8 @@ static void	free_node(t_mini *mini, t_env *env)
 	if (mini->env == env && env->next == NULL)
 	{
 		ft_memdel(mini->env->value);
-		mini->env->value = NULL;
-		mini->env->next = NULL;
+		env->value = NULL;
+		env->next = NULL;
 		return ;
 	}
 	ft_memdel(env->value);
@@ -58,34 +58,34 @@ static void	free_node(t_mini *mini, t_env *env)
 @details This function searches for the environment variable specified in the
 arguments and removes it from the linked list of environment variables.
 If the variable is found at the head of the list, it updates the head pointer.
-@param a The array of command-line arguments where a[1] is the variable to unset.
+@param args The array of command-line arguments where args[1]
+	is the variable to unset.
 @param mini A pointer to the minishell structure containing the environment.
 @return Returns 0 upon successful completion, or a negative value on failure.
 */
-int	ft_unset(char **a, t_mini *mini)
+int	ft_unset(char **args, t_mini *mini)
 {
-	t_env	*env;
-	t_env	*tmp;
+	t_env	*current;
 
-	env = mini->env;
-	if (!(a[1]))
+	current = mini->env;
+	if (!args[1])
 		return (0);
-	if (ft_strncmp(a[1], env->value, env_size(env->value)) == 0)
+	if (ft_strncmp(args[1], current->value, env_size(current->value)) == 0)
 	{
-		mini->env = (env->next) ? env->next : mini->env;
-		free_node(mini, env);
+		mini->env = current->next;
+		free_node(mini, current);
 		return (0);
 	}
-	while (env && env->next)
+	while (current && current->next)
 	{
-		if (ft_strncmp(a[1], env->next->value, env_size(env->next->value)) == 0)
+		if (ft_strncmp(args[1], current->next->value,
+				env_size(current->next->value)) == 0)
 		{
-			tmp = env->next->next;
-			free_node(mini, env->next);
-			env->next = tmp;
+			free_node(mini, current->next);
+			current->next = current->next->next;
 			return (0);
 		}
-		env = env->next;
+		current = current->next;
 	}
 	return (0);
 }

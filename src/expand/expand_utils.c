@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 13:26:50 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/21 13:26:53 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 bool	ft_is_valid_var_char(char c)
@@ -8,11 +20,12 @@ bool	ft_is_valid_var_char(char c)
 char	*ft_handle_normal_str(char *str, size_t *i)
 {
 	size_t	start;
+	char	*substr;
 
 	start = *i;
 	while (str[*i] && str[*i] != '\'' && str[*i] != '"' && str[*i] != '$')
 		(*i)++;
-	char *substr = ft_substr(str, start, *i - start);
+	substr = ft_substr(str, start, *i - start);
 	if (!substr)
 		g_sig.exit_status = 1;
 	return (substr);
@@ -45,7 +58,7 @@ char	*ft_handle_dquotes(char *str, size_t *i)
 	char	*ret;
 
 	ret = ft_strdup("\"");
-    if (!ret)
+	if (!ret)
 		return (g_sig.exit_status = 1, NULL);
 	(*i)++;
 	while (str[*i] != '"')
@@ -55,7 +68,7 @@ char	*ft_handle_dquotes(char *str, size_t *i)
 		else
 			ret = ft_join_and_free(ret, ft_handle_dquote_str(str, i));
 	}
-    if (!ret)
+	if (!ret)
 		return (g_sig.exit_status = 1, NULL);
 	(*i)++;
 	return (ft_join_and_free(ret, ft_strdup("\"")));

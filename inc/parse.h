@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 16:12:09 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/21 16:12:10 by rcheong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSE_H
 # define PARSE_H
+
+# include <stdbool.h>
 
 typedef enum e_node_type
 {
 	N_PIPE,
-	N_CMD
+	N_CMD,
 }						t_node_type;
 
 typedef enum e_io_type
@@ -46,11 +60,6 @@ typedef struct s_parse_err
 	t_parse_err_type	type;
 	char				*str;
 }						t_parse_err;
-
-void					ft_clear_io_list(t_io_node **lst);
-void					ft_clear_cmd_node(t_node *node);
-void					ft_recursive_clear_ast(t_mini *mini, t_node *node);
-void					ft_clear_ast(t_mini *mini, t_node **ast);
 
 void					ft_set_parse_err(t_mini *mini, t_parse_err_type type);
 void					ft_handle_parse_err(t_mini *mini);

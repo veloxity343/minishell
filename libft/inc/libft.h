@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:53:48 by ryan99            #+#    #+#             */
-/*   Updated: 2024/10/14 21:16:35 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 16:58:38 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *str, char c);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
+char				*ft_strjoin_char(char *s1, char *s2, char c);
 
 /* ---------- PUT_FD ---------- */
 

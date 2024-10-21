@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 12:53:41 by rcheong           #+#    #+#             */
-/*   Updated: 2024/03/04 14:49:10 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:25:36 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ char	*ft_strndup(const char *s, size_t n)
 	if (!result)
 		return (0);
 	result[len] = '\0';
-	return (char *)ft_memcpy(result, s, len);
+	return ((char *)ft_memcpy(result, s, len));
 }

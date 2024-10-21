@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd.c                                               :+:      :+:    :+:   */
+/*   clean_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 18:28:42 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:28:43 by rcheong          ###   ########.fr       */
+/*   Created: 2024/10/21 16:46:44 by rcheong           #+#    #+#             */
+/*   Updated: 2024/10/21 16:46:45 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_close(int fd)
+static void	ft_del(void *ptr)
 {
-	if (fd > 0)
-		close(fd);
+	free(ptr);
 }
 
-void	reset_std(t_mini *mini)
+void	*ft_garbage_collector(void *ptr, bool clean)
 {
-	dup2(mini->in, STDIN);
-	dup2(mini->out, STDOUT);
-}
+	static t_list	*garbage_list;
 
-void	close_fds(t_mini *mini)
-{
-	ft_close(mini->fdin);
-	ft_close(mini->fdout);
-	ft_close(mini->pipin);
-	ft_close(mini->pipout);
-}
-
-void	reset_fds(t_mini *mini)
-{
-	mini->fdin = -1;
-	mini->fdout = -1;
-	mini->pipin = -1;
-	mini->pipout = -1;
-	mini->pid = -1;
+	if (clean)
+	{
+		ft_lstclear(&garbage_list, ft_del);
+		return (NULL);
+	}
+	else
+	{
+		if (ptr)
+			ft_lstadd_back(&garbage_list, ft_lstnew(ptr));
+		return (ptr);
+	}
 }

@@ -6,42 +6,123 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:09:47 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 16:27:06 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-@brief Handles the exit command for the minishell.
-@param mini A pointer to the minishell structure.
-@param cmd An array of strings representing the exit command and its arguments.
-@details This function sets the exit flag, prints a colored exit message depending
-on whether arguments are passed, and handles error cases such as too many arguments or non-numeric arguments.
+@brief Skips whitespace in a string and checks for a sign.
+@param s The string to process.
+@param i Pointer to the current index in the string.
+@param sign Pointer to the sign variable.
 @return None.
 */
-void	mini_exit(t_mini *mini, char **cmd)
+static void	ft_getsign(const char *s, int *i, int *sign)
 {
-	mini->exit = 1;
-	ft_putstr_fd("exit ", STDERR);
-	if (cmd[1])
-		ft_putendl_fd("Exiting with status", STDERR);
-	else
-		ft_putendl_fd("Exiting with no status", STDERR);
-	if (cmd[1] && cmd[2])
+	while (s[*i] && s[*i] == ' ')
+		(*i)++;
+	if (s[*i] == '+' || s[*i] == '-')
 	{
-		mini->ret = 1;
-		ft_putendl_fd("trash: exit: too many arguments", STDERR);
+		if (s[*i] == '-')
+			*sign *= -1;
+		(*i)++;
 	}
-	else if (cmd[1] && ft_strisnum(cmd[1]) == 0)
+}
+
+/*
+@brief Parses the number from the string and handles overflow.
+@param s The string to parse.
+@param i Pointer to the current index in the string.
+@param sign The sign of the number (1 or -1).
+@param mini Pointer to the mini structure for cleanup on error.
+@return The parsed number.
+*/
+static unsigned long long	ft_parse_number(const char *s, int *i, int sign,
+		t_mini *mini)
+{
+	unsigned long long	result;
+
+	result = 0;
+	while (s[*i])
 	{
-		mini->ret = 255;
-		ft_putstr_fd("trash: exit: ", STDERR);
-		ft_putstr_fd(cmd[1], STDERR);
-		ft_putendl_fd(": numeric argument required", STDERR);
+		result = (result * 10) + (s[*i] - '0');
+		if (result > LONG_MAX)
+		{
+			ft_err_msg((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, s});
+			(ft_clean_ms(mini), exit(255));
+		}
+		(*i)++;
 	}
-	else if (cmd[1])
-		mini->ret = ft_atoi(cmd[1]);
-	else
-		mini->ret = 0;
+	return (result * sign);
+}
+
+/*
+@brief Converts a string to an integer, with error handling for invalid input.
+@param s The string to convert.
+@param exit_s Pointer to the exit status variable to be updated on error.
+@param mini Pointer to the mini structure for cleanup on error.
+@return The integer value of the string, modulo 256.
+*/
+static int	ft_exittoi(const char *s, int *exit_s, t_mini *mini)
+{
+	int					i;
+	int					sign;
+	unsigned long long	result;
+
+	i = 0;
+	sign = 1;
+	ft_getsign(s, &i, &sign);
+	if (!ft_isnbr(s + i))
+	{
+		*exit_s = ft_err_msg((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, s});
+		(ft_clean_ms(mini), exit(*exit_s));
+	}
+	result = ft_parse_number(s, &i, sign, mini);
+	return (result % 256);
+}
+
+/*
+@brief Checks if a string represents a valid number.
+@param s The string to check.
+@return true if the string represents a number, false otherwise.
+*/
+static bool	ft_isnbr(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_isdigit(s[i]))
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+/*
+@brief Handles the exit command for the shell.
+@param args The array of arguments passed to the exit command.
+@param exit_s Pointer to the exit status variable to be updated.
+@return None.
+*/
+void	ft_exit(char **args, t_mini *mini)
+{
+	int	exit_s;
+
+	exit_s = mini->exit_s;
+	if (args[1])
+	{
+		if (args[2] && ft_isnbr(args[1]))
+		{
+			exit_s = ft_err_msg((t_err){ENO_GENERAL, ERRMSG_TOO_MANY_ARGS,
+					NULL});
+			(ft_clean_ms(mini), exit(exit_s));
+		}
+		else
+			exit_s = ft_exittoi(args[1], &mini->exit_s, mini);
+	}
+	(ft_clean_ms(mini), exit(exit_s));
 }

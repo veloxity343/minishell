@@ -6,45 +6,41 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:40 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:27:16 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/20 18:43:21 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_isbuiltin(char *command)
+bool	ft_isbuiltin(char *arg)
 {
-	if (ft_strcmp(command, "echo") == 0)
-		return (1);
-	if (ft_strcmp(command, "cd") == 0)
-		return (1);
-	if (ft_strcmp(command, "pwd") == 0)
-		return (1);
-	if (ft_strcmp(command, "env") == 0)
-		return (1);
-	if (ft_strcmp(command, "export") == 0)
-		return (1);
-	if (ft_strcmp(command, "unset") == 0)
-		return (1);
-	return (0);
+	if (!arg)
+		return (false);
+	if (!ft_strcmp(arg, "echo")
+		|| !ft_strcmp(arg, "cd")
+		|| !ft_strcmp(arg, "exit")
+		|| !ft_strcmp(arg, "pwd")
+		|| !ft_strcmp(arg, "export")
+		|| !ft_strcmp(arg, "unset")
+		|| !ft_strcmp(arg, "env"))
+		return (true);
+	return (false);
 }
 
-int	run_builtin(char **args, t_mini *mini)
+int	ft_run_builtin(char **args, t_mini *mini)
 {
-	int	result;
-
-	result = 0;
 	if (ft_strcmp(args[0], "echo") == 0)
-		result = ft_echo(args);
+		return (ft_echo(args));
 	if (ft_strcmp(args[0], "cd") == 0)
-		result = ft_cd(args, mini->env);
-	if (ft_strcmp(args[0], "pwd") == 0)
-		result = ft_pwd();
+		return (ft_cd(args, mini->env));
 	if (ft_strcmp(args[0], "env") == 0)
-		ft_env(mini->env);
+		return (ft_env(mini->env));
+	if (ft_strcmp(args[0], "pwd") == 0)
+		return (ft_pwd());
 	if (ft_strcmp(args[0], "export") == 0)
-		ft_export(args, mini->env, mini->muted_env);
+		return (ft_export(args, mini->env, mini->env_muted));
 	if (ft_strcmp(args[0], "unset") == 0)
-		ft_unset(args, mini);
-	return (result);
+		return (ft_unset(args, mini->env));
+	ft_exit(args, mini->exit_s);
+	return (1);
 }

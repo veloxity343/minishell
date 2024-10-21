@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dprint_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:31:28 by rcheong           #+#    #+#             */
-/*   Updated: 2024/03/25 11:29:53 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:22:27 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_dpad_width(int fd, int width, int size, int zero)
 	return (count);
 }
 
-int	ft_dprint_char(int fd, int c, dt_flags flags)
+int	ft_dprint_char(int fd, int c, t_dflags flags)
 {
 	int	count;
 

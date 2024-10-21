@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:04 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/12 18:28:06 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/18 16:03:32 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ int	ft_pwd(void)
 {
 	char	cwd[PATH_MAX];
 
-	if (getcwd(cwd, PATH_MAX))
-	{
-		ft_putendl_fd(cwd, 1);
-		return (0);
-	}
-	else
+	if (!getcwd(cwd, PATH_MAX))
 		return (1);
+	ft_putendl_fd(cwd, STDOUT);
+	return (0);
 }

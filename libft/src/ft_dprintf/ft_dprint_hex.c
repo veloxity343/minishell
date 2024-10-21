@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dprint_hex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 13:41:18 by rcheong           #+#    #+#             */
-/*   Updated: 2024/08/31 16:10:27 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 13:22:29 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_dprint_xformat(t_xprint_args args)
 	return (count);
 }
 
-int	ft_dprint_hex(int fd, unsigned int n, int is_upper, dt_flags flags)
+int	ft_dprint_hex(int fd, unsigned int n, int is_upper, t_dflags flags)
 {
 	char			*strint;
 	int				count;

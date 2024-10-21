@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:24:21 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/15 21:59:17 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 17:01:36 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	ft_is_quote(char c)
 
 int	ft_is_separator(char *s)
 {
-	if (*s == ' ' || *s == '\t'
-		|| *s == '<' || *s == '>' || *s == '|' || *s == '(' || *s == ')')
+	if (*s == ' ' || *s == '\t' || *s == '<' || *s == '>' || *s == '|'
+		|| *s == '(' || *s == ')')
 		return (1);
 	return (0);
 }
@@ -30,7 +30,7 @@ int	ft_is_separator(char *s)
 void	ft_skip_spaces(char **line)
 {
 	while (**line && ft_isspace(**line))
-				(*line)++;
+		(*line)++;
 }
 
 bool	ft_skip_quotes(char *line, size_t *i)

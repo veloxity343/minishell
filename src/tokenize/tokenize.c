@@ -6,13 +6,14 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:24:18 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/15 22:00:10 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 17:01:21 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_append_separator(t_token_type type, char **line_ptr, t_token **token_list)
+int	ft_append_separator(t_token_type type, char **line_ptr,
+		t_token **token_list)
 {
 	t_token	*token;
 
@@ -65,10 +66,6 @@ int	ft_handle_separator(char **line_ptr, t_token **token_list)
 		return (ft_append_separator(T_IN_REDIR, line_ptr, token_list) && 1);
 	else if (!ft_strncmp(*line_ptr, ">", 1))
 		return (ft_append_separator(T_OUT_REDIR, line_ptr, token_list) && 1);
-	else if (!ft_strncmp(*line_ptr, "(", 1))
-		return (ft_append_separator(T_O_PAREN, line_ptr, token_list) && 1);
-	else if (!ft_strncmp(*line_ptr, ")", 1))
-		return (ft_append_separator(T_C_PAREN, line_ptr, token_list) && 1);
 	else
 		return (ft_append_separator(T_PIPE, line_ptr, token_list) && 1);
 }
