@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:00:00 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 17:10:31 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 17:43:55 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_heredoc(t_io_node *io, int p[2], t_mini *mini)
 		if (!line || ft_is_delimiter(io->value, line))
 			break ;
 		if (!*quotes)
-			ft_heredoc_expander(line, p[1]);
+			ft_heredoc_expander(mini, line, p[1]);
 		else
 		{
 			ft_putstr_fd(line, p[1]);
@@ -89,7 +89,7 @@ static void	ft_init_leaf(t_node *node, t_mini *mini)
 	int			pid;
 
 	if (node->args)
-		node->expanded_args = ft_expand(node->args);
+		node->expanded_args = ft_expand(mini, node->args);
 	io = node->io_list;
 	while (io)
 	{
@@ -105,7 +105,7 @@ static void	ft_init_leaf(t_node *node, t_mini *mini)
 			io->here_doc = p[0];
 		}
 		else
-			io->expanded_value = ft_expand(io->value);
+			io->expanded_value = ft_expand(mini, io->value);
 		io = io->next;
 	}
 }

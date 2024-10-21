@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:24:00 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/15 21:24:01 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 18:02:13 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	ft_join_args(t_mini *mini, char **args)
 	while (mini->curr_token && mini->curr_token->type == T_IDENTIFIER)
 	{
 		to_free = *args;
-		*args = ft_strjoin_with(*args, mini->curr_token->value, ' ');
+		*args = ft_strjoin_char(*args, mini->curr_token->value, ' ');
 		if (!*args)
 			return (free(to_free), false);
 		free(to_free);

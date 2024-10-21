@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 17:15:25 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 17:43:29 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_start_exec(t_mini *mini)
 {
 	signal(SIGQUIT, sig_quit);
-	ft_init_tree(mini->ast);
+	ft_init_tree(mini->ast, mini);
 	if (mini->heredoc_sigint)
 	{
 		ft_clear_ast(mini, &mini->ast);
@@ -55,7 +55,7 @@ static void	ft_process_input(t_mini *mini)
 	mini->tokens = ft_tokenize(mini);
 	if (!mini->tokens)
 		return ;
-	mini->ast = ft_parse(mini);
+	mini->ast = ft_parser(mini);
 	if (mini->parse_err.type)
 	{
 		ft_handle_parse_err(mini);

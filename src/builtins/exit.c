@@ -6,11 +6,30 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 16:27:06 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 18:07:16 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+@brief Checks if a string represents a valid number.
+@param s The string to check.
+@return true if the string represents a number, false otherwise.
+*/
+static bool	ft_isnbr(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (!ft_isdigit(s[i]))
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 /*
 @brief Skips whitespace in a string and checks for a sign.
@@ -81,25 +100,6 @@ static int	ft_exittoi(const char *s, int *exit_s, t_mini *mini)
 	}
 	result = ft_parse_number(s, &i, sign, mini);
 	return (result % 256);
-}
-
-/*
-@brief Checks if a string represents a valid number.
-@param s The string to check.
-@return true if the string represents a number, false otherwise.
-*/
-static bool	ft_isnbr(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (!ft_isdigit(s[i]))
-			return (false);
-		i++;
-	}
-	return (true);
 }
 
 /*

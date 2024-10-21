@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:40 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/20 18:43:21 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/21 18:41:00 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ int	ft_run_builtin(char **args, t_mini *mini)
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (ft_echo(args));
 	if (ft_strcmp(args[0], "cd") == 0)
-		return (ft_cd(args, mini->env));
+		return (ft_cd(mini, args[1]));
 	if (ft_strcmp(args[0], "env") == 0)
-		return (ft_env(mini->env));
+		return (ft_env(mini));
 	if (ft_strcmp(args[0], "pwd") == 0)
 		return (ft_pwd());
 	if (ft_strcmp(args[0], "export") == 0)
-		return (ft_export(args, mini->env, mini->env_muted));
+		return (ft_export(mini, args));
 	if (ft_strcmp(args[0], "unset") == 0)
-		return (ft_unset(args, mini->env));
-	ft_exit(args, mini->exit_s);
+		return (ft_unset(args, mini));
+	ft_exit(args, mini);
 	return (1);
 }
