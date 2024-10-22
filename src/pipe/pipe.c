@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:34:46 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/15 09:01:43 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/22 11:41:47 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	main(int ac, char **av, char **env)
 	int fileout;
 	int i;
 
-	if (ac < 5)
+	if (ac < 5)//f1
 		usage();
-	if (ft_strncmp(av[1], "here_doc", 9) == 0)
+	if (ft_strncmp(av[1], "here_doc", 9) == 0) //f2
 	{
 		i = 3;
 		fileout = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0777);
