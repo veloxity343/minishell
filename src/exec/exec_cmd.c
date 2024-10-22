@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 16:59:20 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/22 11:14:49 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 		tmp_status = ft_check_redirection(node);
 		if (tmp_status != ENO_SUCCESS)
 			(ft_clean_ms(mini), exit(ENO_GENERAL));
-		path_status = ft_get_path((node->expanded_args)[0], mini->env);
+		path_status = ft_get_path((node->expanded_args)[0], mini);
 		if (path_status.err.no != ENO_SUCCESS)
 		{
 			tmp_status = ft_err_msg(path_status.err);
@@ -108,7 +108,7 @@ int	ft_exec_simple_cmd(t_mini *mini, bool piped)
 		else
 			return (ENO_SUCCESS);
 	}
-	else if (ft_is_builtin((mini->ast->expanded_args)[0]))
+	else if (ft_isbuiltin((mini->ast->expanded_args)[0]))
 	{
 		tmp_status = ft_check_redirection(mini->ast);
 		if (tmp_status != ENO_SUCCESS)

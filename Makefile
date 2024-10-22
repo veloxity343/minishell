@@ -11,13 +11,13 @@ OBJB_DIR	=	objb
 
 # Compiler & flags
 WFLAGS		=	-Wall -Wextra -Werror
-IFLAGS		=	-I$(INC)
+IFLAGS		=	-I$(INC) -I/opt/homebrew/Cellar/readline/8.2.13/include
 DSYM		=	-g3
 FSAN		=	-fsanitize=address $(DSYM)
-CFLAGS		=	$(WFLAGS) $(IFLAGS)
+CFLAGS		=	$(WFLAGS) $(IFLAGS) -D_DARWIN_C_SOURCE
 CC			=	gcc
 RM			=	rm -rf
-READLINE	=	-lreadline -lncurses
+READLINE	=	-L/opt/homebrew/Cellar/readline/8.2.13/lib -lreadline -lncurses -lhistory
 
 # Sources
 SRC			=	$(shell find $(SRC_DIR) -type f -name "*.c")
@@ -45,7 +45,7 @@ $(LIBFT):
 $(NAME):	$(OBJ)
 	@echo "$(BLUE)Building$(RESET)\t$(NAME)"
 	@make -C $(dir $(LIBFT))
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(READLINE)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@mkdir -p $(dir $@)
@@ -58,7 +58,7 @@ $(OBJ_DIR):
 bonus:		clean $(OBJ) $(OBJB)
 	@echo "$(BLUE)Linking bonus objects...$(RESET)"
 	@make -C $(dir $(LIBFT))
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(OBJB) $(LIBFT)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(OBJB) $(LIBFT) $(READLINE)
 	@echo "$(GREEN)Successfully compiled bonus!$(RESET)"
 
 $(OBJB_DIR)/%.o: $(SRCB_DIR)/%.c | $(OBJB_DIR)

@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:48:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 17:02:59 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/22 11:11:36 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_path	ft_get_env_path(char *path, char *cmd)
 @param env The environment variable list.
 @return A t_path structure containing the error and the command path.
 */
-t_path	ft_get_path(char *cmd, t_env *env)
+t_path	ft_get_path(char *cmd, t_mini *mini)
 {
 	char	*value;
 
@@ -56,7 +56,7 @@ t_path	ft_get_path(char *cmd, t_env *env)
 			NULL});
 	if (ft_strnstr(cmd, "/", ft_strlen(cmd)))
 		return ((t_path){ft_check_exec(cmd, false), cmd});
-	value = ft_get_env_val(env, "PATH");
+	value = ft_get_env_val(mini, "PATH");
 	if (value)
 		return (ft_get_env_path(value, cmd));
 	return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_NO_SUCH_FILE, cmd}, NULL});

@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 18:07:16 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/22 11:17:33 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 @param s The string to check.
 @return true if the string represents a number, false otherwise.
 */
-static bool	ft_isnbr(const char *s)
+static bool	ft_isnbr(char *s)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ static bool	ft_isnbr(const char *s)
 @param sign Pointer to the sign variable.
 @return None.
 */
-static void	ft_getsign(const char *s, int *i, int *sign)
+static void	ft_getsign(char *s, int *i, int *sign)
 {
 	while (s[*i] && s[*i] == ' ')
 		(*i)++;
@@ -58,7 +58,7 @@ static void	ft_getsign(const char *s, int *i, int *sign)
 @param mini Pointer to the mini structure for cleanup on error.
 @return The parsed number.
 */
-static unsigned long long	ft_parse_number(const char *s, int *i, int sign,
+static unsigned long long	ft_parse_number(char *s, int *i, int sign,
 		t_mini *mini)
 {
 	unsigned long long	result;
@@ -84,7 +84,7 @@ static unsigned long long	ft_parse_number(const char *s, int *i, int sign,
 @param mini Pointer to the mini structure for cleanup on error.
 @return The integer value of the string, modulo 256.
 */
-static int	ft_exittoi(const char *s, int *exit_s, t_mini *mini)
+static int	ft_exittoi(char *s, int *exit_s, t_mini *mini)
 {
 	int					i;
 	int					sign;

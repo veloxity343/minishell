@@ -6,11 +6,13 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 17:43:29 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/22 11:20:03 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_sig		g_sig;
 
 static void	ft_start_exec(t_mini *mini)
 {
@@ -22,7 +24,7 @@ static void	ft_start_exec(t_mini *mini)
 		mini->heredoc_sigint = false;
 	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &mini->ori_term);
-	mini->exit_s = ft_exec_node(mini->ast, false);
+	mini->exit_s = ft_exec_node(mini, false);
 	ft_clear_ast(mini, &mini->ast);
 }
 
@@ -81,7 +83,7 @@ int	main(int argc, char **argv, char **env)
 	ft_init_mini(&mini, env);
 	while (1)
 	{
-		ft_sig_init();
+		sig_init();
 		ft_process_input(&mini);
 	}
 	ft_garbage_collector(NULL, true);

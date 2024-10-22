@@ -6,30 +6,30 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 18:39:15 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/22 11:15:46 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/inc/ft_dprintf.h"
-# include "../libft/inc/ft_printf.h"
-# include "../libft/inc/libft.h"
+# include <stdio.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <stdbool.h>
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <signal.h>
-# include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <sys/stat.h>
-# include <sys/types.h>
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include "../libft/inc/ft_dprintf.h"
+# include "../libft/inc/ft_printf.h"
+# include "../libft/inc/libft.h"
 
 # define PROMPT "trash ▸ "
 
@@ -125,7 +125,7 @@ typedef struct s_err
 {
 	t_err_no			no;
 	t_err_msg			msg;
-	const char			*cause;
+	char			*cause;
 }						t_err;
 
 typedef struct s_path
@@ -205,7 +205,7 @@ int						ft_pwd(void);
 
 int						ft_unset(char **args, t_mini *mini);
 
-/* CLEANING */
+/* CLEAN */
 
 void					ft_free_char2(char **tofree);
 void					ft_free_char3(char ***tofree);
@@ -237,12 +237,12 @@ int						ft_check_redirection(t_node *node);
 void					ft_reset_stds(bool piped);
 int						ft_exec_simple_cmd(t_mini *mini, bool piped);
 
-t_path					ft_get_path(char *cmd, t_env *env);
+t_path					ft_get_path(char *cmd, t_mini *mini);
 
 void					ft_init_tree(t_node *node, t_mini *mini);
-void					ft_heredoc(t_io_node *io, int p[2]);
+void					ft_heredoc(t_io_node *io, int p[2], t_mini *mini);
 
-/* EXPANDER */
+/* EXPAND */
 
 char					*ft_clean_empty_strs(char *str);
 
@@ -265,6 +265,7 @@ void					sig_quit(int code);
 void					sig_int(int code);
 void					sig_init(void);
 
+/* PARSE */
 void					ft_set_parse_err(t_mini *mini, t_parse_err_type type);
 void					ft_handle_parse_err(t_mini *mini);
 
@@ -285,6 +286,8 @@ t_node					*ft_parser(t_mini *mini);
 t_node					*ft_expression(t_mini *mini);
 t_node					*ft_term(t_mini *mini);
 t_node					*ft_combine(t_mini *mini, t_node *left, t_node *right);
+
+/* TOKENIZE */
 
 t_token					*ft_new_token(char *value, t_token_type type);
 void					ft_token_list_add_back(t_token **lst,
