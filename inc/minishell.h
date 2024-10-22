@@ -6,30 +6,30 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/22 11:15:46 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/22 11:38:12 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdbool.h>
+# include "../libft/inc/ft_dprintf.h"
+# include "../libft/inc/ft_printf.h"
+# include "../libft/inc/libft.h"
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <signal.h>
+# include <stdbool.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include "../libft/inc/ft_dprintf.h"
-# include "../libft/inc/ft_printf.h"
-# include "../libft/inc/libft.h"
 
 # define PROMPT "trash ▸ "
 
@@ -125,7 +125,7 @@ typedef struct s_err
 {
 	t_err_no			no;
 	t_err_msg			msg;
-	char			*cause;
+	char				*cause;
 }						t_err;
 
 typedef struct s_path

@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:47:01 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/22 11:02:23 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/22 11:38:37 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	ft_get_exit_status(int status)
 }
 
 /*
-@brief Forks a child process to execute a command in the right part of the pipeline.
+@brief Forks a child process to execute a command 
+	in the right part of the pipeline.
 @param mini The shell context (contains environment, AST, etc.).
 @param pfds The pipe file descriptors.
 @return The child's PID or an error code.

@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:53:48 by ryan99            #+#    #+#             */
-/*   Updated: 2024/10/21 16:58:38 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/22 11:28:38 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void				*ft_memset(void *b, int c, size_t len);
 
 /* ---------- STR ---------- */
 
-char				*ft_join_and_free(char *s1, char *s2);
 void				ft_skipspace(const char *str, int *i);
 char				*ft_strchr(const char *s, int c);
 int					ft_strcmp(const char *s1, const char *s2);
@@ -66,11 +65,13 @@ char				*ft_strnstr(const char *haystack, const char *needle,
 char				*ft_strrchr(const char *s, int c);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoinf(char *s1, char *s2);
+char				*ft_strjoin_char(char const *s1, char const *s2, char c);
+char				*ft_strjoin_charf(char *s1, char *s2, char c);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *str, char c);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
-char				*ft_strjoin_char(char *s1, char *s2, char c);
 
 /* ---------- PUT_FD ---------- */
 

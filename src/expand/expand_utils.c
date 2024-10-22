@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:26:50 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 17:40:58 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/22 11:31:15 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ char	*ft_handle_dquotes(t_mini *mini, char *str, size_t *i)
 	while (str[*i] != '"')
 	{
 		if (str[*i] == '$')
-			ret = ft_join_and_free(ret, ft_handle_dollar(mini, str, i));
+			ret = ft_strjoinf(ret, ft_handle_dollar(mini, str, i));
 		else
-			ret = ft_join_and_free(ret, ft_handle_dquote_str(str, i));
+			ret = ft_strjoinf(ret, ft_handle_dquote_str(str, i));
 	}
 	if (!ret)
 		return (g_sig.exit_status = 1, NULL);
 	(*i)++;
-	return (ft_join_and_free(ret, ft_strdup("\"")));
+	return (ft_strjoinf(ret, ft_strdup("\"")));
 }

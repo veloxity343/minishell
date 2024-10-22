@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:26 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 18:44:11 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/22 11:31:00 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ static char	*ft_cmd_pre_expander(t_mini *mini, char *str)
 	while (str[i])
 	{
 		if (str[i] == '\'')
-			ret = ft_join_and_free(ret, ft_handle_squotes(str, &i));
+			ret = ft_strjoinf(ret, ft_handle_squotes(str, &i));
 		else if (str[i] == '"')
-			ret = ft_join_and_free(ret, ft_handle_dquotes(mini, str, &i));
+			ret = ft_strjoinf(ret, ft_handle_dquotes(mini, str, &i));
 		else if (str[i] == '$')
-			ret = ft_join_and_free(ret, ft_handle_dollar(mini, str, &i));
+			ret = ft_strjoinf(ret, ft_handle_dollar(mini, str, &i));
 		else
-			ret = ft_join_and_free(ret, ft_handle_normal_str(str, &i));
+			ret = ft_strjoinf(ret, ft_handle_normal_str(str, &i));
 		if (!ret)
 			return (mini->exit_s = 1, NULL);
 	}
