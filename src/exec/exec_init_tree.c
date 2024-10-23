@@ -31,7 +31,7 @@ void	ft_heredoc(t_io_node *io, int p[2], t_mini *mini)
 	char	*line;
 	char	*quotes;
 
-	signal(SIGINT, (void (*)(int))ft_heredoc_sigint_handler);
+	signal(SIGINT, (void *)ft_heredoc_sigint_handler);
 	quotes = io->value;
 	while (*quotes && *quotes != '"' && *quotes != '\'')
 		quotes++;
