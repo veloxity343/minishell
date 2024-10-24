@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 20:47:50 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 21:13:02 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,12 @@ int	ft_check_redirection(t_node *node)
 @brief Resets stdin and stdout to their original file descriptors if not piped.
 @param piped Boolean flag indicating if the command is piped.
 */
-void	ft_reset_stds(bool piped)
+void	ft_reset_stds(t_mini *mini, bool piped)
 {
-	if (!piped)
-	{
-		dup2(g_sig.pid, 0);
-		dup2(g_sig.exit_s, 1);
-	}
+	if (piped)
+		return ;
+	dup2(mini->stdin, 0);
+	dup2(mini->stdout, 1);
 }
 
 /*
@@ -67,7 +66,7 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 	int		tmp_status;
 	int		fork_pid;
 
-	g_sig.sigint = 1;
+	g_sig.sigint = true;
 	fork_pid = fork();
 	if (!fork_pid)
 	{
@@ -84,7 +83,7 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 			(ft_clean_ms(mini), exit(1));
 	}
 	waitpid(fork_pid, &tmp_status, 0);
-	g_sig.sigint = 0;
+	g_sig.sigint = false;
 	return (ft_get_exit_status(tmp_status));
 }
 
@@ -112,9 +111,9 @@ int	ft_exec_simple_cmd(t_mini *mini, bool piped)
 	{
 		tmp_status = ft_check_redirection(mini->ast);
 		if (tmp_status != ENO_SUCCESS)
-			return (ft_reset_stds(piped), ENO_GENERAL);
+			return (ft_reset_stds(mini, piped), ENO_GENERAL);
 		tmp_status = ft_run_builtin(mini->ast->expanded_args, mini);
-		return (ft_reset_stds(piped), tmp_status);
+		return (ft_reset_stds(mini, piped), tmp_status);
 	}
 	else
 		return (ft_exec_child(mini->ast, mini));

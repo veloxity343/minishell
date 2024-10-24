@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:33:58 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/24 20:42:14 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 21:18:33 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	sig_init(void)
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	g_sig.heredoc_sigint = false;
 	g_sig.sigint = false;
-	g_sig.sigint_child = false;
 	signal(SIGINT, sig_int);
-	signal(SIGQUIT, sig_quit);
+	signal(SIGQUIT, SIG_IGN);
 }

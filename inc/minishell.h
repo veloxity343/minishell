@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 20:59:28 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 21:09:02 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,11 +164,8 @@ typedef struct s_mini
 
 typedef struct s_sig
 {
-	int					sigint;
-	int					sigquit;
+	bool				sigint;
 	int					exit_s;
-	pid_t				pid;
-	bool				sigint_child;
 	bool				heredoc_sigint;
 }						t_sig;
 

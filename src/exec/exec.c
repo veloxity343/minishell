@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:47:01 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/22 11:38:37 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 21:14:27 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	ft_exec_pipeline(t_mini *mini)
 	int	pid_l;
 	int	pid_r;
 
-	g_sig.sigint = 1;
+	g_sig.sigint = true;
 	pipe(pfds);
 	pid_l = fork();
 	if (!pid_l)
@@ -96,7 +96,7 @@ static int	ft_exec_pipeline(t_mini *mini)
 			close(pfds[1]);
 			waitpid(pid_l, &status, 0);
 			waitpid(pid_r, &status, 0);
-			g_sig.sigint = 0;
+			g_sig.sigint = false;
 			return (ft_get_exit_status(status));
 		}
 	}
