@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 20:54:45 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 21:01:15 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ static int	ft_exittoi(char *s, t_mini *mini)
 	ft_getsign(s, &i, &sign);
 	if (!ft_isnbr(s + i))
 	{
-		g_sig.exit_s = ft_err_msg((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI, s});
+		g_sig.exit_s = ft_err_msg((t_err){ENO_EXEC_255, ERRMSG_NUMERIC_REQUI,
+				s});
 		(ft_clean_ms(mini), exit(g_sig.exit_s));
 	}
 	result = ft_parse_number(s, &i, sign, mini);
