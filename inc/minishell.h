@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 21:09:02 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 21:20:33 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ t_err					ft_check_read(char *file);
 t_err					ft_check_write(char *file);
 
 int						ft_check_redirection(t_node *node);
-void					ft_reset_stds(bool piped);
+void					ft_reset_stds(t_mini *mini, bool piped);
 int						ft_exec_simple_cmd(t_mini *mini, bool piped);
 
 t_path					ft_get_path(char *cmd, t_mini *mini);
