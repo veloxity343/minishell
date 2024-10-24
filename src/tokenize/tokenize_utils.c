@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:24:21 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 17:01:36 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:56:44 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ bool	ft_skip_quotes(char *line, size_t *i)
 	return (false);
 }
 
-void	ft_print_quote_err(char c, t_mini *mini)
+void	ft_print_quote_err(char c)
 {
-	ft_putstr_fd("minishell: unexpected EOF while looking for matching `", 2);
+	ft_putstr_fd("trash: unexpected EOF while looking for matching `", 2);
 	ft_putchar_fd(c, 2);
 	ft_putstr_fd("'\n", 2);
-	mini->exit_s = 258;
+	g_sig.exit_s = 258;
 }

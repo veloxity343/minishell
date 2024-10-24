@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:24:03 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/15 22:08:53 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:35:26 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_handle_parse_err(t_mini *mini)
 			ft_putstr_fd("mini: syntax error near unexpected token `", 2);
 			ft_putstr_fd(types[token_type], 2);
 			ft_putstr_fd("'\n", 2);
-			mini->exit_s = 258;
+			g_sig.exit_s = 258;
 		}
 		ft_clear_ast(mini, &mini->ast);
 		ft_bzero(&mini->parse_err, sizeof(t_parse_err));

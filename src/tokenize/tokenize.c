@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:24:18 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 17:01:21 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:58:53 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_append_separator(t_token_type type, char **line_ptr,
 	return (1);
 }
 
-int	ft_append_identifier(t_mini *mini, char **line_ptr, t_token **token_list)
+int	ft_append_identifier(char **line_ptr, t_token **token_list)
 {
 	char	*tmp_line;
 	char	*value;
@@ -41,7 +41,7 @@ int	ft_append_identifier(t_mini *mini, char **line_ptr, t_token **token_list)
 		if (ft_is_quote(tmp_line[i]))
 		{
 			if (!ft_skip_quotes(tmp_line, &i))
-				return (ft_print_quote_err(tmp_line[i], mini), 0);
+				return (ft_print_quote_err(tmp_line[i]), 0);
 		}
 		else
 			i++;
@@ -70,7 +70,7 @@ int	ft_handle_separator(char **line_ptr, t_token **token_list)
 		return (ft_append_separator(T_PIPE, line_ptr, token_list) && 1);
 }
 
-t_token	*ft_tokenization_handler(t_mini *mini, char *line)
+t_token	*ft_tokenization_handler(char *line)
 {
 	int		error;
 	t_token	*token_list;
@@ -88,7 +88,7 @@ t_token	*ft_tokenization_handler(t_mini *mini, char *line)
 			|| !ft_strncmp(line, ")", 1))
 			error = (!ft_handle_separator(&line, &token_list) && 1);
 		else
-			error = (!ft_append_identifier(mini, &line, &token_list) && 1);
+			error = (!ft_append_identifier(&line, &token_list) && 1);
 	}
 	return (token_list);
 }
@@ -99,7 +99,7 @@ t_token	*ft_tokenize(t_mini *mini)
 	t_token	*token_list;
 
 	line = mini->line;
-	token_list = ft_tokenization_handler(mini, line);
+	token_list = ft_tokenization_handler(line);
 	free(line);
 	mini->line = NULL;
 	return (token_list);

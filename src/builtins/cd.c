@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:48 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 18:42:12 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:52:38 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_cd_home(t_mini *mini)
 	ft_update_env(mini, "OLDPWD", ft_get_env_val(mini, "PWD"), false);
 	home = ft_get_env_val(mini, "HOME");
 	if (!home)
-		return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), 1);
+		return (ft_putstr_fd("trash: cd: HOME not set\n", 2), 1);
 	if (chdir(home) == -1)
 		return (ft_putstr_fd(strerror(errno), 2), 1);
 	return (ft_update_env(mini, "PWD", home, false), 0);
@@ -39,7 +39,7 @@ static int	ft_cd_home(t_mini *mini)
 
 static int	ft_cd_err_msg(char *err_msg)
 {
-	ft_putstr_fd("minishell: cd: `", 2);
+	ft_putstr_fd("trash: cd: `", 2);
 	ft_putstr_fd(err_msg, 2);
 	ft_putstr_fd("': No such file or directory\n", 2);
 	return (1);

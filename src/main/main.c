@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/22 11:20:03 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:35:14 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static void	ft_start_exec(t_mini *mini)
 {
 	signal(SIGQUIT, sig_quit);
 	ft_init_tree(mini->ast, mini);
-	if (mini->heredoc_sigint)
+	if (g_sig.heredoc_sigint)
 	{
 		ft_clear_ast(mini, &mini->ast);
-		mini->heredoc_sigint = false;
+		g_sig.heredoc_sigint = false;
 	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &mini->ori_term);
-	mini->exit_s = ft_exec_node(mini, false);
+	g_sig.exit_s = ft_exec_node(mini, false);
 	ft_clear_ast(mini, &mini->ast);
 }
 
@@ -50,7 +50,7 @@ static void	ft_process_input(t_mini *mini)
 	{
 		ft_clean_ms(mini);
 		ft_putstr_fd("exit\n", 1);
-		exit(mini->exit_s);
+		exit(g_sig.exit_s);
 	}
 	if (mini->line[0])
 		add_history(mini->line);
@@ -59,13 +59,9 @@ static void	ft_process_input(t_mini *mini)
 		return ;
 	mini->ast = ft_parser(mini);
 	if (mini->parse_err.type)
-	{
 		ft_handle_parse_err(mini);
-	}
 	else
-	{
 		ft_start_exec(mini);
-	}
 }
 
 /*
@@ -87,5 +83,5 @@ int	main(int argc, char **argv, char **env)
 		ft_process_input(&mini);
 	}
 	ft_garbage_collector(NULL, true);
-	return (ft_clean_ms(&mini), mini.exit_s);
+	return (ft_clean_ms(&mini), g_sig.exit_s);
 }

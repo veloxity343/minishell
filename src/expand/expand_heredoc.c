@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:22:29 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 17:32:21 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:42:40 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_heredoc_expand_writer(t_mini *mini, char *str, size_t i, int fd)
 	start = ++i;
 	if (str[i] == '?')
 	{
-		ft_putnbr_fd(g_sig.exit_status, fd);
+		ft_putnbr_fd(g_sig.exit_s, fd);
 		return (2);
 	}
 	while (str[i] && str[i] != '$' && str[i] != ' ')

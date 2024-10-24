@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:59 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 18:31:40 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:52:13 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_export_err_msg(char *identifier)
 {
-	ft_putstr_fd("minishell: export: `", 2);
+	ft_putstr_fd("trash: export: `", 2);
 	ft_putstr_fd(identifier, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
 	return (1);
@@ -66,17 +66,16 @@ int	ft_check_key(const char *str)
 int	ft_export(t_mini *mini, char **argv)
 {
 	int		i;
-	int		exit_s;
 	char	*key;
 
 	i = 1;
-	exit_s = 0;
+	g_sig.exit_s = 0;
 	if (!argv[1])
 		return (ft_export_list(mini), 0);
 	while (argv[i])
 	{
 		if (ft_check_key(argv[i]) == 0)
-			exit_s = ft_export_err_msg(argv[i]);
+			g_sig.exit_s = ft_export_err_msg(argv[i]);
 		else
 		{
 			key = ft_extract_key(argv[i]);
@@ -88,5 +87,5 @@ int	ft_export(t_mini *mini, char **argv)
 		free(key);
 		i++;
 	}
-	return (exit_s);
+	return (g_sig.exit_s);
 }

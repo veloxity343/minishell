@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:26 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/22 11:31:00 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:34:54 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_handle_dollar(t_mini *mini, char *str, size_t *i)
 	else if (str[*i] == '?')
 	{
 		(*i)++;
-		return (ft_itoa(mini->exit_s));
+		return (ft_itoa(g_sig.exit_s));
 	}
 	else if (!ft_is_valid_var_char(str[*i]))
 		return (ft_strdup("$"));
@@ -65,7 +65,7 @@ char	*ft_handle_dollar(t_mini *mini, char *str, size_t *i)
 	var = ft_substr(str, start, *i - start);
 	env_val = ft_get_env_val(mini, var);
 	if (!env_val)
-		return (free(var), mini->exit_s = 1, ft_strdup(""));
+		return (free(var), g_sig.exit_s = 1, ft_strdup(""));
 	return (free(var), ft_strdup(env_val));
 }
 
@@ -87,7 +87,7 @@ static char	*ft_cmd_pre_expander(t_mini *mini, char *str)
 		else
 			ret = ft_strjoinf(ret, ft_handle_normal_str(str, &i));
 		if (!ret)
-			return (mini->exit_s = 1, NULL);
+			return (g_sig.exit_s = 1, NULL);
 	}
 	return (ret);
 }
@@ -99,14 +99,14 @@ char	**ft_expand(t_mini *mini, char *str)
 
 	str = ft_cmd_pre_expander(mini, str);
 	if (!str)
-		return (mini->exit_s = 1, NULL);
+		return (g_sig.exit_s = 1, NULL);
 	str = ft_clean_empty_strs(str);
 	if (!str)
-		return (mini->exit_s = 1, NULL);
+		return (g_sig.exit_s = 1, NULL);
 	expanded = ft_expander_split(str);
 	free(str);
 	if (!expanded)
-		return (mini->exit_s = 1, NULL);
+		return (g_sig.exit_s = 1, NULL);
 	i = 0;
 	while (expanded[i])
 	{

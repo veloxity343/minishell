@@ -6,30 +6,30 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/22 11:38:12 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:59:28 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/inc/ft_dprintf.h"
-# include "../libft/inc/ft_printf.h"
-# include "../libft/inc/libft.h"
+# include <stdio.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <ctype.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include "../libft/inc/ft_dprintf.h"
+# include "../libft/inc/ft_printf.h"
+# include "../libft/inc/libft.h"
 
 # define PROMPT "trash ▸ "
 
@@ -153,15 +153,12 @@ typedef struct s_mini
 	t_token				*tokens;
 	t_token				*curr_token;
 	t_node				*ast;
-	int					exit_s;
-	bool				sigint_child;
 	t_parse_err			parse_err;
 	int					stdin;
 	int					stdout;
 	char				**env_var;
 	t_env				*env;
 	t_env				*env_muted;
-	bool				heredoc_sigint;
 	struct termios		ori_term;
 }						t_mini;
 
@@ -169,8 +166,10 @@ typedef struct s_sig
 {
 	int					sigint;
 	int					sigquit;
-	int					exit_status;
+	int					exit_s;
 	pid_t				pid;
+	bool				sigint_child;
+	bool				heredoc_sigint;
 }						t_sig;
 
 extern t_sig			g_sig;
@@ -298,15 +297,15 @@ int						ft_is_quote(char c);
 int						ft_is_separator(char *s);
 void					ft_skip_spaces(char **line);
 bool					ft_skip_quotes(char *line, size_t *i);
-void					ft_print_quote_err(char c, t_mini *mini);
+void					ft_print_quote_err(char c);
 
 int						ft_append_separator(t_token_type type, char **line_ptr,
 							t_token **token_list);
-int						ft_append_identifier(t_mini *mini, char **line_ptr,
+int						ft_append_identifier(char **line_ptr,
 							t_token **token_list);
 int						ft_handle_separator(char **line_ptr,
 							t_token **token_list);
-t_token					*ft_tokenization_handler(t_mini *mini, char *line);
+t_token					*ft_tokenization_handler(char *line);
 t_token					*ft_tokenize(t_mini *mini);
 
 #endif

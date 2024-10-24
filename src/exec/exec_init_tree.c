@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:00:00 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 17:43:55 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:32:00 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_heredoc_sigint_handler(int signum, t_mini *mini)
 {
 	(void)signum;
 	ft_clean_ms(mini);
-	mini->heredoc_sigint = true;
+	g_sig.heredoc_sigint = true;
 	exit(SIGINT);
 }
 
@@ -50,7 +50,7 @@ void	ft_heredoc(t_io_node *io, int p[2], t_mini *mini)
 		free(line);
 	}
 	ft_clean_ms(mini);
-	g_sig.exit_status = 0;
+	g_sig.exit_s = 0;
 	exit(0);
 }
 
@@ -67,7 +67,7 @@ static bool	ft_leave_leaf(int p[2], int *pid, t_mini *mini)
 
 	waitpid(*pid, &status, 0);
 	signal(SIGQUIT, sig_quit);
-	mini->heredoc_sigint = false;
+	g_sig.heredoc_sigint = false;
 	close(p[1]);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
 	{
@@ -96,7 +96,7 @@ static void	ft_init_leaf(t_node *node, t_mini *mini)
 		if (io->type == IO_HEREDOC)
 		{
 			pipe(p);
-			mini->heredoc_sigint = true;
+			g_sig.heredoc_sigint = true;
 			pid = (signal(SIGQUIT, SIG_IGN), fork());
 			if (!pid)
 				ft_heredoc(io, p, mini);
@@ -122,7 +122,7 @@ void	ft_init_tree(t_node *node, t_mini *mini)
 	if (node->type == N_PIPE)
 	{
 		ft_init_tree(node->left, mini);
-		if (!mini->heredoc_sigint)
+		if (!g_sig.heredoc_sigint)
 			ft_init_tree(node->right, mini);
 	}
 	else

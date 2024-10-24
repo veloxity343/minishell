@@ -6,13 +6,13 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:33:58 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/15 22:09:30 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:42:14 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sig_int(int code)
+/* void	sig_int(int code)
 {
 	(void)code;
 	if (g_sig.pid == 0)
@@ -49,4 +49,42 @@ void	sig_init(void)
 	g_sig.sigquit = 0;
 	g_sig.pid = 0;
 	g_sig.exit_status = 0;
+} */
+
+void	sig_int(int num)
+{
+	(void)num;
+	if (g_sig.sigint)
+	{
+		ft_putstr_fd("\n", 1);
+		g_sig.sigint = 0;
+		g_sig.exit_s = 130;
+	}
+	else
+	{
+		ft_putstr_fd("\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
+void	sig_quit(int num)
+{
+	(void)num;
+	ft_putstr_fd("Quit: 3\n", 1);
+	g_sig.exit_s = 131;
+}
+
+void	sig_init(void)
+{
+	struct termios	term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	g_sig.sigint = false;
+	g_sig.sigint_child = false;
+	signal(SIGINT, sig_int);
+	signal(SIGQUIT, sig_quit);
 }

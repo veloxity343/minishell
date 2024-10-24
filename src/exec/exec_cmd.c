@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/22 11:14:49 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/24 20:47:50 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_reset_stds(bool piped)
 	if (!piped)
 	{
 		dup2(g_sig.pid, 0);
-		dup2(g_sig.exit_status, 1);
+		dup2(g_sig.exit_s, 1);
 	}
 }
 
