@@ -96,3 +96,6 @@ norm:
 	norminette
 
 .PHONY:	all bonus clean fclean re debug test norm
+
+norm :
+	norminette src inc
