@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:48 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/26 16:10:25 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/26 16:13:39 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,18 @@ int	ft_cd(t_mini *mini, char *path)
     the oldpwd will auto fill into the env so i just need to take the env
     and change the directory to the oldpwd
 */
-// int ft_go_oldpwd(char **env, t_err err)
-// {
-//     char    *oldpwd;
-//     int        sig;
+int ft_go_oldpwd(char **env, t_err err)
+{
+    char    *oldpwd;
+    int        sig;
 
-//     sig = 0;
-//     oldpwd = getenv("OLDPWD");
-//     sig = chdir(oldpwd);
-//     ft_putstr_fd(oldpwd, 1);
-//     if (sig == -1)
-//     {
-//         // print error message
-//     }
-//     return (sig);
-// }
+    sig = 0;
+    oldpwd = getenv("OLDPWD");
+    sig = chdir(oldpwd);
+    ft_putstr_fd(oldpwd, 1);
+    if (sig == -1)
+    {
+        // print error message
+    }
+    return (sig);
+}
