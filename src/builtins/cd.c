@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:48 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/26 14:13:58 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/26 15:46:50 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ int	ft_cd(t_mini *mini, char *path)
 // 	{
 // 		// print error message
 // 	}
+// 	return (sig);
 // }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:33:58 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/15 22:09:30 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/26 15:50:13 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	sig_int(int code)
 	{
 		ft_putstr_fd("\b\b  ", STDERR);
 		ft_putstr_fd("\n", STDERR);
+		write(1, "^C", 2);
 		ft_putstr_fd("trash ▸ ", STDERR);
 		g_sig.exit_status = 1;
 	}
