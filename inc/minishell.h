@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/28 13:57:04 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/28 22:35:52 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int						ft_echo(char **args);
 
 char					*ft_get_env_val(t_mini *mini, char *key);
 bool					ft_env_entry_exists(t_mini *mini, char *key);
-void					initialize_SHLVL(t_mini *mini);
+void					initialize_shlvl(t_mini *mini);
 void					ft_update_env(t_mini *mini, char *key, char *value,
 							bool create);
 
