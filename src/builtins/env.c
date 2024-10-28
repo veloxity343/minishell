@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 18:27:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 16:29:42 by rcheong          ###   ########.fr       */
+/*   Created: 2024/10/28 12:47:08 by chtan             #+#    #+#             */
+/*   Updated: 2024/10/28 12:47:10 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,9 @@ int	ft_env(t_mini *mini)
 		list = list->next;
 	}
 	return (ENO_SUCCESS);
+}
+
+int ft_SHLVL(t_mini *env)
+{
+	ft_export(mini,)
 }
