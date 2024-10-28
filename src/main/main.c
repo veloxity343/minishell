@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 20:35:14 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/28 13:57:41 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	ft_init_mini(t_mini *mini, char **env)
 	mini->stdin = dup(0);
 	mini->stdout = dup(1);
 	tcgetattr(STDIN_FILENO, &mini->ori_term);
+	initialize_SHLVL(mini);
 }
 
 /*

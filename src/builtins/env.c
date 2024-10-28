@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:08 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/28 12:47:10 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/28 13:58:30 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,29 @@ int	ft_env(t_mini *mini)
 	return (ENO_SUCCESS);
 }
 
-int ft_SHLVL(t_mini *env)
+void	initialize_SHLVL(t_mini *mini)
 {
-	ft_export(mini,)
+    int level;
+    char *shlvl;
+    char *new_shlvl;
+    char *value_part;
+
+	level = 0;
+    shlvl = ft_get_env_val(mini, "SHLVL");
+    if (shlvl && *shlvl)
+    {
+        value_part = strchr(shlvl, '=');
+        if (value_part && *(value_part + 1))
+            level = ft_atoi(value_part + 1);
+	}
+    level++;
+    new_shlvl = ft_itoa(level);
+    char *export_str = malloc(strlen("SHLVL=") + strlen(new_shlvl) + 1);
+    if (!export_str)
+        free(new_shlvl);
+    strcpy(export_str, "SHLVL=");
+    strcat(export_str, new_shlvl);
+    ft_export(mini, &export_str);
+    free(new_shlvl);
+    free(export_str);
 }
