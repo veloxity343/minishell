@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:08 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/29 15:08:50 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/30 10:47:58 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	initialize_shlvl(t_mini *mini)
 {
 	int		level;
 	char	*shlvl;
-	char	*new_shlvl;
 	char	*value_part;
 	char	*export_str;
 
@@ -116,13 +115,17 @@ void	initialize_shlvl(t_mini *mini)
 			level = ft_atoi(value_part + 1);
 	}
 	level++;
-	new_shlvl = ft_itoa(level);
-	export_str = malloc(strlen("SHLVL=") + strlen(new_shlvl) + 1);
+	free(shlvl);
+	shlvl = ft_itoa(level);
+	export_str = malloc(strlen("SHLVL=") + strlen(shlvl) + 1);
 	if (!export_str)
-		free(new_shlvl);
+	{
+		free(shlvl);
+		return ;
+	}
 	ft_strcpy(export_str, "SHLVL=");
-	ft_strcat(export_str, new_shlvl);
+	ft_strcat(export_str, shlvl);
 	ft_export(mini, &export_str);
-	free(new_shlvl);
+	free(shlvl);
 	free(export_str);
 }

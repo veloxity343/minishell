@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/28 22:28:58 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/29 23:29:12 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	ft_init_mini(t_mini *mini, char **env)
 	mini->stdin = dup(0);
 	mini->stdout = dup(1);
 	tcgetattr(STDIN_FILENO, &mini->ori_term);
-	// initialize_SHLVL(mini);
+	// initialize_shlvl(mini);
 }
 
 /*

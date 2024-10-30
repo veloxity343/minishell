@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:48 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/28 12:47:49 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/29 23:39:56 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,26 +63,63 @@ If the variable is found at the head of the list, it updates the head pointer.
 @param mini A pointer to the minishell structure containing the environment.
 @return Returns 0 upon successful completion, or a negative value on failure.
 */
+// int	ft_unset(char **args, t_mini *mini)
+// {
+// 	t_env	*current;
+
+// 	current = mini->env;
+// 	if (!args[1])
+// 		return (0);
+// 	if (ft_strncmp(args[1], current->value, env_size(current->value)) == 0)
+// 	{
+// 		mini->env = current->next;
+// 		free_node(mini, current);
+// 		return (0);
+// 	}
+// 	while (current && current->next)
+// 	{
+// 		if (ft_strncmp(args[1], current->value,
+// 			env_size(current->value)) == 0
+// 			&& current->value[env_size(current->value)] == '=')
+
+// 		{
+// 			t_env *temp = current->next;
+// 			current->next = current->next->next;
+// 			free_node(mini, temp);
+// 			return (0);
+// 		}
+// 		current = current->next;
+// 	}
+// 	return (0);
+// }
+
 int	ft_unset(char **args, t_mini *mini)
 {
 	t_env	*current;
+	t_env	*temp;
 
-	current = mini->env;
+	// Check if no variable name is provided
 	if (!args[1])
 		return (0);
-	if (ft_strncmp(args[1], current->value, env_size(current->value)) == 0)
+
+	current = mini->env;
+
+	// Check if the variable to unset is the first in the list
+	if (current && ft_strncmp(args[1], current->value, env_size(current->value)) == 0 && current->value[env_size(current->value)] == '=')
 	{
 		mini->env = current->next;
 		free_node(mini, current);
 		return (0);
 	}
+
+	// Traverse the list to find and remove the variable
 	while (current && current->next)
 	{
-		if (ft_strncmp(args[1], current->next->value,
-				env_size(current->next->value)) == 0)
+		if (ft_strncmp(args[1], current->next->value, env_size(current->next->value)) == 0 && current->next->value[env_size(current->next->value)] == '=')
 		{
-			free_node(mini, current->next);
+			temp = current->next;
 			current->next = current->next->next;
+			free_node(mini, temp);
 			return (0);
 		}
 		current = current->next;
