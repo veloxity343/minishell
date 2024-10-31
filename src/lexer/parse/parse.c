@@ -6,25 +6,11 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:23:49 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 18:05:15 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/30 20:29:34 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_node	*ft_combine(t_mini *mini, t_node *left, t_node *right)
-{
-	t_node	*node;
-
-	if (mini->parse_err.type)
-		return (NULL);
-	node = ft_new_node(N_PIPE);
-	if (!node)
-		return (ft_set_parse_err(mini, E_MEM), NULL);
-	node->left = left;
-	node->right = right;
-	return (node);
-}
 
 t_node	*ft_term(t_mini *mini)
 {
@@ -42,8 +28,8 @@ t_node	*ft_term(t_mini *mini)
 
 t_node	*ft_expression(t_mini *mini)
 {
-	t_node	*left;
-	t_node	*right;
+	t_node			*left;
+	t_node			*right;
 
 	if (mini->parse_err.type || !mini->curr_token)
 		return (NULL);
@@ -64,6 +50,20 @@ t_node	*ft_expression(t_mini *mini)
 				NULL);
 	}
 	return (left);
+}
+
+t_node	*ft_combine(t_mini *mini, t_node *left, t_node *right)
+{
+	t_node	*node;
+
+	if (mini->parse_err.type)
+		return (NULL);
+	node = ft_new_node(N_PIPE);
+	if (!node)
+		return (ft_set_parse_err(mini, E_MEM), NULL);
+	node->left = left;
+	node->right = right;
+	return (node);
 }
 
 t_node	*ft_parser(t_mini *mini)

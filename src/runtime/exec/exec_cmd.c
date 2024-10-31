@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 21:13:02 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/27 14:29:18 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,26 +95,23 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 @param env The linked list of environment variables.
 @return Exit status of the command.
 */
-int	ft_exec_simple_cmd(t_mini *mini, bool piped)
+int	ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
 {
 	int	tmp_status;
 
-	if (!mini->ast->expanded_args)
+	if (!node->expanded_args)
 	{
-		tmp_status = ft_check_redirection(mini->ast);
-		if (tmp_status)
-			return (ENO_GENERAL);
-		else
-			return (ENO_SUCCESS);
+		tmp_status = ft_check_redirection(node);
+		return (ft_reset_stds(mini, piped), (tmp_status && ENO_GENERAL));
 	}
-	else if (ft_isbuiltin((mini->ast->expanded_args)[0]))
+	else if (ft_isbuiltin((node->expanded_args)[0]))
 	{
-		tmp_status = ft_check_redirection(mini->ast);
+		tmp_status = ft_check_redirection(node);
 		if (tmp_status != ENO_SUCCESS)
 			return (ft_reset_stds(mini, piped), ENO_GENERAL);
-		tmp_status = ft_run_builtin(mini->ast->expanded_args, mini);
+		tmp_status = ft_run_builtin(node->expanded_args, mini);
 		return (ft_reset_stds(mini, piped), tmp_status);
 	}
 	else
-		return (ft_exec_child(mini->ast, mini));
+		return (ft_exec_child(node, mini));
 }

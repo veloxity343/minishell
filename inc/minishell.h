@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 21:20:33 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/31 10:48:07 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_parse_err
 typedef enum e_token_type
 {
 	T_IDENTIFIER,
+	T_ASSIGNMENT,
 	T_IN_REDIR,
 	T_OUT_REDIR,
 	T_HEREDOC,
@@ -192,6 +193,10 @@ int						ft_env(t_mini *mini);
 
 void					ft_exit(char **args, t_mini *mini);
 
+int	ft_parse_assignment(t_mini *mini, t_env *env);
+int	ft_append_assignment(char **line_ptr, t_token **token_list);
+int	ft_is_assignment(const char *str);
+int ft_handle_assignment(t_mini *mini, char *assignment);
 int						ft_check_key(const char *str);
 int						ft_export(t_mini *mini, char **argv);
 
@@ -223,7 +228,7 @@ int						ft_append(t_io_node *io_list, int *status);
 bool					ft_is_delimiter(char *delimiter, char *str);
 
 int						ft_get_exit_status(int status);
-int						ft_exec_node(t_mini *mini, bool piped);
+int						ft_exec_node(t_mini *mini, t_node *node, bool piped);
 
 t_err					ft_check_exec(char *file, bool cmd);
 t_err					ft_check_read(char *file);
@@ -231,7 +236,7 @@ t_err					ft_check_write(char *file);
 
 int						ft_check_redirection(t_node *node);
 void					ft_reset_stds(t_mini *mini, bool piped);
-int						ft_exec_simple_cmd(t_mini *mini, bool piped);
+int						ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped);
 
 t_path					ft_get_path(char *cmd, t_mini *mini);
 

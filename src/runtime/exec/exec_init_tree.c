@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:00:00 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 20:32:00 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/27 14:52:47 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,14 @@ void	ft_heredoc(t_io_node *io, int p[2], t_mini *mini)
 @param mini The mini context for cleanup.
 @return true if heredoc was interrupted by SIGINT, false otherwise.
 */
-static bool	ft_leave_leaf(int p[2], int *pid, t_mini *mini)
+static bool	ft_leave_leaf(int p[2], int *pid)
 {
-	int	status;
-
-	waitpid(*pid, &status, 0);
+	waitpid(*pid, pid, 0);
 	signal(SIGQUIT, sig_quit);
 	g_sig.heredoc_sigint = false;
 	close(p[1]);
-	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-	{
-		ft_clean_ms(mini);
+	if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
 		return (true);
-	}
 	return (false);
 }
 
@@ -100,7 +95,7 @@ static void	ft_init_leaf(t_node *node, t_mini *mini)
 			pid = (signal(SIGQUIT, SIG_IGN), fork());
 			if (!pid)
 				ft_heredoc(io, p, mini);
-			if (ft_leave_leaf(p, &pid, mini))
+			if (ft_leave_leaf(p, &pid))
 				return ;
 			io->here_doc = p[0];
 		}

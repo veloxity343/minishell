@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:47:01 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 21:14:27 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/27 14:25:24 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 @param pfds The pipe file descriptors.
 @param dir The direction of the pipe (TD_LEFT or TD_RIGHT).
 */
-static void	ft_exec_pipe_child(t_mini *mini, int pfds[2], t_ast_dir dir)
+static void	ft_exec_pipe_child(t_mini *mini, t_node *node, int pfds[2], t_ast_dir dir)
 {
 	int	status;
 
@@ -28,15 +28,14 @@ static void	ft_exec_pipe_child(t_mini *mini, int pfds[2], t_ast_dir dir)
 		close(pfds[0]);
 		dup2(pfds[1], STDOUT_FILENO);
 		close(pfds[1]);
-		status = ft_exec_node(mini, true);
 	}
 	else if (dir == TD_RIGHT)
 	{
 		close(pfds[1]);
 		dup2(pfds[0], STDIN_FILENO);
 		close(pfds[0]);
-		status = ft_exec_node(mini, true);
 	}
+	status = ft_exec_node(mini, node, true);
 	ft_clean_ms(mini);
 	exit(status);
 }
@@ -54,28 +53,11 @@ int	ft_get_exit_status(int status)
 }
 
 /*
-@brief Forks a child process to execute a command 
-	in the right part of the pipeline.
-@param mini The shell context (contains environment, AST, etc.).
-@param pfds The pipe file descriptors.
-@return The child's PID or an error code.
-*/
-static int	ft_exec_right_child(t_mini *mini, int *pfds)
-{
-	int	pid_r;
-
-	pid_r = fork();
-	if (!pid_r)
-		ft_exec_pipe_child(mini, pfds, TD_RIGHT);
-	return (pid_r);
-}
-
-/*
 @brief Executes a pipeline of commands represented by a tree structure.
 @param mini The shell context (contains environment, AST, etc.).
 @return The exit status of the last executed command or an error code.
 */
-static int	ft_exec_pipeline(t_mini *mini)
+static int	ft_exec_pipeline(t_mini *mini, t_node *node)
 {
 	int	status;
 	int	pfds[2];
@@ -86,16 +68,16 @@ static int	ft_exec_pipeline(t_mini *mini)
 	pipe(pfds);
 	pid_l = fork();
 	if (!pid_l)
-		ft_exec_pipe_child(mini, pfds, TD_LEFT);
+		ft_exec_pipe_child(mini, node->left, pfds, TD_LEFT);
 	else
 	{
-		pid_r = ft_exec_right_child(mini, pfds);
-		if (pid_r > 0)
+		pid_r = fork();
+		if (!pid_r)
+			ft_exec_pipe_child(mini, node->right, pfds, TD_RIGHT);
+		else
 		{
-			close(pfds[0]);
-			close(pfds[1]);
-			waitpid(pid_l, &status, 0);
-			waitpid(pid_r, &status, 0);
+			(close(pfds[0]), close(pfds[1]), waitpid(pid_l, &status, 0),
+				waitpid(pid_r, &status, 0));
 			g_sig.sigint = false;
 			return (ft_get_exit_status(status));
 		}
@@ -109,11 +91,12 @@ static int	ft_exec_pipeline(t_mini *mini)
 @param piped Indicates whether the node is part of a pipeline.
 @return The status of the execution.
 */
-int	ft_exec_node(t_mini *mini, bool piped)
+int	ft_exec_node(t_mini *mini, t_node *node, bool piped)
 {
 	if (!mini->ast)
 		return (1);
-	if (mini->ast->type == N_PIPE)
-		return (ft_exec_pipeline(mini));
-	return (ft_exec_simple_cmd(mini, piped));
+	if (node->type == N_PIPE)
+		return (ft_exec_pipeline(mini, node));
+	else
+		return (ft_exec_simple_cmd(mini, node, piped));
 }

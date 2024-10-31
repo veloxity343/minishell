@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:24:00 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 18:02:13 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/31 10:43:56 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ t_node	*ft_get_simple_cmd(t_mini *mini)
 			if (!ft_join_args(mini, &(node->args)))
 				return (ft_clear_cmd_node(node), ft_set_parse_err(mini, E_MEM),
 					NULL);
+		}
+		else if (mini->curr_token->type == T_ASSIGNMENT)
+		{
+			if (!ft_parse_assignment(mini, mini->env))
+				return (ft_set_parse_err(mini, E_MEM), NULL);
 		}
 		else if (ft_is_redir(mini->curr_token->type))
 		{

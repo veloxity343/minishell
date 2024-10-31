@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 20:35:14 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/27 14:13:58 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_start_exec(t_mini *mini)
 		g_sig.heredoc_sigint = false;
 	}
 	tcsetattr(STDIN_FILENO, TCSANOW, &mini->ori_term);
-	g_sig.exit_s = ft_exec_node(mini, false);
+	g_sig.exit_s = ft_exec_node(mini, mini->ast, false);
 	ft_clear_ast(mini, &mini->ast);
 }
 
