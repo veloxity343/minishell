@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:08 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/30 10:47:58 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/31 14:49:51 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ int	ft_env(t_mini *mini)
 	return (ENO_SUCCESS);
 }
 
+/*
+@brief Initializes the SHLVL environment variable.
+*/
 void	initialize_shlvl(t_mini *mini)
 {
 	int		level;
@@ -106,6 +109,7 @@ void	initialize_shlvl(t_mini *mini)
 	char	*value_part;
 	char	*export_str;
 
+	printf("initialize_shlvl\n");
 	level = 0;
 	shlvl = ft_get_env_val(mini, "SHLVL");
 	if (shlvl && *shlvl)

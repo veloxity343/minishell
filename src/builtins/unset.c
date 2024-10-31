@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:48 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/29 23:39:56 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/31 15:06:10 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,59 +63,24 @@ If the variable is found at the head of the list, it updates the head pointer.
 @param mini A pointer to the minishell structure containing the environment.
 @return Returns 0 upon successful completion, or a negative value on failure.
 */
-// int	ft_unset(char **args, t_mini *mini)
-// {
-// 	t_env	*current;
-
-// 	current = mini->env;
-// 	if (!args[1])
-// 		return (0);
-// 	if (ft_strncmp(args[1], current->value, env_size(current->value)) == 0)
-// 	{
-// 		mini->env = current->next;
-// 		free_node(mini, current);
-// 		return (0);
-// 	}
-// 	while (current && current->next)
-// 	{
-// 		if (ft_strncmp(args[1], current->value,
-// 			env_size(current->value)) == 0
-// 			&& current->value[env_size(current->value)] == '=')
-
-// 		{
-// 			t_env *temp = current->next;
-// 			current->next = current->next->next;
-// 			free_node(mini, temp);
-// 			return (0);
-// 		}
-// 		current = current->next;
-// 	}
-// 	return (0);
-// }
-
 int	ft_unset(char **args, t_mini *mini)
 {
 	t_env	*current;
 	t_env	*temp;
 
-	// Check if no variable name is provided
 	if (!args[1])
-		return (0);
+		return (g_sig.exit_s = ft_err_msg((t_err){ENO_GENERAL, ERRMSG_TOO_MANY_ARGS, NULL}));
 
 	current = mini->env;
-
-	// Check if the variable to unset is the first in the list
-	if (current && ft_strncmp(args[1], current->value, env_size(current->value)) == 0 && current->value[env_size(current->value)] == '=')
+	if (current && ft_strncmp(args[1], current->key, env_size(current->key)) == 0)
 	{
 		mini->env = current->next;
 		free_node(mini, current);
 		return (0);
 	}
-
-	// Traverse the list to find and remove the variable
 	while (current && current->next)
 	{
-		if (ft_strncmp(args[1], current->next->value, env_size(current->next->value)) == 0 && current->next->value[env_size(current->next->value)] == '=')
+		if (ft_strncmp(args[1], current->next->key, env_size(current->next->key)) == 0)
 		{
 			temp = current->next;
 			current->next = current->next->next;

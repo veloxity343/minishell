@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/24 21:13:02 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/31 16:03:41 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,25 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 	g_sig.sigint = false;
 	return (ft_get_exit_status(tmp_status));
 }
+
+/*
+	check if the path is set in the environment
+	before executing the command
+*/
+// static int	ft_check_path(t_mini *mini)
+// {
+// 	const char	*check = "PATH";
+// 	t_env		*env;
+
+// 	env = mini->env;
+// 	while (env)
+// 	{
+// 		if (ft_strncmp(env->key, check, 4) == 0)
+// 			return (0);
+// 		env = env->next;
+// 	}
+// 	return (1);
+// }
 
 /*
 @brief Executes a simple command, handling both built-ins and external commands.
