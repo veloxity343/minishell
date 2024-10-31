@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:08 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/31 14:49:51 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/31 17:54:49 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,30 +106,23 @@ void	initialize_shlvl(t_mini *mini)
 {
 	int		level;
 	char	*shlvl;
-	char	*value_part;
 	char	*export_str;
+	char	*args[3];
 
-	printf("initialize_shlvl\n");
 	level = 0;
 	shlvl = ft_get_env_val(mini, "SHLVL");
-	if (shlvl && *shlvl)
-	{
-		value_part = strchr(shlvl, '=');
-		if (value_part && *(value_part + 1))
-			level = ft_atoi(value_part + 1);
-	}
+	level = ft_atoi(shlvl);
 	level++;
 	free(shlvl);
 	shlvl = ft_itoa(level);
 	export_str = malloc(strlen("SHLVL=") + strlen(shlvl) + 1);
-	if (!export_str)
-	{
-		free(shlvl);
-		return ;
-	}
 	ft_strcpy(export_str, "SHLVL=");
 	ft_strcat(export_str, shlvl);
-	ft_export(mini, &export_str);
+	args[0] = "export";
+	args[1] = ft_strdup(export_str);
+	args[2] = NULL;
+	ft_export(mini, args);
 	free(shlvl);
 	free(export_str);
+	free(args[1]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/31 16:03:41 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/31 17:43:56 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 			tmp_status = ft_err_msg(path_status.err);
 			(ft_clean_ms(mini), exit(tmp_status));
 		}
+		mini->env_var = env_update(mini);
 		if (execve(path_status.path, node->expanded_args, mini->env_var) == -1)
 			(ft_clean_ms(mini), exit(1));
 	}

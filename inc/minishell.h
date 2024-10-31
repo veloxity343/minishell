@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/28 22:35:52 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/31 17:39:38 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ t_path					ft_get_path(char *cmd, t_mini *mini);
 
 void					ft_init_tree(t_node *node, t_mini *mini);
 void					ft_heredoc(t_io_node *io, int p[2], t_mini *mini);
+char					**env_update(t_mini *mini);
 
 /* EXPAND */
 

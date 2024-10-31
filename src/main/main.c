@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/31 13:42:12 by chtan            ###   ########.fr       */
+/*   Updated: 2024/10/31 17:52:54 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	ft_init_mini(t_mini *mini, char **env)
 	mini->stdin = dup(0);
 	mini->stdout = dup(1);
 	tcgetattr(STDIN_FILENO, &mini->ori_term);
-	// initialize_shlvl(mini);
+	initialize_shlvl(mini);
 }
 
 /*
@@ -85,4 +85,34 @@ int	main(int argc, char **argv, char **env)
 	}
 	ft_garbage_collector(NULL, true);
 	return (ft_clean_ms(&mini), g_sig.exit_s);
+}
+
+char **env_update(t_mini *mini)
+{
+	int		i;
+	int		j;
+	char	**new_env;
+	t_env	*env1;
+
+	i = 0;
+	j = 0;
+	env1 = mini->env;
+	while (env1)
+	{
+		i++;
+		env1 = env1->next;
+	}
+	new_env = malloc(sizeof(char *) * (i + 1));
+	env1 = mini->env;
+	while (i-- > 0)
+	{
+		new_env[j] = malloc(sizeof(char)
+			* (ft_strlen(env1->key) + ft_strlen(env1->value)
+			+ 2));
+		new_env[j] = ft_strjoin(env1->key, "=");
+		new_env[j] = ft_strjoin(new_env[j], env1->value);
+		env1 = env1->next;
+	}
+	new_env[j] = NULL;
+	return(new_env);
 }
