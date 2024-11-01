@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 12:33:58 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/24 21:18:33 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/27 12:21:47 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	sig_int(int num)
 	if (g_sig.sigint)
 	{
 		ft_putstr_fd("\n", 1);
-		g_sig.sigint = 0;
+		g_sig.sigint = false;
+		g_sig.heredoc_sigint = true;
 		g_sig.exit_s = 130;
 	}
 	else
