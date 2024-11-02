@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/27 14:29:18 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/02 16:08:09 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,25 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 }
 
 /*
+	check if the path is set in the environment
+	before executing the command
+*/
+static int	ft_check_path(t_mini *mini)
+{
+	const char	*check = "PATH";
+	t_env		*env;
+
+	env = mini->env;
+	while (env)
+	{
+		if (ft_strncmp(env->key, check, 4) == 0)
+			return (0);
+		env = env->next;
+	}
+	return (1);
+}
+
+/*
 @brief Executes a simple command, handling both built-ins and external commands.
 @param node The AST node representing the command to execute.
 @param piped Boolean flag indicating if the command is part of a pipeline.
@@ -104,7 +123,7 @@ int	ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
 		tmp_status = ft_check_redirection(node);
 		return (ft_reset_stds(mini, piped), (tmp_status && ENO_GENERAL));
 	}
-	else if (ft_isbuiltin((node->expanded_args)[0]))
+	else if (ft_isbuiltin((node->expanded_args)[0]) && ft_check_path(mini) == 0)
 	{
 		tmp_status = ft_check_redirection(node);
 		if (tmp_status != ENO_SUCCESS)
