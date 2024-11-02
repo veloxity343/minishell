@@ -1,66 +1,55 @@
 #include "minishell.h"
 
-static int	set_env_value(t_env **env, const char *key, const char *value)
+int	set_env_variable(t_env **env, const char *key, const char *value)
 {
 	t_env	*current;
-	t_env	*new_var;
+	t_env	*new_node;
 
-	// Search for the key in the existing environment list
 	current = *env;
 	while (current)
 	{
-		// If the key exists, update its value
 		if (ft_strcmp(current->key, key) == 0)
 		{
 			free(current->value);
 			current->value = ft_strdup(value);
-			if (!current->value)
-				return (0); // Memory allocation failed
-			return (1); // Successfully updated
+			return (current->value != NULL);
 		}
 		current = current->next;
 	}
 
-	// If the key doesn't exist, create a new environment variable node
-	new_var = (t_env *)ft_calloc(1, sizeof(t_env));
-	if (!new_var)
-		return (0); // Memory allocation failed
-	new_var->key = ft_strdup(key);
-	new_var->value = ft_strdup(value);
-	if (!new_var->key || !new_var->value)
-		return (free(new_var->key), free(new_var->value), free(new_var), 0);
+	new_node = (t_env *)ft_calloc(1, sizeof(t_env));
+	if (!new_node)
+		return (0);
+	new_node->key = ft_strdup(key);
+	new_node->value = ft_strdup(value);
+	if (!new_node->key || !new_node->value)
+		return (free(new_node->key), free(new_node->value), free(new_node), 0);
 
-	// Append the new variable to the front of the list for simplicity
-	new_var->next = *env;
-	*env = new_var;
-	return (1); // Successfully added new variable
+	new_node->next = *env;
+	*env = new_node;
+	return (1);
 }
 
-int	ft_parse_assignment(t_mini *mini, t_env *env)
+int	ft_parse_assignment(t_mini *mini, t_token *token)
 {
 	char	*key;
 	char	*value;
-	char	*equal_sign;
+	char	*equal_pos;
 
-	// Ensure the current token is an assignment
-	if (mini->curr_token->type != T_ASSIGNMENT)
+	if (token->type != T_ASSIGNMENT)
 		return (0);
 
-	// Locate the '=' in the assignment token
-	equal_sign = ft_strchr(mini->curr_token->value, '=');
-	if (!equal_sign || equal_sign == mini->curr_token->value)
-		return (0); // Invalid assignment format
+	equal_pos = ft_strchr(token->value, '=');
+	if (!equal_pos || equal_pos == token->value || !*(equal_pos + 1))
+		return (0);
 
-	// Split the token into key and value
-	*equal_sign = '\0'; // Null-terminate the key part
-	key = mini->curr_token->value; // Key part of the assignment
-	value = equal_sign + 1; // Value part of the assignment
+	*equal_pos = '\0';       // Separate key and value in token->value
+	key = token->value;
+	value = equal_pos + 1;
 
-	// Set the environment variable
-	if (!set_env_value(&env, key, value))
-		return (ft_set_parse_err(mini, E_MEM), 0);
+	if (!set_env_variable(&mini->env, key, value))
+		return (*equal_pos = '=', 0);  // Restore '=' if failed
 
-	// Move to the next token after processing the assignment
-	ft_get_next_token(mini);
+	*equal_pos = '=';
 	return (1);
 }
