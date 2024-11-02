@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/31 17:43:56 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/02 10:00:01 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,20 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 	check if the path is set in the environment
 	before executing the command
 */
-// static int	ft_check_path(t_mini *mini)
-// {
-// 	const char	*check = "PATH";
-// 	t_env		*env;
+static int	ft_check_path(t_mini *mini)
+{
+	const char	*check = "PATH";
+	t_env		*env;
 
-// 	env = mini->env;
-// 	while (env)
-// 	{
-// 		if (ft_strncmp(env->key, check, 4) == 0)
-// 			return (0);
-// 		env = env->next;
-// 	}
-// 	return (1);
-// }
+	env = mini->env;
+	while (env)
+	{
+		if (ft_strncmp(env->key, check, 4) == 0)
+			return (0);
+		env = env->next;
+	}
+	return (1);
+}
 
 /*
 @brief Executes a simple command, handling both built-ins and external commands.
@@ -127,7 +127,7 @@ int	ft_exec_simple_cmd(t_mini *mini, bool piped)
 		else
 			return (ENO_SUCCESS);
 	}
-	else if (ft_isbuiltin((mini->ast->expanded_args)[0]))
+	else if (ft_isbuiltin((mini->ast->expanded_args)[0]) && ft_check_path(mini) == 0)
 	{
 		tmp_status = ft_check_redirection(mini->ast);
 		if (tmp_status != ENO_SUCCESS)
