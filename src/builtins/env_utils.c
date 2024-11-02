@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:46:54 by chtan             #+#    #+#             */
-/*   Updated: 2024/11/01 17:06:41 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/02 13:44:06 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static t_env	*ft_env_new(char *key, char *value)
 	new->key = ft_garbage_collector(ft_strdup(key), false);
 	if (value)
 		new->value = ft_garbage_collector(ft_strdup(value), false);
+		// line 50 causes a memory leaks
 	new->next = NULL;
 	return (new);
 }

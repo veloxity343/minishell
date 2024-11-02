@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:48 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/31 15:06:10 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/02 13:08:42 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ int	ft_unset(char **args, t_mini *mini)
 	t_env	*temp;
 
 	if (!args[1])
-		return (g_sig.exit_s = ft_err_msg((t_err){ENO_GENERAL, ERRMSG_TOO_MANY_ARGS, NULL}));
-
+		return (g_sig.exit_s
+			= ft_err_msg((t_err){ENO_GENERAL, ERRMSG_TOO_MANY_ARGS, NULL}));
 	current = mini->env;
-	if (current && ft_strncmp(args[1], current->key, env_size(current->key)) == 0)
+	if (current && ft_strncmp(args[1],
+			current->key, env_size(current->key)) == 0)
 	{
 		mini->env = current->next;
 		free_node(mini, current);
@@ -80,7 +81,8 @@ int	ft_unset(char **args, t_mini *mini)
 	}
 	while (current && current->next)
 	{
-		if (ft_strncmp(args[1], current->next->key, env_size(current->next->key)) == 0)
+		if (ft_strncmp(args[1],
+			current->next->key, env_size(current->next->key)) == 0)
 		{
 			temp = current->next;
 			current->next = current->next->next;
