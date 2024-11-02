@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:53:48 by ryan99            #+#    #+#             */
-/*   Updated: 2024/10/22 11:28:38 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/10/28 22:50:48 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *str, char c);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
+char				*ft_strcat(char *dest, char *src);
+char				*ft_strcpy(char *dest, char *src);
 
 /* ---------- PUT_FD ---------- */
 

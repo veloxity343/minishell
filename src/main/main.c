@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/27 14:13:58 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/02 16:19:55 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,33 @@ static void	ft_start_exec(t_mini *mini)
 	g_sig.exit_s = ft_exec_node(mini, mini->ast, false);
 	ft_clear_ast(mini, &mini->ast);
 }
+/*
+@brief Initializes the SHLVL environment variable.
+*/
+static void	initialize_shlvl(t_mini *mini)
+{
+	int		level;
+	char	*shlvl;
+	char	*export_str;
+	char	*args[3];
+
+	level = 0;
+	shlvl = ft_get_env_val(mini, "SHLVL");
+	level = ft_atoi(shlvl);
+	level++;
+	free(shlvl);
+	shlvl = ft_itoa(level);
+	export_str = malloc(strlen("SHLVL=") + strlen(shlvl) + 1);
+	ft_strcpy(export_str, "SHLVL=");
+	ft_strcat(export_str, shlvl);
+	args[0] = "export";
+	args[1] = ft_strdup(export_str);
+	args[2] = NULL;
+	ft_export(mini, args);
+	free(shlvl);
+	free(export_str);
+	free(args[1]);
+}
 
 static void	ft_init_mini(t_mini *mini, char **env)
 {
@@ -36,6 +63,7 @@ static void	ft_init_mini(t_mini *mini, char **env)
 	mini->stdin = dup(0);
 	mini->stdout = dup(1);
 	tcgetattr(STDIN_FILENO, &mini->ori_term);
+	initialize_shlvl(mini);
 }
 
 /*
