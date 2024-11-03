@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:48:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 16:39:10 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/03 16:53:19 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,7 @@ char	**env_update(t_mini **mini)
 	while (i-- > 0)
 	{
 		new_env[j] = malloc(sizeof(char)
-			* (ft_strlen(env1->key) + ft_strlen(env1->value)
-			+ 2));
+			* (ft_strlen(env1->key) + ft_strlen(env1->value) + 2));
 		new_env[j] = ft_strjoin(env1->key, "=");
 		new_env[j] = ft_strjoin(new_env[j], env1->value);
 		env1 = env1->next;
