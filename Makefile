@@ -21,11 +21,9 @@ READLINE	=	-L/opt/homebrew/Cellar/readline/8.2.13/lib -lreadline -lncurses -lhis
 
 # Sources
 SRC			=	$(shell find $(SRC_DIR) -type f -name "*.c")
-SRCB		=	$(shell find $(SRCB_DIR) -type f -name "*.c")
 
 # Objects
 OBJ			=	$(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
-OBJB		=	$(patsubst $(SRCB_DIR)%.c, $(OBJB_DIR)%.o, $(SRCB))
 
 # Colors
 RED		=	\033[1;31m
@@ -54,20 +52,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
-
-bonus:		clean $(OBJ) $(OBJB)
-	@echo "$(BLUE)Linking bonus objects...$(RESET)"
-	@make -C $(dir $(LIBFT))
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(OBJB) $(LIBFT) $(READLINE)
-	@echo "$(GREEN)Successfully compiled bonus!$(RESET)"
-
-$(OBJB_DIR)/%.o: $(SRCB_DIR)/%.c | $(OBJB_DIR)
-	@mkdir -p $(dir $@)
-	@echo "$(YELLOW)Compiling$(RESET)\t$<"
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJB_DIR):
-	@mkdir -p $(OBJB_DIR)
 
 clean:
 	@echo "$(RED)Deleting$(RESET)\t$(OBJ_DIR)"

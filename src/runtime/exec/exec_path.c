@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:48:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/22 11:24:22 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/03 14:48:01 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,34 @@ t_path	ft_get_path(char *cmd, t_mini *mini)
 	if (value)
 		return (ft_get_env_path(value, cmd));
 	return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_NO_SUCH_FILE, cmd}, NULL});
+}
+
+char	**env_update(t_mini *mini)
+{
+	int		i;
+	int		j;
+	char	**new_env;
+	t_env	*env1;
+
+	i = 0;
+	j = 0;
+	env1 = mini->env;
+	while (env1)
+	{
+		i++;
+		env1 = env1->next;
+	}
+	new_env = malloc(sizeof(char *) * (i + 1));
+	env1 = mini->env;
+	while (i-- > 0)
+	{
+		new_env[j] = malloc(sizeof(char)
+			* (ft_strlen(env1->key) + ft_strlen(env1->value)
+			+ 2));
+		new_env[j] = ft_strjoin(env1->key, "=");
+		new_env[j] = ft_strjoin(new_env[j], env1->value);
+		env1 = env1->next;
+	}
+	new_env[j] = NULL;
+	return(new_env);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/02 10:57:15 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/03 14:45:01 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,8 @@ t_path					ft_get_path(char *cmd, t_mini *mini);
 
 void					ft_init_tree(t_node *node, t_mini *mini);
 void					ft_heredoc(t_io_node *io, int p[2], t_mini *mini);
+char					**env_update(t_mini *mini);
+
 
 /* EXPAND */
 

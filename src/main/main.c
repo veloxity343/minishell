@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/02 16:19:55 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/03 14:21:41 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	ft_start_exec(t_mini *mini)
 	g_sig.exit_s = ft_exec_node(mini, mini->ast, false);
 	ft_clear_ast(mini, &mini->ast);
 }
+
 /*
 @brief Initializes the SHLVL environment variable.
 */
@@ -39,11 +40,13 @@ static void	initialize_shlvl(t_mini *mini)
 
 	level = 0;
 	shlvl = ft_get_env_val(mini, "SHLVL");
-	level = ft_atoi(shlvl);
-	level++;
+	if (shlvl)
+		level = atoi(shlvl), level++;
+	else
+		level = 1;
 	free(shlvl);
 	shlvl = ft_itoa(level);
-	export_str = malloc(strlen("SHLVL=") + strlen(shlvl) + 1);
+	export_str = malloc(ft_strlen("SHLVL=") + ft_strlen(shlvl) + 1);
 	ft_strcpy(export_str, "SHLVL=");
 	ft_strcat(export_str, shlvl);
 	args[0] = "export";
