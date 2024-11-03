@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:48:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 14:48:01 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/03 16:39:10 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_path	ft_get_path(char *cmd, t_mini *mini)
 	return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_NO_SUCH_FILE, cmd}, NULL});
 }
 
-char	**env_update(t_mini *mini)
+char	**env_update(t_mini **mini)
 {
 	int		i;
 	int		j;
@@ -71,14 +71,14 @@ char	**env_update(t_mini *mini)
 
 	i = 0;
 	j = 0;
-	env1 = mini->env;
+	env1 = (*mini)->env;
 	while (env1)
 	{
 		i++;
 		env1 = env1->next;
 	}
 	new_env = malloc(sizeof(char *) * (i + 1));
-	env1 = mini->env;
+	env1 = (*mini)->env;
 	while (i-- > 0)
 	{
 		new_env[j] = malloc(sizeof(char)

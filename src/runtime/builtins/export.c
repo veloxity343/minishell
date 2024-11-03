@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:59 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 13:37:48 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/03 16:38:45 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int	ft_export(t_mini *mini, char **argv)
 			else
 				ft_update_env(mini, key, ft_extract_value(argv[i]), true);
 		}
-		// free(key);
 		i++;
 	}
+	mini->env_var = env_update(&mini);
 	return (g_sig.exit_s);
 }

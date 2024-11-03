@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 14:56:06 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/03 16:26:44 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 			tmp_status = ft_err_msg(path_status.err);
 			(ft_clean_ms(mini), exit(tmp_status));
 		}
-		if (mini->env_var = env_update(mini), execve(path_status.path,
+		if (execve(path_status.path,
 				node->expanded_args, mini->env_var) == -1)
 			(ft_clean_ms(mini), exit(1));
 	}
