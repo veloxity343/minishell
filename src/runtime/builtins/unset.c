@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:08 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/02 16:03:34 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/03 11:59:36 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,13 @@ If the variable is found at the head of the list, it updates the head pointer.
 @param mini A pointer to the minishell structure containing the environment.
 @return Returns 0 upon successful completion, or a negative value on failure.
 */
-/*
-@brief Removes an environment variable from the minishell environment.
-@details This function searches for the environment variable specified in the
-arguments and removes it from the linked list of environment variables.
-If the variable is found at the head of the list, it updates the head pointer.
-@param args The array of command-line arguments where args[1]
-	is the variable to unset.
-@param mini A pointer to the minishell structure containing the environment.
-@return Returns 0 upon successful completion, or a negative value on failure.
-*/
 int	ft_unset(char **args, t_mini *mini)
 {
 	t_env	*current;
 	t_env	*temp;
 
 	if (!args[1])
-		return (g_sig.exit_s
-			= ft_err_msg((t_err){ENO_GENERAL, ERRMSG_TOO_MANY_ARGS, NULL}));
+		return (0);
 	current = mini->env;
 	if (current && ft_strncmp(args[1],
 			current->key, env_size(current->key)) == 0)
@@ -103,29 +92,3 @@ int	ft_unset(char **args, t_mini *mini)
 	}
 	return (0);
 }
-// int	ft_unset(char **args, t_mini *mini)
-// {
-// 	t_env	*current;
-
-// 	current = mini->env;
-// 	if (!args[1])
-// 		return (0);
-// 	if (ft_strncmp(args[1], current->value, env_size(current->value)) == 0)
-// 	{
-// 		mini->env = current->next;
-// 		free_node(mini, current);
-// 		return (0);
-// 	}
-// 	while (current && current->next)
-// 	{
-// 		if (ft_strncmp(args[1], current->next->value,
-// 				env_size(current->next->value)) == 0)
-// 		{
-// 			free_node(mini, current->next);
-// 			current->next = current->next->next;
-// 			return (0);
-// 		}
-// 		current = current->next;
-// 	}
-// 	return (0);
-// }
