@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:59 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 13:28:56 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/03 13:37:48 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,6 @@ int	ft_check_key(const char *str)
 	return (1);
 }
 
-// static int	ft_export_empty(t_mini *mini)
-// {
-// 	ft_lstadd_back(&mini, ft_strdup(""));
-// 	ft_export_list(mini);
-// 	return (0);
-// }
 int	ft_export(t_mini *mini, char **argv)
 {
 	int		i;
@@ -77,7 +71,7 @@ int	ft_export(t_mini *mini, char **argv)
 	i = 1;
 	g_sig.exit_s = 0;
 	if (!argv[1])
-		return (ft_export_empty(mini));
+		return (ft_export_list(mini), 0);
 	while (argv[i])
 	{
 		if (ft_check_key(argv[i]) == 0)
@@ -90,7 +84,7 @@ int	ft_export(t_mini *mini, char **argv)
 			else
 				ft_update_env(mini, key, ft_extract_value(argv[i]), true);
 		}
-		free(key);
+		// free(key);
 		i++;
 	}
 	return (g_sig.exit_s);
