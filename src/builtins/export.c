@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:26 by chtan             #+#    #+#             */
-/*   Updated: 2024/10/28 12:47:27 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/03 13:41:17 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	ft_export(t_mini *mini, char **argv)
 			else
 				ft_update_env(mini, key, ft_extract_value(argv[i]), true);
 		}
-		free(key);
 		i++;
 	}
 	return (g_sig.exit_s);
