@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:59 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/30 21:06:10 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/03 15:05:33 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@ int	ft_export(t_mini *mini, char **argv)
 		return (ft_export_list(mini), 0);
 	while (argv[i])
 	{
-		if (ft_is_assignment(argv[i]))
-			ft_handle_assignment(mini, argv[i]);
-		else if (ft_check_key(argv[i]) == 0)
+		if (ft_check_key(argv[i]) == 0)
 			g_sig.exit_s = ft_export_err_msg(argv[i]);
 		else
 		{
@@ -86,7 +84,6 @@ int	ft_export(t_mini *mini, char **argv)
 			else
 				ft_update_env(mini, key, ft_extract_value(argv[i]), true);
 		}
-		free(key);
 		i++;
 	}
 	return (g_sig.exit_s);

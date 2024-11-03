@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:24:24 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/15 21:24:25 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/03 13:24:31 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,4 @@ void	ft_token_list_add_back(t_token **lst, t_token *new_token)
 		curr_node = curr_node -> next;
 	curr_node -> next = new_token;
 	new_token -> prev = curr_node;
-}
-
-void	ft_clear_token_list(t_token **lst)
-{
-	t_token	*curr_node;
-	t_token	*next;
-
-	curr_node = *lst;
-	if (!curr_node)
-		return ;
-	while (curr_node)
-	{
-		free(curr_node->value);
-		next = curr_node->next;
-		free(curr_node);
-		curr_node = next;
-	}
-	*lst = NULL;
 }

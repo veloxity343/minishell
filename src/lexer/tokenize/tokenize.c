@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:24:18 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/31 10:36:34 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/03 12:30:34 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ t_token	*ft_tokenization_handler(char *line)
 			|| !ft_strncmp(line, "|", 1) || !ft_strncmp(line, "(", 1)
 			|| !ft_strncmp(line, ")", 1))
 			error = (!ft_handle_separator(&line, &token_list) && 1);
-		else if (!ft_strncmp(line, "=", 1))
-			error = (!ft_append_assignment(&line, &token_list) && 1);
 		else
 			error = (!ft_append_identifier(&line, &token_list) && 1);
 	}

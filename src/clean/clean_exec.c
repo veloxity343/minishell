@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:46:44 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 16:46:45 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/03 13:30:04 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	ft_del(void *ptr)
 {
 	free(ptr);
+	ptr = NULL;
 }
 
 void	*ft_garbage_collector(void *ptr, bool clean)
@@ -28,8 +29,7 @@ void	*ft_garbage_collector(void *ptr, bool clean)
 	}
 	else
 	{
-		if (ptr)
-			ft_lstadd_back(&garbage_list, ft_lstnew(ptr));
+		ft_lstadd_back(&garbage_list, ft_lstnew(ptr));
 		return (ptr);
 	}
 }

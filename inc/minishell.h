@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/31 10:48:07 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/03 12:32:34 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,14 +193,8 @@ int						ft_env(t_mini *mini);
 
 void					ft_exit(char **args, t_mini *mini);
 
-int	ft_parse_assignment(t_mini *mini, t_env *env);
-int	ft_append_assignment(char **line_ptr, t_token **token_list);
-int	ft_is_assignment(const char *str);
-int ft_handle_assignment(t_mini *mini, char *assignment);
 int						ft_check_key(const char *str);
 int						ft_export(t_mini *mini, char **argv);
-
-char					*get_env_path(t_env *env, const char *var, size_t len);
 
 int						ft_pwd(void);
 

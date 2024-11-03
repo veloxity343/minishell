@@ -85,7 +85,7 @@ fclean:	clean
 re:		fclean all
 
 debug:	CFLAGS	+=	$(FSAN)
-debug:	test
+debug:	fclean test
 
 test:	$(NAME)
 	@echo "$(BLUE)Testing with debugging on$(RESET)"
