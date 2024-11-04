@@ -6,13 +6,24 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 14:26:56 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/04 11:23:30 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_sig		g_sig;
+
+static void	ft_init_mini(t_mini *mini, char **env)
+{
+	ft_memset(mini, 0, sizeof(t_mini));
+	mini->env_var = env;
+	ft_printf("%s\n", mini->env_var[18]);
+	ft_init_env(mini);
+	mini->stdin = dup(0);
+	mini->stdout = dup(1);
+	tcgetattr(STDIN_FILENO, &mini->ori_term);
+}
 
 static void	ft_start_exec(t_mini *mini)
 {
@@ -26,16 +37,6 @@ static void	ft_start_exec(t_mini *mini)
 	tcsetattr(STDIN_FILENO, TCSANOW, &mini->ori_term);
 	g_sig.exit_s = ft_exec_node(mini, mini->ast, false);
 	ft_clear_ast(mini, &mini->ast);
-}
-
-static void	ft_init_mini(t_mini *mini, char **env)
-{
-	ft_memset(mini, 0, sizeof(t_mini));
-	mini->env_var = env;
-	ft_init_env(mini);
-	mini->stdin = dup(0);
-	mini->stdout = dup(1);
-	tcgetattr(STDIN_FILENO, &mini->ori_term);
 }
 
 /*

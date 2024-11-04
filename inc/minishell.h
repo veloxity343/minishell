@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 12:32:34 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/04 14:16:38 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include "../libft/inc/ft_dprintf.h"
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/libft.h"
+
+# define BUFF_SIZE 4096
 
 # define PROMPT "trash ▸ "
 
@@ -186,6 +187,8 @@ bool					ft_env_entry_exists(t_mini *mini, char *key);
 void					ft_update_env(t_mini *mini, char *key, char *value,
 							bool create);
 
+// int		invalid_lvl(const char *str);
+// void	update_shlvl(t_mini *mini);
 char					*ft_extract_key(char *str);
 char					*ft_extract_value(char *str);
 void					ft_init_env(t_mini *mini);
@@ -230,7 +233,8 @@ t_err					ft_check_write(char *file);
 
 int						ft_check_redirection(t_node *node);
 void					ft_reset_stds(t_mini *mini, bool piped);
-int						ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped);
+int						ft_exec_simple_cmd(t_mini *mini, t_node *node,
+							bool piped);
 
 t_path					ft_get_path(char *cmd, t_mini *mini);
 

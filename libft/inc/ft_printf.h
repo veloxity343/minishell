@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 11:53:36 by ryan99            #+#    #+#             */
-/*   Updated: 2024/04/30 11:55:07 by rcheong          ###   ########.fr       */
+/*   Created: 2024/03/08 11:28:28 by rcheong           #+#    #+#             */
+/*   Updated: 2024/03/25 11:30:10 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdarg.h>
 
 /* ---------- FLAGS ---------- */
-
 typedef struct s_flags
 {
 	int	spec;
@@ -38,8 +37,7 @@ t_flags	ft_flag_width(va_list args, t_flags flags);
 int		ft_flag_precision(const char *str, int i, va_list args, t_flags *flags);
 int		ft_pad_width(int width, int size, int zero);
 
-/* ---------- SPECS ---------- */
-
+/* ---------- SPECs ---------- */
 // c
 int		ft_print_char(int c, t_flags flags);
 int		ft_putchar(int c);
@@ -68,7 +66,6 @@ int		ft_print_xvalue(char *strint, int n, int is_upper, t_flags flags);
 int		ft_print_xprefix(int is_upper);
 
 /* ---------- HELPERS ---------- */
-
 int		ft_ismod(int c);
 int		ft_isflag(int c);
 int		ft_isspec(int c);
@@ -77,7 +74,6 @@ char	*ft_itoa_long(long n);
 char	*ft_printf_xtoa(unsigned long int n, int is_upper);
 
 /* ---------- PRINTF ---------- */
-
 int		ft_printf(const char *format, ...);
 int		ft_parse(char *str, va_list args);
 int		ft_parse_flags(const char *str, int i, va_list args, t_flags *flags);
