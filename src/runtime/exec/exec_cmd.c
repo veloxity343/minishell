@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 16:26:44 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/04 12:11:21 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 	if (!fork_pid)
 	{
 		tmp_status = ft_check_redirection(node);
+		mini->env_var = env_update(&mini);
 		if (tmp_status != ENO_SUCCESS)
 			(ft_clean_ms(mini), exit(ENO_GENERAL));
 		path_status = ft_get_path((node->expanded_args)[0], mini);
