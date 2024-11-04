@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_xtoa_printf.c                                   :+:      :+:    :+:   */
+/*   ft_dprintf_xtoa.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_dprintf.h"
 
 static size_t	hex_len(long n)
 {
@@ -40,7 +40,7 @@ static char	hex_char(int mod, int is_upper)
 	}
 }
 
-char	*ft_printf_xtoa(unsigned long int n, int is_upper)
+char	*ft_dprintf_xtoa(unsigned long int n, int is_upper)
 {
 	size_t	len;
 	char	*s;

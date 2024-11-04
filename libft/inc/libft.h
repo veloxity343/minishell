@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 11:53:48 by ryan99            #+#    #+#             */
-/*   Updated: 2024/10/22 11:28:38 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/04 16:28:52 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 /* ---------- PUT_FD ---------- */
 
+void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
+void				ft_putstr(char *s);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);

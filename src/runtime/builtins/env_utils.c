@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:00:01 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/04 14:32:17 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/04 21:19:36 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,9 @@ char	*ft_get_env_val(t_mini *mini, char *key)
 	while (env)
 	{
 		if (!ft_strcmp(key, env->key))
-		{
-			ft_printf("Retrieved value for %s: %s\n", key, env->value);
 			return (env->value);
-		}
 		env = env->next;
 	}
-	ft_printf("Key %s not found.\n", key);
 	return (NULL);
 }
 
@@ -111,7 +107,6 @@ void	ft_update_env(t_mini *mini, char *key, char *value, bool create)
 	t_env	*env;
 
 	env = mini->env;
-	ft_printf("Updating env var: %s=%s\n", key, value);
 	while (env)
 	{
 		if (!ft_strcmp(key, env->key))
@@ -126,9 +121,5 @@ void	ft_update_env(t_mini *mini, char *key, char *value, bool create)
 	{
 		ft_env_back(mini, ft_env_new(key, value));
 		ft_printf("Created new env var: %s=%s\n", key, value);
-	}
-	else if (create)
-	{
-		ft_printf("Attempted to create %s, but value was NULL\n", key);
 	}
 }

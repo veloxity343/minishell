@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/04 12:12:31 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/04 21:20:24 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,21 @@
 @param str The input string containing the key-value pair.
 @return A newly allocated string containing the key.
 */
-char *ft_extract_key(char *str)
+char	*ft_extract_key(char *str)
 {
-    size_t i = 0;
-    while (str[i])
-    {
-        if (str[i] == '=')
-        {
-            return ft_garbage_collector(ft_substr(str, 0, i), false);
-        }
-        i++;
-    }
-    // If no '=' is found, return a duplicate of the entire string
-    return ft_strdup(str);
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+		{
+			return (ft_garbage_collector(ft_substr(str, 0, i), false));
+		}
+		i++;
+	}
+	// If no '=' is found, return a duplicate of the entire string
+	return (ft_strdup(str));
 }
 
 /*
@@ -48,16 +50,11 @@ char	*ft_extract_value(char *str)
 		if (str[i] == '=')
 		{
 			i++;
-			ft_printf("Extracting value from: %s\n", str + i);
-			char *value = ft_substr(str, i, ft_strlen(str) - i);
-            if (value) {
-                ft_printf("Extracted value: %s\n", value); // Debug print for extracted value
-            }
-            return ft_garbage_collector(value, false);
+			return (ft_garbage_collector(ft_substr(str, i, ft_strlen(str) - i),
+					false));
 		}
 		i++;
 	}
-	// Return NULL if no '=' found, consider if you want to handle this case differently
 	return (NULL);
 }
 
@@ -80,12 +77,8 @@ void	ft_init_env(t_mini *mini)
 	ft_printf("%s\n", env_var[18]);
 	while (env_var[i])
 	{
-		ft_printf("Env var: %s\n", env_var[i]);
 		key = ft_extract_key(env_var[i]);
-		ft_printf("Processing key-value pair: %s\n", env_var[i]);
 		value = ft_extract_value(env_var[i]);
-		ft_printf("value: %s\n", value);
-		ft_printf("key: %s, value: %s\n", key, value);
 		ft_update_env(mini, key, value, true);
 		i++;
 	}
