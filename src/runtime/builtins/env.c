@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/04 21:20:24 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/05 11:37:29 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	ft_init_env(t_mini *mini)
 	if (!env_var)
 		return ;
 	i = 0;
-	ft_printf("%s\n", env_var[18]);
 	while (env_var[i])
 	{
 		key = ft_extract_key(env_var[i]);

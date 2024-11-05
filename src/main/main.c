@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/04 11:23:30 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/05 11:36:58 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	ft_init_mini(t_mini *mini, char **env)
 {
 	ft_memset(mini, 0, sizeof(t_mini));
 	mini->env_var = env;
-	ft_printf("%s\n", mini->env_var[18]);
 	ft_init_env(mini);
 	mini->stdin = dup(0);
 	mini->stdout = dup(1);

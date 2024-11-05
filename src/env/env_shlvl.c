@@ -6,15 +6,17 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 10:30:24 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 10:04:03 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/05 10:13:02 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int invalid_lvl(const char *str)
+int	invalid_lvl(const char *str)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -36,16 +38,15 @@ int	get_shlvl(t_mini *mini)
 	return (shlvl >= 0 ? shlvl + 1 : 1);
 }
 
-void update_shlvl(t_mini *mini)
+void	update_shlvl(t_mini *mini)
 {
 	int		new_shlvl;
 	char	*new_shlvl_str;
 
 	new_shlvl = get_shlvl(mini);
-	new_shlvl_str = ft_itoa(new_shlvl);  // Convert the SHLVL integer to a string
+	new_shlvl_str = ft_itoa(new_shlvl);
 	if (!new_shlvl_str)
-		return ;  // Handle allocation failure if needed
-
+		return ;
 	ft_update_env(mini, "SHLVL", new_shlvl_str, true);
-	ft_garbage_collector(new_shlvl_str, false);  // Collect memory if needed
+	ft_garbage_collector(new_shlvl_str, false);
 }
