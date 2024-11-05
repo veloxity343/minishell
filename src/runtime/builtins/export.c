@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:59 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 11:49:03 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/05 11:59:08 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,13 @@ static void	ft_export_list(t_mini *mini)
 {
 	char	**env_array;
 	int		env_len;
-	int		i;
-
-	// Convert environment list to array
+	
 	env_array = convert_env_to_array(mini->env, &env_len);
 	if (!env_array)
 		return ;
-
-	// Sort the array
 	sort_env(env_array, env_len);
-
-	// Print sorted environment variables
 	print_sorted_env(env_array);
-
-	// Free the array
-	i = 0;
-	while (env_array[i])
-	{
-		free(env_array[i]);
-		i++;
-	}
-	free(env_array);
+	ft_free_char2(env_array);
 }
 
 int	ft_check_key(const char *str)
