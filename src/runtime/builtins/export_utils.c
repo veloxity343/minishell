@@ -6,13 +6,32 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:47:38 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 11:58:30 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/05 12:13:30 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sort_env(char **tab, int env_len)
+void	ft_print_sorted_env(char **env_array)
+{
+	int		i;
+	char	*key;
+	char	*value;
+
+	i = 0;
+	while (env_array[i])
+	{
+		key = ft_extract_key(env_array[i]);
+		value = ft_extract_value(env_array[i]);
+		if (value)
+			ft_printf("declare -x %s=\"%s\"\n", key, value);
+		else
+			ft_printf("declare -x %s\n", key);
+		i++;
+	}
+}
+
+void	ft_sort_env(char **tab, int env_len)
 {
 	int		ordered;
 	int		i;
@@ -38,10 +57,11 @@ void	sort_env(char **tab, int env_len)
 	}
 }
 
-static int	count_env_entries(t_env *env)
+static int	ft_count_env_entries(t_env *env)
 {
-	int	count = 0;
+	int	count;
 
+	count = 0;
 	while (env)
 	{
 		if (env->value)
@@ -51,11 +71,12 @@ static int	count_env_entries(t_env *env)
 	return (count);
 }
 
-static void	add_env_entries_to_array(t_env *env, char **env_array)
+static void	ft_add_env_entries_to_array(t_env *env, char **env_array)
 {
-	int		i = 0;
+	int		i;
 	char	*entry;
 
+	i = 0;
 	while (env)
 	{
 		if (env->value)
@@ -68,33 +89,14 @@ static void	add_env_entries_to_array(t_env *env, char **env_array)
 	env_array[i] = NULL;
 }
 
-char	**convert_env_to_array(t_env *env, int *env_len)
+char	**ft_convert_env_to_array(t_env *env, int *env_len)
 {
 	char	**env_array;
 
-	*env_len = count_env_entries(env);
+	*env_len = ft_count_env_entries(env);
 	env_array = malloc(sizeof(char *) * (*env_len + 1));
 	if (!env_array)
 		return (NULL);
-	add_env_entries_to_array(env, env_array);
+	ft_add_env_entries_to_array(env, env_array);
 	return (env_array);
-}
-
-void	print_sorted_env(char **env_array)
-{
-	int		i;
-	char	*key;
-	char	*value;
-
-	i = 0;
-	while (env_array[i])
-	{
-		key = ft_extract_key(env_array[i]);
-		value = ft_extract_value(env_array[i]);
-		if (value)
-			ft_printf("declare -x %s=\"%s\"\n", key, value);
-		else
-			ft_printf("declare -x %s\n", key);
-		i++;
-	}
 }

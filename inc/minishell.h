@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 11:51:21 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/05 12:14:08 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,9 +197,9 @@ int						ft_env(t_mini *mini);
 
 void					ft_exit(char **args, t_mini *mini);
 
-void	print_sorted_env(char **env_array);
-void	sort_env(char **tab, int env_len);
-char	**convert_env_to_array(t_env *env, int *env_len);
+void					ft_print_sorted_env(char **env_array);
+void					ft_sort_env(char **tab, int env_len);
+char					**ft_convert_env_to_array(t_env *env, int *env_len);
 int						ft_check_key(const char *str);
 int						ft_export(t_mini *mini, char **argv);
 

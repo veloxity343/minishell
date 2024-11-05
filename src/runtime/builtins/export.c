@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:59 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 12:02:35 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/05 12:13:27 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ static void	ft_export_list(t_mini *mini)
 {
 	char	**env_array;
 	int		env_len;
-	
-	env_array = convert_env_to_array(mini->env, &env_len);
+
+	env_array = ft_convert_env_to_array(mini->env, &env_len);
 	if (!env_array)
 		return ;
-	sort_env(env_array, env_len);
-	print_sorted_env(env_array);
+	ft_sort_env(env_array, env_len);
+	ft_print_sorted_env(env_array);
 	ft_free_char2(env_array);
 }
 
