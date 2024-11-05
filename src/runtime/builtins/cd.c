@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:48 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 10:57:21 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/05 15:04:33 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int ft_go_oldpwd(t_mini *mini)
 	sig = chdir(oldpwd);
 	if (sig == -1)
 		return (ft_putstr_fd(strerror(errno), 2), 1);
-	ft_putchar_fd('~', 1);
 	ft_putstr_fd(oldpwd, 1);
 	ft_putchar_fd('\n', 1);
 	ft_update_env(mini, "PWD", oldpwd, false);

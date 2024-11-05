@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 16:38:30 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/05 14:38:32 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/libft.h"
 
-# define PROMPT "trash ▸ "
+#define PROMPT "\033[92mtrash ▸ \033[0m"
 
 # define STDIN 0
 # define STDOUT 1

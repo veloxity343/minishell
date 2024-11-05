@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/04 12:11:21 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/05 14:59:07 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
 		tmp_status = ft_check_redirection(node);
 		return (ft_reset_stds(mini, piped), (tmp_status && ENO_GENERAL));
 	}
-	else if (ft_isbuiltin((node->expanded_args)[0]) && ft_check_path(mini) == 0)
+	else if (ft_isbuiltin((node->expanded_args)[0]))
 	{
 		tmp_status = ft_check_redirection(node);
 		if (tmp_status != ENO_SUCCESS)
@@ -133,6 +133,8 @@ int	ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
 		tmp_status = ft_run_builtin(node->expanded_args, mini);
 		return (ft_reset_stds(mini, piped), tmp_status);
 	}
+	else if (ft_check_path(mini) == 1)
+		return (printf("%s", "command not found\n"), -1); // need to fix this to print the correct error message
 	else
 		return (ft_exec_child(node, mini));
 }
