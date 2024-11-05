@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/04 14:16:38 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/05 10:04:22 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,8 +187,9 @@ bool					ft_env_entry_exists(t_mini *mini, char *key);
 void					ft_update_env(t_mini *mini, char *key, char *value,
 							bool create);
 
-// int		invalid_lvl(const char *str);
-// void	update_shlvl(t_mini *mini);
+int						invalid_lvl(const char *str);
+void					update_shlvl(t_mini *mini);
+int						get_shlvl(t_mini *mini);
 char					*ft_extract_key(char *str);
 char					*ft_extract_value(char *str);
 void					ft_init_env(t_mini *mini);
