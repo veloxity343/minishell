@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:46:44 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 16:46:45 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/06 18:23:30 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_del(void *ptr)
 
 void	*ft_garbage_collector(void *ptr, bool clean)
 {
-	static t_list	*garbage_list;
+	static t_list	*garbage_list = NULL;
 
 	if (clean)
 	{

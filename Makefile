@@ -36,21 +36,20 @@ RESET	=	\033[0m
 
 # Build rules
 all:		$(LIBFT) $(NAME)
-	@echo "$(GREEN)Successfully compiled minishell!$(RESET)"
+	@echo "$(GREEN)Successfully compiled!$(RESET)"
 
 $(LIBFT):
 	@echo "$(BLUE)Building$(RESET)\tlibft"
 	@make -C $(dir $(LIBFT))
 
 $(NAME):	$(OBJ)
-	@echo "\n"
 	@echo "$(BLUE)Building$(RESET)\t$(NAME)"
-	@make -s -C $(dir $(LIBFT))
+	@make -C $(dir $(LIBFT))
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(READLINE)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@mkdir -p $(dir $@)
-	@printf "$(YELLOW)Compiling\t$(RESET)%-33.33s\r" $@
+	@echo "$(YELLOW)Compiling$(RESET)\t$<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
@@ -86,7 +85,7 @@ fclean:	clean
 re:		fclean all
 
 debug:	CFLAGS	+=	$(FSAN)
-debug:	fclean test
+debug: fclean test
 
 test:	$(NAME)
 	@echo "$(BLUE)Testing with debugging on$(RESET)"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:00:01 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 10:52:19 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/06 18:33:39 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,17 @@ void	ft_update_env(t_mini *mini, char *key, char *value, bool create)
 		if (!ft_strcmp(key, env->key))
 		{
 			if (value)
-				env->value = ft_garbage_collector(ft_strdup(value), false);
-			return ;
+				free(env->value);
+            NewFunction(env, value);
+            return ;
 		}
 		env = env->next;
 	}
 	if (create)
 		ft_env_back(mini, ft_env_new(key, value));
+}
+
+void NewFunction(t_env *env, char *value)
+{
+    env->value = ft_garbage_collector(ft_strdup(value), false);
 }

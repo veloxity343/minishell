@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 16:29:28 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/06 18:51:20 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ static void	initialize_shlvl(t_mini *mini)
 	char	*shlvl;
 	char	*export_str;
 	char	*args[3];
+	char	*shlvl_val;
 
 	level = 0;
-	shlvl = ft_get_env_val(mini, "SHLVL");
-	if (shlvl)
-		level = atoi(shlvl), level++;
+	shlvl_val = ft_get_env_val(mini, "SHLVL");
+	if (shlvl_val)
+		level = ft_atoi(shlvl_val), level++;
 	else
 		level = 1;
-	free(shlvl);
 	shlvl = ft_itoa(level);
 	export_str = malloc(ft_strlen("SHLVL=") + ft_strlen(shlvl) + 1);
 	ft_strcpy(export_str, "SHLVL=");

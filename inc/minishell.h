@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 14:38:32 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/06 18:33:39 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,10 @@ int						ft_echo(char **args);
 
 char					*ft_get_env_val(t_mini *mini, char *key);
 bool					ft_env_entry_exists(t_mini *mini, char *key);
-void					ft_update_env(t_mini *mini, char *key, char *value,
-							bool create);
+void ft_update_env(t_mini *mini, char *key, char *value,
+                   bool create);
+
+void NewFunction(t_env *env, char *value);
 
 char					*ft_extract_key(char *str);
 char					*ft_extract_value(char *str);

@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/06 13:01:04 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/06 17:24:36 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,20 @@ void	ft_reset_stds(t_mini *mini, bool piped)
 	check if the path is set in the environment
 	before executing the command
 */
-static int	ft_check_path(t_mini *mini)
-{
-	const char	*check = "PATH";
-	t_env		*env;
+// static int	ft_check_path(t_mini *mini)
+// {
+// 	const char	*check = "PATH";
+// 	t_env		*env;
 
-	env = mini->env;
-	while (env)
-	{
-		if (ft_strncmp(env->key, check, 4) == 0)
-			return (0);
-		env = env->next;
-	}
-	return (1);
-}
+// 	env = mini->env;
+// 	while (env)
+// 	{
+// 		if (ft_strncmp(env->key, check, 4) == 0)
+// 			return (0);
+// 		env = env->next;
+// 	}
+// 	return (1);
+// }
 
 int	ft_exec_child(t_node *node, t_mini *mini)
 {
@@ -113,14 +113,14 @@ int	ft_exec_child(t_node *node, t_mini *mini)
 int    ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
 {
     int        tmp_status;
-    t_err    exec_err;
+    t_path    path;
 
     if (!node->expanded_args)
     {
         tmp_status = ft_check_redirection(node);
         return (ft_reset_stds(mini, piped), (tmp_status && ENO_GENERAL));
     }
-    else if (ft_isbuiltin((node->expanded_args)[0]))
+    if (ft_isbuiltin((node->expanded_args)[0]))
     {
         tmp_status = ft_check_redirection(node);
         if (tmp_status != ENO_SUCCESS)
@@ -128,11 +128,11 @@ int    ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
         tmp_status = ft_run_builtin(node->expanded_args, mini);
         return (ft_reset_stds(mini, piped), tmp_status);
     }
-    exec_err = ft_check_exec((node->expanded_args)[0], true);
-    if (exec_err.no != ENO_SUCCESS)
+    path = ft_get_path((node->expanded_args)[0], mini);
+    if (path.err.no != ENO_SUCCESS)
     {
         ft_reset_stds(mini, piped);
-        return ft_err_msg(exec_err);
+        return (ft_err_msg(path.err));
     }
     return (ft_exec_child(node, mini));
 }
