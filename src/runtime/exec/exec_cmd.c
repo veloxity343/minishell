@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 14:59:07 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/06 13:01:04 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,25 @@ void	ft_reset_stds(t_mini *mini, bool piped)
 }
 
 /*
-@brief Executes a command in a child process.
-@param node The AST node representing the command to execute.
-@param env_var The environment variables array.
-@param env The linked list of environment variables.
-@return Exit status of the command.
+	check if the path is set in the environment
+	before executing the command
 */
-static int	ft_exec_child(t_node *node, t_mini *mini)
+static int	ft_check_path(t_mini *mini)
+{
+	const char	*check = "PATH";
+	t_env		*env;
+
+	env = mini->env;
+	while (env)
+	{
+		if (ft_strncmp(env->key, check, 4) == 0)
+			return (0);
+		env = env->next;
+	}
+	return (1);
+}
+
+int	ft_exec_child(t_node *node, t_mini *mini)
 {
 	t_path	path_status;
 	int		tmp_status;
@@ -80,6 +92,8 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 			tmp_status = ft_err_msg(path_status.err);
 			(ft_clean_ms(mini), exit(tmp_status));
 		}
+		// if (ft_check_path(mini) == 1)
+		// 	(ft_clean_ms(mini), exit(ENO_GENERAL));
 		if (execve(path_status.path,
 				node->expanded_args, mini->env_var) == -1)
 			(ft_clean_ms(mini), exit(1));
@@ -90,23 +104,40 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 }
 
 /*
-	check if the path is set in the environment
-	before executing the command
+@brief Executes a command in a child process.
+@param node The AST node representing the command to execute.
+@param env_var The environment variables array.
+@param env The linked list of environment variables.
+@return Exit status of the command.
 */
-static int	ft_check_path(t_mini *mini)
+int    ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
 {
-	const char	*check = "PATH";
-	t_env		*env;
+    int        tmp_status;
+    t_err    exec_err;
 
-	env = mini->env;
-	while (env)
-	{
-		if (ft_strncmp(env->key, check, 4) == 0)
-			return (0);
-		env = env->next;
-	}
-	return (1);
+    if (!node->expanded_args)
+    {
+        tmp_status = ft_check_redirection(node);
+        return (ft_reset_stds(mini, piped), (tmp_status && ENO_GENERAL));
+    }
+    else if (ft_isbuiltin((node->expanded_args)[0]))
+    {
+        tmp_status = ft_check_redirection(node);
+        if (tmp_status != ENO_SUCCESS)
+            return (ft_reset_stds(mini, piped), ENO_GENERAL);
+        tmp_status = ft_run_builtin(node->expanded_args, mini);
+        return (ft_reset_stds(mini, piped), tmp_status);
+    }
+    exec_err = ft_check_exec((node->expanded_args)[0], true);
+    if (exec_err.no != ENO_SUCCESS)
+    {
+        ft_reset_stds(mini, piped);
+        return ft_err_msg(exec_err);
+    }
+    return (ft_exec_child(node, mini));
 }
+
+
 
 /*
 @brief Executes a simple command, handling both built-ins and external commands.
@@ -116,25 +147,25 @@ static int	ft_check_path(t_mini *mini)
 @param env The linked list of environment variables.
 @return Exit status of the command.
 */
-int	ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
-{
-	int	tmp_status;
+// int	ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
+// {
+// 	int	tmp_status;
 
-	if (!node->expanded_args)
-	{
-		tmp_status = ft_check_redirection(node);
-		return (ft_reset_stds(mini, piped), (tmp_status && ENO_GENERAL));
-	}
-	else if (ft_isbuiltin((node->expanded_args)[0]))
-	{
-		tmp_status = ft_check_redirection(node);
-		if (tmp_status != ENO_SUCCESS)
-			return (ft_reset_stds(mini, piped), ENO_GENERAL);
-		tmp_status = ft_run_builtin(node->expanded_args, mini);
-		return (ft_reset_stds(mini, piped), tmp_status);
-	}
-	else if (ft_check_path(mini) == 1)
-		return (printf("%s", "command not found\n"), -1); // need to fix this to print the correct error message
-	else
-		return (ft_exec_child(node, mini));
-}
+// 	if (!node->expanded_args)
+// 	{
+// 		tmp_status = ft_check_redirection(node);
+// 		return (ft_reset_stds(mini, piped), (tmp_status && ENO_GENERAL));
+// 	}
+// 	else if (ft_isbuiltin((node->expanded_args)[0]))
+// 	{
+// 		tmp_status = ft_check_redirection(node);
+// 		if (tmp_status != ENO_SUCCESS)
+// 			return (ft_reset_stds(mini, piped), ENO_GENERAL);
+// 		tmp_status = ft_run_builtin(node->expanded_args, mini);
+// 		return (ft_reset_stds(mini, piped), tmp_status);
+// 	}
+// 	else if (ft_check_path(mini) == 1)
+// 		return (printf("%s", "command not found\n"), -1); // need to fix this to print the correct error message
+// 	else
+// 		return (ft_exec_child(node, mini, piped));
+// }
