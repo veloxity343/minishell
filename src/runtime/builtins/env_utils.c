@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 15:00:01 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 10:11:52 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/06 21:09:53 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,5 @@ void	ft_update_env(t_mini *mini, char *key, char *value, bool create)
 		env = env->next;
 	}
 	if (create)
-	{
 		ft_env_back(mini, ft_env_new(key, value));
-		ft_printf("Created: %s=%s\n", key, value);
-	}
 }

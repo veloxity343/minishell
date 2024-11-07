@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 14:25:59 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/06 20:56:58 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,33 @@ static int	ft_exec_child(t_node *node, t_mini *mini)
 	g_sig.sigint = false;
 	return (ft_get_exit_status(tmp_status));
 }
+
+/* int    ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
+{
+    int        tmp_status;
+    t_path    path;
+
+    if (!node->expanded_args)
+    {
+        tmp_status = ft_check_redirection(node);
+        return (ft_reset_stds(mini, piped), (tmp_status && ENO_GENERAL));
+    }
+    if (ft_isbuiltin((node->expanded_args)[0]))
+    {
+        tmp_status = ft_check_redirection(node);
+        if (tmp_status != ENO_SUCCESS)
+            return (ft_reset_stds(mini, piped), ENO_GENERAL);
+        tmp_status = ft_run_builtin(node->expanded_args, mini);
+        return (ft_reset_stds(mini, piped), tmp_status);
+    }
+    path = ft_get_path((node->expanded_args)[0], mini);
+    if (path.err.no != ENO_SUCCESS)
+    {
+        ft_reset_stds(mini, piped);
+        return (ft_err_msg(path.err));
+    }
+    return (ft_exec_child(node, mini));
+} */
 
 /*
 @brief Executes a simple command, handling both built-ins and external commands.
