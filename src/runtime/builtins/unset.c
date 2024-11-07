@@ -6,7 +6,7 @@
 /*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:08 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 11:59:36 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/07 13:48:20 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,12 @@ int	ft_unset(char **args, t_mini *mini)
 			current->key, env_size(current->key)) == 0)
 	{
 		mini->env = current->next;
-		free_node(mini, current);
-		return (0);
+		return (free_node(mini, current), 0);
 	}
 	while (current && current->next)
 	{
 		if (ft_strncmp(args[1],
-			current->next->key, env_size(current->next->key)) == 0)
+				current->next->key, env_size(current->next->key)) == 0)
 		{
 			temp = current->next;
 			current->next = current->next->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:48 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 15:04:33 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/07 13:45:29 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ static int	ft_cd_err_msg(char *err_msg)
     the oldpwd will auto fill into the env so i just need to take the env
     and change the directory to the oldpwd
 */
-static int ft_go_oldpwd(t_mini *mini)
+static int	ft_go_oldpwd(t_mini *mini)
 {
-	char    *oldpwd;
-	int     sig;
+	char	*oldpwd;
+	int		sig;
 
 	oldpwd = ft_get_env_val(mini, "OLDPWD");
 	if (!oldpwd)
