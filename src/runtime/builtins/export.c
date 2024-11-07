@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/12 18:27:59 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/04 11:47:36 by chtan            ###   ########.fr       */
+/*   Created: 2024/10/28 12:47:26 by chtan             #+#    #+#             */
+/*   Updated: 2024/11/07 21:08:14 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	ft_export_list(t_mini *mini)
 	{
 		if (list->value != NULL && (ft_strcmp(list->key, "_") != 0))
 		{
-			ft_printf("declare -x %s=\"", list->key);
 			i = 0;
 			while ((list->value)[i])
 			{
@@ -86,6 +85,5 @@ int	ft_export(t_mini *mini, char **argv)
 		}
 		i++;
 	}
-	mini->env_var = env_update(&mini);
 	return (g_sig.exit_s);
 }

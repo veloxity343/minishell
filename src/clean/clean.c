@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:46:40 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 17:26:40 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/03 13:28:44 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	ft_clear_env(t_env **env)
 		env_tofree = *env;
 		*env = (*env)->next;
 		free(env_tofree);
+		env_tofree = NULL;
 	}
 	*env = NULL;
 }

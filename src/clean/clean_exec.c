@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:46:44 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/06 18:23:30 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/04 12:05:45 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 static void	ft_del(void *ptr)
 {
 	free(ptr);
+	ptr = NULL;
 }
 
 void	*ft_garbage_collector(void *ptr, bool clean)
 {
-	static t_list	*garbage_list = NULL;
+	static t_list	*garbage_list;
 
 	if (clean)
 	{
@@ -28,8 +29,7 @@ void	*ft_garbage_collector(void *ptr, bool clean)
 	}
 	else
 	{
-		if (ptr)
-			ft_lstadd_back(&garbage_list, ft_lstnew(ptr));
+		ft_lstadd_back(&garbage_list, ft_lstnew(ptr));
 		return (ptr);
 	}
 }
