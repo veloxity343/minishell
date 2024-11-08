@@ -3,8 +3,8 @@ NAME	=	libft.a
 
 # Directories
 INC		=	inc/
-SRC_DIR	=	src/
-OBJ_DIR	=	obj/
+SRC_DIR	=	src
+OBJ_DIR	=	obj
 
 # Compiler & flags
 WFLAGS	=	-Wall -Wextra -Werror
@@ -17,7 +17,7 @@ AR		=	ar rcs
 SRC		=	$(shell find $(SRC_DIR) -type f -name "*.c")
 
 # Objects
-OBJ		=	$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)/%.o,$(SRC))
+OBJ		=	$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC))
 
 # Colors
 RED		=	\033[1;31m
@@ -31,12 +31,14 @@ all:	$(NAME)
 	@echo "$(GREEN)Successfully compiled libft!$(RESET)"
 
 $(NAME):	$(OBJ)
+	@echo "\n"
 	@echo "$(BLUE)Creating$(RESET)\t$(NAME)"
 	@$(AR) $(NAME) $(OBJ)
 	@echo "$(GREEN)Successfully created libft archive!$(RESET)"
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
 	@mkdir -p $(@D)
+	@printf "$(YELLOW)Compiling\t$(RESET)%-33.33s\r" $@
 	@$(CC) $(WFLAGS) $(IFLAGS) -c $< -o $@
 
 clean:
