@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:47:38 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 20:43:07 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 21:59:06 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_sort_env(char **tab, int env_len)
 	}
 }
 
-static int	ft_count_env_entries(t_env *env)
+/* static int	ft_count_env_entries(t_env *env)
 {
 	int	count;
 
@@ -100,4 +100,4 @@ char	**ft_convert_env_to_array(t_env *env, int *env_len)
 		return (NULL);
 	ft_add_env_entries_to_array(env, env_array);
 	return (env_array);
-}
+} */

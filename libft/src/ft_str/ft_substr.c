@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 16:54:52 by rcheong           #+#    #+#             */
-/*   Updated: 2024/03/04 15:53:30 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 21:23:48 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+/* char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*str;
 	size_t	slen;
@@ -31,4 +31,30 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (0);
 	ft_strlcpy(str, s, len + 1);
 	return (str);
+} */
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*substr;
+	size_t	slen;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	slen = ft_strlen(s);
+	if (!slen || start > slen - 1)
+		return (ft_strdup(""));
+	i = 0;
+	while (s[start + i] && i + 1 <= len)
+		i++;
+	substr = ft_calloc((i + 1), sizeof(char));
+	if (!substr)
+		return (NULL);
+	i = 0;
+	while (i < len && s[start + i])
+	{
+		substr[i] = s[start + i];
+		i++;
+	}
+	return (substr);
 }

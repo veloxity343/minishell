@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:26 by chtan             #+#    #+#             */
-/*   Updated: 2024/11/08 14:53:04 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 22:03:57 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,30 @@ static int	ft_export_err_msg(char *identifier)
 	}
 } */
 
-static void	ft_export_list(t_mini *mini)
+static int	ft_count_env_entries(char **env_array)
+{
+	int	count;
+
+	count = 0;
+	while (env_array[count])
+		count++;
+	return (count);
+}
+
+static void ft_export_list(t_mini *mini)
+{
+	char	**env_array;
+	int		env_len;
+
+	env_array = mini->env_var;
+	env_len = ft_count_env_entries(env_array);
+	if (!env_array)
+		return ;
+	ft_sort_env(env_array, env_len);
+	ft_print_sorted_env(env_array);
+}
+
+/* static void	ft_export_list(t_mini *mini)
 {
 	char	**env_array;
 	int		env_len;
@@ -57,7 +80,7 @@ static void	ft_export_list(t_mini *mini)
 	ft_sort_env(env_array, env_len);
 	ft_print_sorted_env(env_array);
 	ft_free_char2(env_array);
-}
+} */
 
 int	ft_check_key(const char *str)
 {
