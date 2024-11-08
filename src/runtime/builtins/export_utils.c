@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 11:47:38 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 12:13:30 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 15:15:55 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int	ft_count_env_entries(t_env *env)
 static void	ft_add_env_entries_to_array(t_env *env, char **env_array)
 {
 	int		i;
+	char	*temp;
 	char	*entry;
 
 	i = 0;
@@ -81,7 +82,8 @@ static void	ft_add_env_entries_to_array(t_env *env, char **env_array)
 	{
 		if (env->value)
 		{
-			entry = ft_strjoin(ft_strjoin(env->key, "="), env->value);
+			temp = ft_strjoin(env->key, "=");
+			entry = ft_strjoinf(temp, env->value);
 			env_array[i++] = entry;
 		}
 		env = env->next;
