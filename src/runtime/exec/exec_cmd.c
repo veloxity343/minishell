@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 16:09:06 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:49:17 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_reset_stds(t_mini *mini, bool piped)
 	dup2(mini->stdout, 1);
 }
 
-int	ft_exec_child(t_node *node, t_mini *mini)
+int	ft_exec_child(t_mini *mini, t_node *node)
 {
 	t_path	path_status;
 	int		tmp_status;
@@ -67,7 +67,7 @@ int	ft_exec_child(t_node *node, t_mini *mini)
 		mini->env_var = ft_env_update(&mini);
 		if (tmp_status != ENO_SUCCESS)
 			(ft_clean_ms(mini), exit(ENO_GENERAL));
-		path_status = ft_get_path((node->expanded_args)[0], mini);
+		path_status = ft_get_path(mini, (node->expanded_args)[0]);
 		if (path_status.err.no != ENO_SUCCESS)
 		{
 			tmp_status = ft_err_msg(path_status.err);
@@ -103,16 +103,16 @@ int	ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
 		tmp_status = ft_check_redirection(node);
 		if (tmp_status != ENO_SUCCESS)
 			return (ft_reset_stds(mini, piped), ENO_GENERAL);
-		tmp_status = ft_run_builtin(node->expanded_args, mini);
+		tmp_status = ft_run_builtin(mini, node->expanded_args);
 		return (ft_reset_stds(mini, piped), tmp_status);
 	}
-	path = ft_get_path((node->expanded_args)[0], mini);
+	path = ft_get_path(mini, (node->expanded_args)[0]);
 	if (path.err.no != ENO_SUCCESS)
 	{
 		ft_reset_stds(mini, piped);
 		return (ft_err_msg(path.err));
 	}
-	return (ft_exec_child(node, mini));
+	return (ft_exec_child(mini, node));
 }
 
 /*

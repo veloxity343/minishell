@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 14:58:24 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:50:43 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_sig		g_sig;
 static void	ft_start_exec(t_mini *mini)
 {
 	signal(SIGQUIT, sig_quit);
-	ft_init_tree(mini->ast, mini);
+	ft_init_tree(mini, mini->ast);
 	if (g_sig.heredoc_sigint)
 	{
 		ft_clear_ast(mini, &mini->ast);

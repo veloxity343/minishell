@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 16:08:26 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:44:13 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ extern t_sig			g_sig;
 
 /* BUILTINS */
 
-int						ft_run_builtin(char **args, t_mini *mini);
+int						ft_run_builtin(t_mini *mini, char **args);
 bool					ft_isbuiltin(char *arg);
 
 int						ft_cd(t_mini *mini, char *path);
@@ -190,7 +190,7 @@ char					*ft_extract_value(char *str);
 void					ft_init_env(t_mini *mini);
 int						ft_env(t_mini *mini);
 
-void					ft_exit(char **args, t_mini *mini);
+void					ft_exit(t_mini *mini, char **args);
 
 void					ft_print_sorted_env(char **env_array);
 void					ft_sort_env(char **tab, int env_len);
@@ -200,7 +200,7 @@ int						ft_export(t_mini *mini, char **argv);
 
 int						ft_pwd(void);
 
-int						ft_unset(char **args, t_mini *mini);
+int						ft_unset(t_mini *mini, char **args);
 
 /* CLEAN */
 
@@ -235,10 +235,10 @@ void					ft_reset_stds(t_mini *mini, bool piped);
 int						ft_exec_simple_cmd(t_mini *mini, t_node *node,
 							bool piped);
 
-t_path					ft_get_path(char *cmd, t_mini *mini);
+t_path					ft_get_path(t_mini *mini, char *cmd);
 
-void					ft_init_tree(t_node *node, t_mini *mini);
-void					ft_heredoc(t_io_node *io, int p[2], t_mini *mini);
+void					ft_init_tree(t_mini *mini, t_node *node);
+void					ft_heredoc(t_mini *mini, t_io_node *io, int p[2]);
 char					**ft_env_update(t_mini **mini);
 
 /* EXPAND */

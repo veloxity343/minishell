@@ -6,17 +6,16 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:00:00 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/27 14:52:47 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:40:13 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_heredoc_sigint_handler(int signum, t_mini *mini)
+static void	ft_heredoc_sigint_handler(t_mini *mini, int signum)
 {
 	(void)signum;
 	ft_clean_ms(mini);
-	g_sig.heredoc_sigint = true;
 	exit(SIGINT);
 }
 
@@ -26,7 +25,7 @@ static void	ft_heredoc_sigint_handler(int signum, t_mini *mini)
 @param p Pipe file descriptors used for heredoc.
 @param mini The mini context for cleanup.
 */
-void	ft_heredoc(t_io_node *io, int p[2], t_mini *mini)
+void	ft_heredoc(t_mini *mini, t_io_node *io, int p[2])
 {
 	char	*line;
 	char	*quotes;
@@ -47,10 +46,8 @@ void	ft_heredoc(t_io_node *io, int p[2], t_mini *mini)
 			ft_putstr_fd(line, p[1]);
 			ft_putstr_fd("\n", p[1]);
 		}
-		free(line);
 	}
 	ft_clean_ms(mini);
-	g_sig.exit_s = 0;
 	exit(0);
 }
 
@@ -77,7 +74,7 @@ static bool	ft_leave_leaf(int p[2], int *pid)
 @param node The AST node representing the command to execute.
 @param mini The mini context for cleanup.
 */
-static void	ft_init_leaf(t_node *node, t_mini *mini)
+static void	ft_init_leaf(t_mini *mini, t_node *node)
 {
 	t_io_node	*io;
 	int			p[2];
@@ -94,7 +91,7 @@ static void	ft_init_leaf(t_node *node, t_mini *mini)
 			g_sig.heredoc_sigint = true;
 			pid = (signal(SIGQUIT, SIG_IGN), fork());
 			if (!pid)
-				ft_heredoc(io, p, mini);
+				ft_heredoc(mini, io, p);
 			if (ft_leave_leaf(p, &pid))
 				return ;
 			io->here_doc = p[0];
@@ -110,16 +107,16 @@ static void	ft_init_leaf(t_node *node, t_mini *mini)
 @param node The AST node representing the command tree to initialize.
 @param mini The mini context for cleanup.
 */
-void	ft_init_tree(t_node *node, t_mini *mini)
+void	ft_init_tree(t_mini *mini, t_node *node)
 {
 	if (!node)
 		return ;
 	if (node->type == N_PIPE)
 	{
-		ft_init_tree(node->left, mini);
+		ft_init_tree(mini, node->left);
 		if (!g_sig.heredoc_sigint)
-			ft_init_tree(node->right, mini);
+			ft_init_tree(mini, node->right);
 	}
 	else
-		ft_init_leaf(node, mini);
+		ft_init_leaf(mini, node);
 }

@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:48:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 16:11:42 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:41:43 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_path	ft_get_env_path(char *path, char *cmd)
 @param env The environment variable list.
 @return A t_path structure containing the error and the command path.
 */
-t_path	ft_get_path(char *cmd, t_mini *mini)
+t_path	ft_get_path(t_mini *mini, char *cmd)
 {
 	char	*value;
 

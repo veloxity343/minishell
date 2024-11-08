@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:40 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/21 18:41:00 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:47:46 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	ft_isbuiltin(char *arg)
 	return (false);
 }
 
-int	ft_run_builtin(char **args, t_mini *mini)
+int	ft_run_builtin(t_mini *mini, char **args)
 {
 	if (ft_strcmp(args[0], "echo") == 0)
 		return (ft_echo(args));
@@ -40,7 +40,7 @@ int	ft_run_builtin(char **args, t_mini *mini)
 	if (ft_strcmp(args[0], "export") == 0)
 		return (ft_export(mini, args));
 	if (ft_strcmp(args[0], "unset") == 0)
-		return (ft_unset(args, mini));
-	ft_exit(args, mini);
+		return (ft_unset(mini, args));
+	ft_exit(mini, args);
 	return (1);
 }

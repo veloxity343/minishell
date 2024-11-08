@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/26 16:11:48 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:46:12 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static void	ft_getsign(char *s, int *i, int *sign)
 @param mini Pointer to the mini structure for cleanup on error.
 @return The parsed number.
 */
-static unsigned long long	ft_parse_number(char *s, int *i, int sign,
-		t_mini *mini)
+static unsigned long long	ft_parse_number(t_mini *mini, char *s, int *i,
+		int sign)
 {
 	unsigned long long	result;
 
@@ -84,7 +84,7 @@ static unsigned long long	ft_parse_number(char *s, int *i, int sign,
 @param mini Pointer to the mini structure for cleanup on error.
 @return The integer value of the string, modulo 256.
 */
-static int	ft_exittoi(char *s, t_mini *mini)
+static int	ft_exittoi(t_mini *mini, char *s)
 {
 	int					i;
 	int					sign;
@@ -100,7 +100,7 @@ static int	ft_exittoi(char *s, t_mini *mini)
 		ft_clean_ms(mini);
 		exit(g_sig.exit_s);
 	}
-	result = ft_parse_number(s, &i, sign, mini);
+	result = ft_parse_number(mini, s, &i, sign);
 	return (result % 256);
 }
 
@@ -110,7 +110,7 @@ static int	ft_exittoi(char *s, t_mini *mini)
 @param exit_s Pointer to the exit status variable to be updated.
 @return None.
 */
-void	ft_exit(char **args, t_mini *mini)
+void	ft_exit(t_mini *mini, char **args)
 {
 	if (args[1])
 	{
@@ -121,7 +121,7 @@ void	ft_exit(char **args, t_mini *mini)
 			(ft_clean_ms(mini), exit(g_sig.exit_s));
 		}
 		else
-			g_sig.exit_s = ft_exittoi(args[1], mini);
+			g_sig.exit_s = ft_exittoi(mini, args[1]);
 	}
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	ft_clean_ms(mini);
