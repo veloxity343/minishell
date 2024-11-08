@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 15:52:08 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:08:26 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include "../libft/inc/ft_dprintf.h"
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/libft.h"
 
-#define PROMPT "\033[92mtrash ▸ \033[0m"
+# define PROMPT "\033[92mtrash ▸ \033[0m"
 
 # define STDIN 0
 # define STDOUT 1
@@ -183,8 +182,8 @@ int						ft_echo(char **args);
 
 char					*ft_get_env_val(t_mini *mini, char *key);
 bool					ft_env_entry_exists(t_mini *mini, char *key);
-void ft_update_env(t_mini *mini, char *key, char *value,
-                   bool create);
+void					ft_update_env(t_mini *mini, char *key, char *value,
+							bool create);
 
 char					*ft_extract_key(char *str);
 char					*ft_extract_value(char *str);
@@ -193,13 +192,11 @@ int						ft_env(t_mini *mini);
 
 void					ft_exit(char **args, t_mini *mini);
 
-void	ft_print_sorted_env(char **env_array);
-void	ft_sort_env(char **tab, int env_len);
-char	**ft_convert_env_to_array(t_env *env, int *env_len);
+void					ft_print_sorted_env(char **env_array);
+void					ft_sort_env(char **tab, int env_len);
+char					**ft_convert_env_to_array(t_env *env, int *env_len);
 int						ft_check_key(const char *str);
 int						ft_export(t_mini *mini, char **argv);
-
-char					*get_env_path(t_env *env, const char *var, size_t len);
 
 int						ft_pwd(void);
 
@@ -235,14 +232,14 @@ t_err					ft_check_write(char *file);
 
 int						ft_check_redirection(t_node *node);
 void					ft_reset_stds(t_mini *mini, bool piped);
-int						ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped);
+int						ft_exec_simple_cmd(t_mini *mini, t_node *node,
+							bool piped);
 
 t_path					ft_get_path(char *cmd, t_mini *mini);
 
 void					ft_init_tree(t_node *node, t_mini *mini);
 void					ft_heredoc(t_io_node *io, int p[2], t_mini *mini);
 char					**ft_env_update(t_mini **mini);
-
 
 /* EXPAND */
 

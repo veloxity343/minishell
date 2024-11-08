@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:08 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 13:44:19 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:06:50 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_remove_env_var(t_mini *mini, char *key)
 			else
 				mini->env = current->next;
 			free(current);
-			return;
+			return ;
 		}
 		prev = current;
 		current = current->next;
@@ -39,6 +39,7 @@ int	ft_unset(char **args, t_mini *mini)
 {
 	int		i;
 	bool	err;
+	char	*key;
 
 	i = 1;
 	if (!args[1])
@@ -55,7 +56,7 @@ int	ft_unset(char **args, t_mini *mini)
 		}
 		else
 		{
-			char *key = ft_garbage_collector(ft_extract_key(args[i]), false);
+			key = ft_garbage_collector(ft_extract_key(args[i]), false);
 			ft_remove_env_var(mini, key);
 		}
 		i++;

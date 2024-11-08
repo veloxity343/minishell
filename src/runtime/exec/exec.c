@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:47:01 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/27 14:25:24 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:09:44 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 @param pfds The pipe file descriptors.
 @param dir The direction of the pipe (TD_LEFT or TD_RIGHT).
 */
-static void	ft_exec_pipe_child(t_mini *mini, t_node *node, int pfds[2], t_ast_dir dir)
+static void	ft_exec_pipe_child(t_mini *mini, t_node *node, int pfds[2],
+		t_ast_dir dir)
 {
 	int	status;
 
