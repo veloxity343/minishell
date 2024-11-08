@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/06 18:33:39 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/08 15:03:12 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,8 +186,6 @@ bool					ft_env_entry_exists(t_mini *mini, char *key);
 void ft_update_env(t_mini *mini, char *key, char *value,
                    bool create);
 
-void NewFunction(t_env *env, char *value);
-
 char					*ft_extract_key(char *str);
 char					*ft_extract_value(char *str);
 void					ft_init_env(t_mini *mini);
@@ -195,9 +193,9 @@ int						ft_env(t_mini *mini);
 
 void					ft_exit(char **args, t_mini *mini);
 
-int	ft_parse_assignment(t_mini *mini, t_token *token);
-int	ft_append_assignment(char **line_ptr, t_token **token_list);
-bool	ft_is_assignment(const char *str);
+void	ft_print_sorted_env(char **env_array);
+void	ft_sort_env(char **tab, int env_len);
+char	**ft_convert_env_to_array(t_env *env, int *env_len);
 int						ft_check_key(const char *str);
 int						ft_export(t_mini *mini, char **argv);
 

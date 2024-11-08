@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/06 18:51:20 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/08 14:58:24 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	ft_start_exec(t_mini *mini)
 /*
 @brief Initializes the SHLVL environment variable.
 */
-static void	initialize_shlvl(t_mini *mini)
+/* static void	init_shlvl(t_mini *mini)
 {
 	int		level;
 	char	*shlvl;
@@ -56,6 +56,31 @@ static void	initialize_shlvl(t_mini *mini)
 	free(shlvl);
 	free(export_str);
 	free(args[1]);
+} */
+
+static void	init_shlvl(t_mini *mini)
+{
+	int		level;
+	char	*shlvl;
+	char	*export_str;
+	char	*args[3];
+	char	*shlvl_val;
+
+	level = 0;
+	shlvl_val = ft_get_env_val(mini, "SHLVL");
+	if (shlvl_val)
+		level = ft_atoi(shlvl_val) + 1;
+	else
+		level = 1;
+	shlvl = ft_garbage_collector(ft_itoa(level), false);
+	export_str = ft_garbage_collector(malloc(ft_strlen("SHLVL=")
+				+ ft_strlen(shlvl) + 1), false);
+	ft_strcpy(export_str, "SHLVL=");
+	ft_strcat(export_str, shlvl);
+	args[0] = "export";
+	args[1] = ft_garbage_collector(ft_strdup(export_str), false);
+	args[2] = NULL;
+	ft_export(mini, args);
 }
 
 static void	ft_init_mini(t_mini *mini, char **env)
@@ -66,7 +91,7 @@ static void	ft_init_mini(t_mini *mini, char **env)
 	mini->stdin = dup(0);
 	mini->stdout = dup(1);
 	tcgetattr(STDIN_FILENO, &mini->ori_term);
-	initialize_shlvl(mini);
+	init_shlvl(mini);
 }
 
 /*

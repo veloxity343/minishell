@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:48:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/04 12:08:17 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/08 14:56:56 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,42 @@ t_path	ft_get_path(char *cmd, t_mini *mini)
 	return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_NO_SUCH_FILE, cmd}, NULL});
 }
 
-char **env_update(t_mini **mini)
+char	**env_update(t_mini **mini)
+{
+	int		i;
+	int		j;
+	char	**new_env;
+	t_env	*env1;
+	char	*temp;
+
+	i = 0;
+	j = 0;
+	env1 = (*mini)->env;
+	while (env1)
+	{
+		i++;
+		env1 = env1->next;
+	}
+	new_env = ft_garbage_collector(malloc(sizeof(char *) * (i + 1)), false);
+	if (!new_env)
+		return (NULL);
+	env1 = (*mini)->env;
+	while (env1)
+	{
+		temp = ft_garbage_collector(ft_strjoin(env1->key, "="), false);
+		if (!temp)
+			return (NULL);
+		new_env[j] = ft_garbage_collector(ft_strjoin(temp, env1->value), false);
+		if (!new_env[j])
+			return (NULL);
+		env1 = env1->next;
+		j++;
+	}
+	new_env[j] = NULL;
+	return (new_env);
+}
+
+/* char **env_update(t_mini **mini)
 {
     int i;
     int j;
@@ -99,7 +134,7 @@ char **env_update(t_mini **mini)
     }
     new_env[j] = NULL;
     return new_env;
-}
+} */
 
 // char	**env_update(t_mini **mini)
 // {

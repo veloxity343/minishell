@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:26 by chtan             #+#    #+#             */
-/*   Updated: 2024/11/07 21:08:14 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/08 14:53:04 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_export_err_msg(char *identifier)
 	return (1);
 }
 
-static void	ft_export_list(t_mini *mini)
+/* static void	ft_export_list(t_mini *mini)
 {
 	t_env	*list;
 	size_t	i;
@@ -44,6 +44,19 @@ static void	ft_export_list(t_mini *mini)
 			ft_printf("declare -x %s\n", list->key);
 		list = list->next;
 	}
+} */
+
+static void	ft_export_list(t_mini *mini)
+{
+	char	**env_array;
+	int		env_len;
+
+	env_array = ft_convert_env_to_array(mini->env, &env_len);
+	if (!env_array)
+		return ;
+	ft_sort_env(env_array, env_len);
+	ft_print_sorted_env(env_array);
+	ft_free_char2(env_array);
 }
 
 int	ft_check_key(const char *str)

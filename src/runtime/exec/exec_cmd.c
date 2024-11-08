@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/06 17:24:36 by chtan            ###   ########.fr       */
+/*   Updated: 2024/11/08 15:02:32 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ int	ft_exec_child(t_node *node, t_mini *mini)
 			tmp_status = ft_err_msg(path_status.err);
 			(ft_clean_ms(mini), exit(tmp_status));
 		}
-		// if (ft_check_path(mini) == 1)
-		// 	(ft_clean_ms(mini), exit(ENO_GENERAL));
 		if (execve(path_status.path,
 				node->expanded_args, mini->env_var) == -1)
 			(ft_clean_ms(mini), exit(1));
@@ -136,8 +134,6 @@ int    ft_exec_simple_cmd(t_mini *mini, t_node *node, bool piped)
     }
     return (ft_exec_child(node, mini));
 }
-
-
 
 /*
 @brief Executes a simple command, handling both built-ins and external commands.

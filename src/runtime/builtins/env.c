@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:27:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/05 11:37:29 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 15:00:56 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,9 @@ char	*ft_extract_key(char *str)
 	while (str[i])
 	{
 		if (str[i] == '=')
-		{
 			return (ft_garbage_collector(ft_substr(str, 0, i), false));
-		}
 		i++;
 	}
-	// If no '=' is found, return a duplicate of the entire string
 	return (ft_strdup(str));
 }
 
