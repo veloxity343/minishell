@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:59:19 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 15:02:32 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 15:51:37 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	ft_exec_child(t_node *node, t_mini *mini)
 	if (!fork_pid)
 	{
 		tmp_status = ft_check_redirection(node);
-		mini->env_var = env_update(&mini);
+		mini->env_var = ft_env_update(&mini);
 		if (tmp_status != ENO_SUCCESS)
 			(ft_clean_ms(mini), exit(ENO_GENERAL));
 		path_status = ft_get_path((node->expanded_args)[0], mini);

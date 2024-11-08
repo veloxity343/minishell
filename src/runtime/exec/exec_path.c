@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:48:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 15:23:18 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 16:00:33 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,14 @@ static t_path	ft_get_env_path(char *path, char *cmd)
 	i = 0;
 	while (split_path[i])
 	{
-		cmd_path = ft_garbage_collector(ft_strjoin_charf(
-					ft_strdup(split_path[i]), ft_strdup(cmd), '/'), false);
+		cmd_path = ft_garbage_collector(ft_strjoin_charf(ft_strdup(split_path[i]),
+					ft_strdup(cmd), '/'), false);
 		err = ft_check_exec(cmd_path, true);
 		if (err.no == ENO_SUCCESS)
-        {
-            ft_free_char2(split_path);
+		{
+			ft_free_char2(split_path);
 			return ((t_path){(t_err){ENO_SUCCESS, 42, cmd_path}, cmd_path});
-        }
-        free(cmd_path);
+		}
 		i++;
 	}
 	ft_free_char2(split_path);
@@ -66,7 +65,57 @@ t_path	ft_get_path(char *cmd, t_mini *mini)
 	return ((t_path){(t_err){ENO_NOT_FOUND, ERRMSG_NO_SUCH_FILE, cmd}, NULL});
 }
 
-char	**env_update(t_mini **mini)
+static int	ft_count_env_entries(t_env *env)
+{
+	int	count;
+
+	count = 0;
+	while (env)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
+}
+
+static char	*ft_join_env_entry(t_env *env)
+{
+	char	*temp;
+	char	*entry;
+
+	temp = ft_garbage_collector(ft_strjoin(env->key, "="), false);
+	if (!temp)
+		return (NULL);
+	entry = ft_garbage_collector(ft_strjoin(temp, env->value), false);
+	return (entry);
+}
+
+char	**ft_env_update(t_mini **mini)
+{
+	int		i;
+	int		j;
+	char	**new_env;
+	t_env	*env1;
+
+	i = ft_count_env_entries((*mini)->env);
+	new_env = ft_garbage_collector(malloc(sizeof(char *) * (i + 1)), false);
+	if (!new_env)
+		return (NULL);
+	env1 = (*mini)->env;
+	j = 0;
+	while (env1)
+	{
+		new_env[j] = ft_join_env_entry(env1);
+		if (!new_env[j])
+			return (NULL);
+		env1 = env1->next;
+		j++;
+	}
+	new_env[j] = NULL;
+	return (new_env);
+}
+
+/* char	**ft_env_update(t_mini **mini)
 {
 	int		i;
 	int		j;
@@ -99,72 +148,43 @@ char	**env_update(t_mini **mini)
 	}
 	new_env[j] = NULL;
 	return (new_env);
-}
+} */
 
 /* char **env_update(t_mini **mini)
 {
-    int i;
-    int j;
-    char **new_env;
-    t_env *env1;
+	int i;
+	int j;
+	char **new_env;
+	t_env *env1;
 
 	i = 0;
 	j = 0;
-    env1 = (*mini)->env;
-    while (env1)
-    {
-        i++;
-        env1 = env1->next;
-    }
-    new_env = malloc(sizeof(char *) * (i + 1));
-    if (!new_env)
-        return NULL;
-    env1 = (*mini)->env;
-    while (env1)
-    {
-        char *temp;
-        temp = ft_strjoin(env1->key, "=");
-        new_env[j] = ft_strjoin(temp, env1->value);
-        free(temp);
-        if (!new_env[j])
-        {
-            while (j-- > 0)
-                free(new_env[j]);
-            free(new_env);
-            return NULL;
-        }
-        env1 = env1->next;
-        j++;
-    }
-    new_env[j] = NULL;
-    return new_env;
+	env1 = (*mini)->env;
+	while (env1)
+	{
+		i++;
+		env1 = env1->next;
+	}
+	new_env = malloc(sizeof(char *) * (i + 1));
+	if (!new_env)
+		return (NULL);
+	env1 = (*mini)->env;
+	while (env1)
+	{
+		char *temp;
+		temp = ft_strjoin(env1->key, "=");
+		new_env[j] = ft_strjoin(temp, env1->value);
+		free(temp);
+		if (!new_env[j])
+		{
+			while (j-- > 0)
+				free(new_env[j]);
+			free(new_env);
+			return (NULL);
+		}
+		env1 = env1->next;
+		j++;
+	}
+	new_env[j] = NULL;
+	return (new_env);
 } */
-
-// char	**env_update(t_mini **mini)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	**new_env;
-// 	t_env	*env1;
-
-// 	i = 0;
-// 	j = 0;
-// 	env1 = (*mini)->env;
-// 	while (env1)
-// 	{
-// 		i++;
-// 		env1 = env1->next;
-// 	}
-// 	new_env = malloc(sizeof(char *) * (i + 1));
-// 	env1 = (*mini)->env;
-// 	while (i-- > 0)
-// 	{
-// 		new_env[j] = malloc(sizeof(char)
-// 			* (ft_strlen(env1->key) + ft_strlen(env1->value) + 2));
-// 		new_env[j] = ft_strjoin(env1->key, "=");
-// 		new_env[j] = ft_strjoin(new_env[j], env1->value);
-// 		env1 = env1->next;
-// 	}
-// 	new_env[j] = NULL;
-// 	return(new_env);
-// }
