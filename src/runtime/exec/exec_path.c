@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:48:46 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 14:56:56 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/08 15:23:18 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ static t_path	ft_get_env_path(char *path, char *cmd)
 					ft_strdup(split_path[i]), ft_strdup(cmd), '/'), false);
 		err = ft_check_exec(cmd_path, true);
 		if (err.no == ENO_SUCCESS)
+        {
+            ft_free_char2(split_path);
 			return ((t_path){(t_err){ENO_SUCCESS, 42, cmd_path}, cmd_path});
+        }
+        free(cmd_path);
 		i++;
 	}
 	ft_free_char2(split_path);
