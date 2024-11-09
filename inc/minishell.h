@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:26:31 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 16:44:13 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/09 10:00:57 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,21 @@
 # define STDOUT 1
 # define STDERR 2
 
+/*
+@brief Enum representing node types in an abstract syntax tree (AST).
+@details N_PIPE represents a pipe node, and N_CMD represents a command node.
+*/
 typedef enum e_node_type
 {
 	N_PIPE,
 	N_CMD,
 }						t_node_type;
 
+/*
+@brief Enum representing types of input/output redirection.
+@details Defines types such as IO_IN for input, IO_OUT for output,
+	IO_HEREDOC for heredoc, and IO_APPEND for append mode.
+*/
 typedef enum e_io_type
 {
 	IO_IN,
@@ -50,12 +59,26 @@ typedef enum e_io_type
 	IO_APPEND
 }						t_io_type;
 
+/*
+@brief Enum representing types of parsing errors.
+@details E_MEM indicates a memory allocation error,
+	and E_SYNTAX indicates a syntax error.
+*/
 typedef enum e_parse_err_type
 {
 	E_MEM = 1,
 	E_SYNTAX
 }						t_parse_err_type;
 
+/*
+@brief Struct representing an input/output redirection node.
+@param type Type of IO (e_io_type).
+@param value Original string value for the IO operation.
+@param expanded_value Expanded values if necessary (e.g., variables).
+@param here_doc Flag indicating if it's a heredoc operation.
+@param prev Pointer to the previous IO node.
+@param next Pointer to the next IO node.
+*/
 typedef struct s_io_node
 {
 	t_io_type			type;
@@ -66,6 +89,15 @@ typedef struct s_io_node
 	struct s_io_node	*next;
 }						t_io_node;
 
+/*
+@brief Struct representing a node in an abstract syntax tree.
+@param type Node type (t_node_type).
+@param io_list Linked list of IO nodes associated with this node.
+@param args Command arguments as a single string.
+@param expanded_args Arguments expanded as an array of strings.
+@param left Pointer to the left child node.
+@param right Pointer to the right child node.
+*/
 typedef struct s_node
 {
 	t_node_type			type;
@@ -76,12 +108,22 @@ typedef struct s_node
 	struct s_node		*right;
 }						t_node;
 
+/*
+@brief Struct representing a parsing error.
+@param type Error type (t_parse_err_type).
+@param str Error message string.
+*/
 typedef struct s_parse_err
 {
 	t_parse_err_type	type;
 	char				*str;
 }						t_parse_err;
 
+/*
+@brief Enum representing different types of tokens.
+@details Includes tokens for identifiers, assignments, redirections, pipes,
+	and newlines.
+*/
 typedef enum e_token_type
 {
 	T_IDENTIFIER,
@@ -94,6 +136,13 @@ typedef enum e_token_type
 	T_NL,
 }						t_token_type;
 
+/*
+@brief Struct representing a token in tokenized input.
+@param type Token type (t_token_type).
+@param value The token's string value.
+@param next Pointer to the next token in the list.
+@param prev Pointer to the previous token in the list.
+*/
 typedef struct s_token
 {
 	t_token_type		type;
@@ -102,6 +151,11 @@ typedef struct s_token
 	struct s_token		*prev;
 }						t_token;
 
+/*
+@brief Enum representing different error messages for command execution.
+@details Covers errors such as command not found, file access issues,
+	and permission errors.
+*/
 typedef enum e_err_msg
 {
 	ERRMSG_CMD_NOT_FOUND,
@@ -112,6 +166,11 @@ typedef enum e_err_msg
 	ERRMSG_NUMERIC_REQUI
 }						t_err_msg;
 
+/*
+@brief Enum representing error codes for execution results.
+@details Includes codes for success, general errors, command not found,
+	and specific execution errors.
+*/
 typedef enum e_err_no
 {
 	ENO_SUCCESS,
@@ -121,6 +180,12 @@ typedef enum e_err_no
 	ENO_EXEC_255 = 255
 }						t_err_no;
 
+/*
+@brief Struct representing an error with code and message.
+@param no Error code (t_err_no).
+@param msg Error message (t_err_msg).
+@param cause Specific cause for the error, as a string.
+*/
 typedef struct s_err
 {
 	t_err_no			no;
@@ -128,12 +193,23 @@ typedef struct s_err
 	char				*cause;
 }						t_err;
 
+/*
+@brief Struct representing a file path with an associated error.
+@param err Error information related to the path.
+@param path The file path as a string.
+*/
 typedef struct s_path
 {
 	t_err				err;
 	char				*path;
 }						t_path;
 
+/*
+@brief Struct representing an environment variable.
+@param key The key of the environment variable.
+@param value The value of the environment variable.
+@param next Pointer to the next environment variable in the list.
+*/
 typedef struct s_env
 {
 	char				*key;
@@ -141,12 +217,30 @@ typedef struct s_env
 	struct s_env		*next;
 }						t_env;
 
+/*
+@brief Enum representing the direction of AST traversal.
+@details TD_LEFT represents left traversal,
+	and TD_RIGHT represents right traversal.
+*/
 typedef enum e_ast_dir
 {
 	TD_LEFT,
 	TD_RIGHT
 }						t_ast_dir;
 
+/*
+@brief Struct representing the main data structure for the shell's state.
+@param line Input line entered by the user.
+@param tokens Linked list of tokens in the current input.
+@param curr_token Pointer to the current token being processed.
+@param ast Pointer to the abstract syntax tree root node.
+@param parse_err Parsing error structure.
+@param stdin File descriptor for standard input.
+@param stdout File descriptor for standard output.
+@param env_var Array of environment variables as strings.
+@param env Linked list of environment variables.
+@param ori_term Original terminal settings for restoration.
+*/
 typedef struct s_mini
 {
 	char				*line;
@@ -158,10 +252,16 @@ typedef struct s_mini
 	int					stdout;
 	char				**env_var;
 	t_env				*env;
-	t_env				*env_muted;
 	struct termios		ori_term;
 }						t_mini;
 
+/*
+@brief Struct representing signal handling information.
+@param sigint Flag indicating if SIGINT was received.
+@param exit_s Exit status code for the process.
+@param heredoc_sigint Flag indicating if 
+	SIGINT was received during heredoc input.
+*/
 typedef struct s_sig
 {
 	bool				sigint;
@@ -194,7 +294,6 @@ void					ft_exit(t_mini *mini, char **args);
 
 void					ft_print_sorted_env(char **env_array);
 void					ft_sort_env(char **tab, int env_len);
-char					**ft_convert_env_to_array(t_env *env, int *env_len);
 int						ft_check_key(const char *str);
 int						ft_export(t_mini *mini, char **argv);
 
