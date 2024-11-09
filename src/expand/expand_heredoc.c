@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 17:22:29 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/09 11:39:45 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/09 11:44:18 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,12 @@ void	ft_heredoc_expander(t_mini *mini, char *str, int fd)
 	size_t	i;
 
 	i = 0;
-	if (!str)
-		return ;
-	if (str[i])
+	while (str[i])
 	{
-		while (str[i])
-		{
-			if (str[i] == '$')
-				i += ft_heredoc_expand_writer(mini, str, i, fd);
-			else
-			{
-				ft_putchar_fd(str[i], fd);
-				i++;
-			}
-		}
+		if (str[i] == '$')
+			i += ft_heredoc_expand_writer(mini, str, i, fd);
+		else
+			i += (ft_putchar_fd(str[i], fd), 1);
 	}
 	ft_putchar_fd('\n', fd);
 }
