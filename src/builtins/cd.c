@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:48 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/09 11:51:08 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/09 23:34:15 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,33 +51,35 @@ static int	ft_cd_err_msg(char *err_msg)
 }
 
 /*
-@brief Changes the current working directory.
-@param mini The minishell structure.
-@param path The path to change to.
-@return 0 on success, 1 on failure.
+    the function need the env variable OLDPWD to be updated
+    the oldpwd will auto fill into the env so i just need to take the env
+    and change the directory to the oldpwd
 */
+static int	ft_go_oldpwd(t_mini *mini)
+{
+	char	*oldpwd;
+	int		sig;
+
+	oldpwd = ft_get_env_val(mini, "OLDPWD");
+	if (!oldpwd)
+		return (ft_putstr_fd("trash: cd: OLDPWD not set\n", 2), 1);
+	sig = chdir(oldpwd);
+	if (sig == -1)
+		return (ft_putstr_fd(strerror(errno), 2), 1);
+	ft_putstr_fd(oldpwd, 1);
+	ft_putchar('\n');
+	ft_update_env(mini, "PWD", oldpwd, false);
+	return (0);
+}
+
 int	ft_cd(t_mini *mini, char *path)
 {
 	if (!path)
 		return (ft_cd_home(mini));
+	if (strcmp(path, "-") == 0)
+		return (ft_go_oldpwd(mini));
 	if (chdir(path) == -1)
 		return (ft_cd_err_msg(path));
 	ft_update_env(mini, "OLDPWD", ft_get_env_val(mini, "PWD"), false);
 	return (ft_change_pwd(mini));
 }
-
-/* int ft_go_oldpwd(char **env, t_err err)
-{
-    char    *oldpwd;
-    int        sig;
-
-    sig = 0;
-    oldpwd = getenv("OLDPWD");
-    sig = chdir(oldpwd);
-    ft_putstr_fd(oldpwd, 1);
-    if (sig == -1)
-    {
-        // print error message
-    }
-    return (sig);
-} */
