@@ -15,7 +15,7 @@ IFLAGS		=	-I$(INC) -I/opt/homebrew/Cellar/readline/8.2.13/include
 DSYM		=	-g3
 FSAN		=	-fsanitize=address $(DSYM)
 CFLAGS		=	$(WFLAGS) $(IFLAGS) -D_DARWIN_C_SOURCE
-CC			=	gcc
+CC			=	cc
 RM			=	rm -rf
 READLINE	=	-L/opt/homebrew/Cellar/readline/8.2.13/lib -lreadline -lncurses -lhistory
 

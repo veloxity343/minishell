@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
+/*   By: chtan <chtan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:47:26 by chtan             #+#    #+#             */
-/*   Updated: 2024/11/08 22:03:57 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/09 11:18:57 by chtan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	ft_count_env_entries(char **env_array)
 	return (count);
 }
 
-static void ft_export_list(t_mini *mini)
+static void	ft_export_list(t_mini *mini)
 {
 	char	**env_array;
 	int		env_len;
