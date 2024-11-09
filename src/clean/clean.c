@@ -6,12 +6,16 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:46:40 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/03 13:28:44 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/09 10:38:27 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+@brief Frees a 2D array of strings.
+@param tofree The 2D array of strings to free.
+*/
 void	ft_free_char2(char **tofree)
 {
 	size_t	i;
@@ -24,6 +28,10 @@ void	ft_free_char2(char **tofree)
 	free(tofree);
 }
 
+/*
+@brief Frees a 3D array of strings.
+@param tofree The 3D array of strings to free.
+*/
 void	ft_free_char3(char ***tofree)
 {
 	size_t	i;
@@ -50,6 +58,10 @@ static void	ft_clear_env(t_env **env)
 	*env = NULL;
 }
 
+/*
+@brief Scorched earth policy for the minishell structure.
+@param mini The minishell structure.
+*/
 void	ft_clean_ms(t_mini *mini)
 {
 	ft_garbage_collector(NULL, true);

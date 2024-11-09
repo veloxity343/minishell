@@ -6,12 +6,19 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 16:57:39 by rcheong           #+#    #+#             */
-/*   Updated: 2024/10/22 11:25:30 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/09 10:49:18 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+@brief Joins two strings with a character in between.
+@param s1 The first string.
+@param s2 The second string.
+@param c The character to join the strings with.
+@return The joined string.
+*/
 char	*ft_strjoin_char(char const *s1, char const *s2, char c)
 {
 	char	*joined;
@@ -41,6 +48,14 @@ char	*ft_strjoin_char(char const *s1, char const *s2, char c)
 	return (joined);
 }
 
+/*
+@brief Joins two strings with a character in between
+	and frees the input strings.
+@param s1 The first string.
+@param s2 The second string.
+@param c The character to join the strings with.
+@return The joined string.
+*/
 char	*ft_strjoin_charf(char *s1, char *s2, char c)
 {
 	char	*joined;

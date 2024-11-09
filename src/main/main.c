@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:28:12 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 16:50:43 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/09 09:58:18 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 t_sig		g_sig;
 
+/*
+@brief Initializes the execution of the abstract syntax tree.
+@param mini The minishell structure containing the current state.
+@return None.
+*/
 static void	ft_start_exec(t_mini *mini)
 {
 	signal(SIGQUIT, sig_quit);
@@ -58,6 +63,11 @@ static void	ft_start_exec(t_mini *mini)
 	free(args[1]);
 } */
 
+/*
+@brief Increments the shell level environment variable.
+@param mini The minishell structure containing the current state.
+@return None.
+*/
 static void	init_shlvl(t_mini *mini)
 {
 	int		level;
@@ -83,6 +93,12 @@ static void	init_shlvl(t_mini *mini)
 	ft_export(mini, args);
 }
 
+/*
+@brief Initializes the minishell structure.
+@param mini The minishell structure containing the current state.
+@param env Environment variables.
+@return None.
+*/
 static void	ft_init_mini(t_mini *mini, char **env)
 {
 	ft_memset(mini, 0, sizeof(t_mini));
@@ -125,7 +141,7 @@ static void	ft_process_input(t_mini *mini)
 @param argc Argument count.
 @param argv Argument vector.
 @param env Environment variables.
-@return Exit status.
+@return Freed shell & exit status.
 */
 int	main(int argc, char **argv, char **env)
 {

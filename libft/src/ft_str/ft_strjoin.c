@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 11:49:01 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/08 20:36:32 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/09 10:49:40 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@
 	return (new_str);
 } */
 
+/*
+@brief Joins two strings.
+@param s1 The first string.
+@param s2 The second string.
+@return The joined string.
+*/
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*ret;
@@ -55,6 +61,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (ret);
 }
 
+/*
+@brief Joins two strings and frees the input strings.
+@param s1 The first string.
+@param s2 The second string.
+@return The joined string.
+*/
 char	*ft_strjoinf(char *s1, char *s2)
 {
 	char	*joined;
