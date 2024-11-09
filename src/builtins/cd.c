@@ -6,7 +6,7 @@
 /*   By: rcheong <rcheong@student.42kl.edu.my>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:09:48 by rcheong           #+#    #+#             */
-/*   Updated: 2024/11/09 11:31:00 by rcheong          ###   ########.fr       */
+/*   Updated: 2024/11/09 11:51:08 by rcheong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ static int	ft_change_pwd(t_mini *mini)
 	return (0);
 }
 
+/*
+@brief Changes the current working directory to the home directory.
+@param mini The minishell structure.
+@return 0 on success, 1 on failure.
+*/
 static int	ft_cd_home(t_mini *mini)
 {
 	char	*home;
@@ -45,6 +50,12 @@ static int	ft_cd_err_msg(char *err_msg)
 	return (1);
 }
 
+/*
+@brief Changes the current working directory.
+@param mini The minishell structure.
+@param path The path to change to.
+@return 0 on success, 1 on failure.
+*/
 int	ft_cd(t_mini *mini, char *path)
 {
 	if (!path)
