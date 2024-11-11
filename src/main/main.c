@@ -34,36 +34,6 @@ static void	ft_start_exec(t_mini *mini)
 }
 
 /*
-@brief Initializes the SHLVL environment variable.
-*/
-/* static void	init_shlvl(t_mini *mini)
-{
-	int		level;
-	char	*shlvl;
-	char	*export_str;
-	char	*args[3];
-	char	*shlvl_val;
-
-	level = 0;
-	shlvl_val = ft_get_env_val(mini, "SHLVL");
-	if (shlvl_val)
-		level = ft_atoi(shlvl_val), level++;
-	else
-		level = 1;
-	shlvl = ft_itoa(level);
-	export_str = malloc(ft_strlen("SHLVL=") + ft_strlen(shlvl) + 1);
-	ft_strcpy(export_str, "SHLVL=");
-	ft_strcat(export_str, shlvl);
-	args[0] = "export";
-	args[1] = ft_strdup(export_str);
-	args[2] = NULL;
-	ft_export(mini, args);
-	free(shlvl);
-	free(export_str);
-	free(args[1]);
-} */
-
-/*
 @brief Increments the shell level environment variable.
 @param mini The minishell structure containing the current state.
 @return None.
